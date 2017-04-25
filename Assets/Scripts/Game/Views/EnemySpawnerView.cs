@@ -6,6 +6,7 @@ using strange.extensions.signal.impl;
 public class EnemySpawnerView : View, IEnemySpawner {
 
     public readonly Signal SpawnEnemySignal = new Signal();
+	private float timer = 0f;
 
     public void Spawn() {
         EnemyView enemy = GameObject.Instantiate<EnemyView>(Resources.Load<EnemyView>("Enemy"));
@@ -16,7 +17,9 @@ public class EnemySpawnerView : View, IEnemySpawner {
     }
 
     private void Update() {
-        if(Random.value < 0.003) {
+		timer += Time.deltaTime;
+		if(timer > 2f) {
+			timer = 0f;
             SpawnEnemySignal.Dispatch();
         }
     }

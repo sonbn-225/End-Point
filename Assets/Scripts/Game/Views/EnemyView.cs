@@ -5,9 +5,8 @@ using DG.Tweening;
 public class EnemyView : View, IDestroyable {
 
     public Vector3 Velocity { get; internal set; }
-
-    [SerializeField]
-    private GameObject VisualObject;
+	private Transform player;
+	private NavMeshAgent nav;
 
     public void Destroy() {
         Destroy(gameObject);
@@ -15,12 +14,11 @@ public class EnemyView : View, IDestroyable {
 
     protected override void Start() {
         base.Start();
-
-        VisualObject.transform.DOScaleZ(0.8f, 0.2f).SetLoops(40, LoopType.Yoyo);
-        Destroy(gameObject, 9);
+		player = GameObject.FindGameObjectWithTag ("Player").transform;
+		nav = GetComponent<NavMeshAgent> ();
     }
 
     private void Update () {
-        transform.localPosition += Velocity * Time.deltaTime;
+		nav.SetDestination (player.position);
     }
 }

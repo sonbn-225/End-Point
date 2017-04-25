@@ -6,10 +6,20 @@ public class BulletView : View, IDestroyable {
 
     public readonly Signal<EnemyView> BulletHitEnemySignal = new Signal<EnemyView>();
 
-    public Vector3 Velocity = Vector3.zero;
+	private NavMeshAgent nav;
+	private Transform enemy;
+
+	protected override void Start() {
+		base.Start();
+		nav = GetComponent<NavMeshAgent> ();
+	}
 
 	private void Update () {
-        transform.position += Velocity * Time.deltaTime;
+		enemy = GameObject.FindGameObjectWithTag ("Enemy").transform;
+		nav.SetDestination (enemy.position);
+		if (enemy == null) {
+			Destroy ();
+		}
 	}
 
     private void OnCollisionEnter(Collision collision) {
