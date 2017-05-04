@@ -6,7 +6,7 @@ public class EnemyView : View, IDestroyable {
 
     public Vector3 Velocity { get; internal set; }
 	private Transform player;
-	private NavMeshAgent nav;
+	private float speed = 2f;
 
     public void Destroy() {
         Destroy(gameObject);
@@ -15,10 +15,9 @@ public class EnemyView : View, IDestroyable {
     protected override void Start() {
         base.Start();
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
-		nav = GetComponent<NavMeshAgent> ();
     }
 
     private void Update () {
-		nav.SetDestination (player.position);
+		transform.position = Vector3.MoveTowards (transform.position, player.position, speed * Time.deltaTime);
     }
 }
