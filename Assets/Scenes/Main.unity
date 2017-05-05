@@ -129,19 +129,19 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 13699642, guid: faa5b9de0a00eb040ae4b8fab0957f4c, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Height
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 13699642, guid: faa5b9de0a00eb040ae4b8fab0957f4c, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Radius
       value: 0.6
       objectReference: {fileID: 0}
-    - target: {fileID: 13699642, guid: faa5b9de0a00eb040ae4b8fab0957f4c, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Center.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 13699642, guid: faa5b9de0a00eb040ae4b8fab0957f4c, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Direction
       value: 1
       objectReference: {fileID: 0}
@@ -226,7 +226,7 @@ Transform:
   m_GameObject: {fileID: 108058793}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 1}
+  m_LocalScale: {x: 500, y: 500, z: 1}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
