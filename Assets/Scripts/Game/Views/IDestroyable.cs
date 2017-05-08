@@ -1,3 +1,4 @@
 ﻿public interface IDestroyable {
-    void Destroy();
+	bool Destroy(float dame);
+	void Destroy ();
 }

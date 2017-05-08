@@ -2,4 +2,4 @@
 
 public class TurretClickedSignal : Signal<ITurret>{ }
 public class SpawnEnemySignal : Signal<IEnemySpawner> { }
-public class BulletHitSignal : Signal<IDestroyable> { }
+public class BulletHitSignal : Signal<IDestroyable, BulletView> { }

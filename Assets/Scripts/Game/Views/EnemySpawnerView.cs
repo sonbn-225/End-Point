@@ -24,6 +24,7 @@ public class EnemySpawnerView : View, IEnemySpawner {
 		enemy.transform.position = pos;
         enemy.transform.forward = transform.forward;
         enemy.Velocity = enemy.transform.forward * 2;
+		enemy.properties.player = GameObject.FindGameObjectWithTag ("Player").transform;
     }
 
     private void Update() {

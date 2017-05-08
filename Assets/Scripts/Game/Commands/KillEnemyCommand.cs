@@ -8,9 +8,13 @@ public class KillEnemyCommand : Command {
     [Inject]
     public Score Score { get; set; }
 
+	[Inject]
+	public BulletView bullet { get; set; }
+
     public override void Execute() {
-        Enemy.Destroy();
-        Score.AddScore(10);
+		if (Enemy.Destroy (bullet.properties.damage)) {
+			Score.AddScore(10);
+		}
     }
 
 }

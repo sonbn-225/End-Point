@@ -4,10 +4,12 @@ using strange.extensions.mediation.impl;
 using strange.extensions.signal.impl;
 using DG.Tweening;
 using System;
+using DG.Tweening.Plugins.Core.PathCore;
 
 public class TurretView : View, ITurret {
 
     public readonly Signal TurretClickedSignal = new Signal();
+	public IPlayer player = new Player ();
 	private float timer = 0f;
 	private int count = 0;
 
@@ -29,7 +31,10 @@ public class TurretView : View, ITurret {
 
     public void Fire() {
         BulletView bullet = GameObject.Instantiate<BulletView>(Resources.Load<BulletView>("Bullet"));
-        bullet.transform.SetParent(transform);
+		bullet.properties.damage = player.damage;
+		bullet.properties.speed = 2f;
+		bullet.properties.enemy = GameObject.FindGameObjectWithTag ("Enemy").transform;
+		bullet.transform.SetParent(transform.parent.parent);
 		bullet.transform.position = new Vector3(0, 4, -15);
     }
 
