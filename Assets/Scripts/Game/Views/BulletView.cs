@@ -16,7 +16,7 @@ public class BulletView : View, IDestroyable, IBullet {
 
 	protected override void Start() {
 		base.Start();
-		speed = 15f;
+		speed = 25f;
 	}
 
 	private void Update () {
