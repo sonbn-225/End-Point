@@ -12,7 +12,7 @@ public class KillEnemyCommand : Command {
 	public BulletView bullet { get; set; }
 
     public override void Execute() {
-		if (Enemy.Destroy (bullet.properties.damage)) {
+		if (Enemy.Destroy (bullet.damage)) {
 			Score.AddScore(10);
 		}
     }

@@ -13,18 +13,20 @@ public class EnemySpawnerView : View, IEnemySpawner {
 	private float x;
 	private float y;
 	private float z;
-	private Vector3 pos;
+
+	private int EnemyID = 0;
 
     public void Spawn() {
         EnemyView enemy = GameObject.Instantiate<EnemyView>(Resources.Load<EnemyView>("Enemy"));
 		x = Random.Range(-16, 16);
 		y = 0;
 		z = Random.Range(0, 25);
-		pos = new Vector3(x, y, z);
-		enemy.transform.position = pos;
+		enemy.transform.position = new Vector3(x, y, z);
         enemy.transform.forward = transform.forward;
         enemy.Velocity = enemy.transform.forward * 2;
-		enemy.properties.player = GameObject.FindGameObjectWithTag ("Player").transform;
+		enemy.player = GameObject.FindGameObjectWithTag ("Player").transform;
+		enemy.ID = EnemyID;
+		EnemyID++;
     }
 
     private void Update() {
@@ -37,7 +39,7 @@ public class EnemySpawnerView : View, IEnemySpawner {
         }
 		if (spawnTime > 5f) {
 			spawnTime = 0f;
-			spawnSpeed /= 2;
+			spawnSpeed /= 1;
 		}
     }
 

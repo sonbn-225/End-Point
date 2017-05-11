@@ -12,4 +12,6 @@ public interface IPlayer {
 	float regenerateSpeed { get; set; }
 
 	float resourceBonus { get; set; }
+
+	void Fire ();
 }

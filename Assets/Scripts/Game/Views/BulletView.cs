@@ -2,26 +2,25 @@
 using strange.extensions.mediation.impl;
 using strange.extensions.signal.impl;
 
-public class BulletView : View, IDestroyable {
+public class BulletView : View, IDestroyable, IBullet {
+	public Vector3 enemy { get; set; }
+	public float damage { get; set; }
+	public float speed { get; set; }
 	public bool Destroy (float dame)
 	{
-		throw new System.NotImplementedException ();
+		return true;
 	}
 
     public readonly Signal<EnemyView> BulletHitEnemySignal = new Signal<EnemyView>();
-	public IBullet properties = new Bullet ();
-	private float speed = Random.Range (30f, 500f);
+
 
 	protected override void Start() {
 		base.Start();
-		Debug.Log (properties.damage);
+		speed = 15f;
 	}
 
 	private void Update () {
-		transform.position = Vector3.MoveTowards (transform.position, properties.enemy.position, speed * Time.deltaTime);
-		if (properties.enemy == null) {
-			Destroy ();
-		}
+		transform.position = Vector3.MoveTowards (transform.position, enemy, speed * Time.deltaTime);
 	}
 
     private void OnCollisionEnter(Collision collision) {
