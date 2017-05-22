@@ -6,7 +6,7 @@ public class EnemyManager : IEnemyManager {
 
 	public void AddEnemy (EnemyView enemy)
 	{
-		Debug.Log ("EnemyManager: " + enemy.ID);
+		Debug.Log ("EnemyManager: " + enemy.data.id);
 		enemies.Enqueue (enemy);
 	}
 

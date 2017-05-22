@@ -17,13 +17,14 @@ public class GameContext : MVCSContext {
 		injectionBinder.Bind<IEnemyManager> ().To<EnemyManager> ().ToSingleton ();
 
         commandBinder.Bind<SpawnEnemySignal>().To<SpawnEnemyCommand>();
-        commandBinder.Bind<BulletHitSignal>().To<KillEnemyCommand>();
-		commandBinder.Bind<PlayerAttackSignal> ().To<PlayerAttackCommand> ();
+		commandBinder.Bind<InitiateTowerSignal> ().To<InitiateTowerCommand> ();
+        commandBinder.Bind<BulletHitEnemySignal>().To<BulletHitEnemyCommand>();
+		commandBinder.Bind<TowerShootSignal> ().To<TowerShootCommand> ();
 
-		mediationBinder.Bind<PlayerView>().To<PlayerMediator>();
+		mediationBinder.Bind<TowerView>().To<TowerMediator>();
         mediationBinder.Bind<BulletView>().To<BulletMediator>();
 		mediationBinder.Bind<EnemyView> ().To<EnemyMediator> ();
-        mediationBinder.Bind<EnemySpawnerView>().To<EnemySpawnerMediator>();
+        mediationBinder.Bind<SpawnerView>().To<SpawnerMediator>();
         mediationBinder.Bind<ScoreView>().To<ScoreMediator>();
     }
 

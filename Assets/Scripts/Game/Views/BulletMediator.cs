@@ -6,16 +6,15 @@ public class BulletMediator : Mediator {
     public BulletView View { get; set; }
 
     [Inject]
-    public BulletHitSignal BulletHitSignal { get; set; }
+    public BulletHitEnemySignal BulletHitEnemySignal { get; set; }
 
     public override void OnRegister() {
         base.OnRegister();
-
-        View.BulletHitEnemySignal.AddOnce(OnBulletHitEnemy);
+		View.BulletHitEnemySignal.AddListener(OnBulletHitEnemy);
     }
 
-    private void OnBulletHitEnemy(EnemyView enemyView) {
+	private void OnBulletHitEnemy(EnemyView enemy) {
         View.Destroy();
-		BulletHitSignal.Dispatch(enemyView, View);
+		BulletHitEnemySignal.Dispatch(View.data.damage, enemy);
     }
 }

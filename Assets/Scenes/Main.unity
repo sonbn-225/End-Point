@@ -103,7 +103,7 @@ GameObject:
   - 23: {fileID: 108058794}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -285,7 +285,7 @@ GameObject:
   - 4: {fileID: 338825997}
   - 114: {fileID: 338825998}
   m_Layer: 0
-  m_Name: EnemySpawnerMiddle
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,8 +297,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 338825996}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000010430813}
-  m_LocalPosition: {x: -6.02, y: 0, z: 11.14}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -315,6 +315,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca7d19123dbe05448c5c90410049d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _requiresContext: 1
+  registerWithContext: 1
+  <registeredWithContext>k__BackingField: 0
+  timer: 0
+  spawnTime: 0
+  spawnSpeed: 1
+  count: 0
+  x: 0
+  y: 0
+  z: 0
+  EnemyID: 0
 --- !u!1 &676931494
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +529,10 @@ Prefab:
     - target: {fileID: 4000012044495362, guid: 0fa56aa506f52634a819250ac6f12026, type: 2}
       propertyPath: m_LocalScale.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 128846, guid: 0fa56aa506f52634a819250ac6f12026, type: 2}
+      propertyPath: m_TagString
+      value: Tower
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0fa56aa506f52634a819250ac6f12026, type: 2}

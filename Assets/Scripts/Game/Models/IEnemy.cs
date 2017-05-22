@@ -3,9 +3,11 @@ using System.Collections;
 
 public interface IEnemy {
 
-	Transform player { get; set; }
+	int id { get; set; }
 	float speed { get; set; }
 	float health { get; set; }
 	float damage { get; set; }
-	void takeDamage (float dame);
+	int score { get; set; }
+
+	Vector3 target { get; set; }
 }

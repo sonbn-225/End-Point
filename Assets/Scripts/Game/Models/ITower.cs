@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface IPlayer {
+public interface ITower {
 	float damage { get; set; }
 	float attackSpeed { get; set; }
 	float critRate { get; set; }
@@ -12,6 +12,4 @@ public interface IPlayer {
 	float regenerateSpeed { get; set; }
 
 	float resourceBonus { get; set; }
-
-	void Fire ();
 }

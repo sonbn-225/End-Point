@@ -2,10 +2,11 @@
 using strange.extensions.mediation.impl;
 using strange.extensions.signal.impl;
 
-public class BulletView : View, IDestroyable, IBullet {
+public class BulletView : View {
 	public Vector3 enemy { get; set; }
-	public float damage { get; set; }
-	public float speed { get; set; }
+
+	public IBullet data { get; set; }
+
 	public bool Destroy (float dame)
 	{
 		return true;
@@ -16,18 +17,19 @@ public class BulletView : View, IDestroyable, IBullet {
 
 	protected override void Start() {
 		base.Start();
-		speed = 25f;
 	}
 
 	private void Update () {
-		transform.position = Vector3.MoveTowards (transform.position, enemy, speed * Time.deltaTime);
+		transform.position = Vector3.MoveTowards (transform.position, enemy, data.speed * Time.deltaTime);
 	}
 
     private void OnCollisionEnter(Collision collision) {
         foreach (ContactPoint contact in collision.contacts) {
-            if (contact.otherCollider.GetComponent<EnemyView>()) {
-                BulletHitEnemySignal.Dispatch(contact.otherCollider.GetComponent<EnemyView>());
-            }
+			if (contact.otherCollider.GetComponent<EnemyView> ()) {
+				BulletHitEnemySignal.Dispatch (contact.otherCollider.GetComponent<EnemyView> ());
+			} else if (contact.otherCollider.CompareTag ("Ground")) {
+				Destroy ();
+			}
         }
     }
 

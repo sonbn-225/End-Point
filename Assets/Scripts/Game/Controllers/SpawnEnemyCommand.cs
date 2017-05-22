@@ -4,10 +4,10 @@ using strange.extensions.command.impl;
 public class SpawnEnemyCommand : Command {
 
     [Inject]
-    public IEnemySpawner EnemySpawner { get; set; }
+    public ISpawner EnemySpawner { get; set; }
 
     public override void Execute() {
-        EnemySpawner.Spawn();
+		EnemySpawner.SpawnEnemy();
     }
 
 }
