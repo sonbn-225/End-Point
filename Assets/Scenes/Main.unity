@@ -315,17 +315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca7d19123dbe05448c5c90410049d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _requiresContext: 1
-  registerWithContext: 1
-  <registeredWithContext>k__BackingField: 0
-  timer: 0
-  spawnTime: 0
-  spawnSpeed: 1
-  count: 0
-  x: 0
-  y: 0
-  z: 0
-  EnemyID: 0
 --- !u!1 &676931494
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +522,10 @@ Prefab:
     - target: {fileID: 128846, guid: 0fa56aa506f52634a819250ac6f12026, type: 2}
       propertyPath: m_TagString
       value: Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 128846, guid: 0fa56aa506f52634a819250ac6f12026, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0fa56aa506f52634a819250ac6f12026, type: 2}

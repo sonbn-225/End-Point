@@ -11,9 +11,6 @@ public class SpawnerView : View, ISpawner {
 
 
 	private float timer = 0f;
-	private float spawnTime = 0f;
-	private float spawnSpeed = 1f;
-	private int count = 0;
 	private float x;
 	private float y;
 	private float z;
@@ -22,21 +19,17 @@ public class SpawnerView : View, ISpawner {
 
 	private TowerView tower;
 
-	private void Start(){
+	private bool isInitTower = false;
+
+	void Start(){
 		InitiateTowerSignal.Dispatch ();
 	}
 
 	private void Update() {
 		timer += Time.deltaTime;
-		spawnTime += Time.deltaTime;
-		if(timer > spawnSpeed && count < 10000) {
+		if(timer > 1f) {
 			timer = 0f;
-			count++;
 			SpawnEnemySignal.Dispatch();
-		}
-		if (spawnTime > 5f) {
-			spawnTime = 0f;
-			spawnSpeed /= 1;
 		}
 	}
 
@@ -47,12 +40,12 @@ public class SpawnerView : View, ISpawner {
 		z = Random.Range(0, 25);
 		enemy.transform.position = new Vector3(x, y, z);
         enemy.transform.forward = transform.forward;
-		enemy.data.target = tower.transform.position;
-		enemy.data.id = EnemyID;
+//		enemy.data.id = EnemyID;
 		enemy.data.speed = 5f;
 		enemy.data.health = 100f;
 		enemy.data.damage = 2f;
 		enemy.data.score = 10;
+		enemy.data.target = tower.transform.position;
 		EnemyID++;
 		return enemy;
     }
@@ -65,6 +58,7 @@ public class SpawnerView : View, ISpawner {
 	}
 
 	public void InitiateTower(){
+		Debug.Log ("AHDAD");
 		tower = GameObject.Instantiate<TowerView> (Resources.Load<TowerView> ("Tower"));
 		tower.transform.position = new Vector3(0,0,-15);
 		tower.transform.forward = transform.forward;

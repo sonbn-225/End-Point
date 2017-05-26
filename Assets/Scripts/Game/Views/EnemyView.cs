@@ -7,11 +7,13 @@ public class EnemyView : View {
 
 	public IEnemy data { get; set; }
 
-    protected override void Start() {
+    void Start() {
         base.Start();
+		Debug.Log ("Enemy View");
     }
 
-    private void Update () {
+    void Update () {
+		Debug.Log (data.id);
 		transform.position = Vector3.MoveTowards (transform.position, data.target, data.speed * Time.deltaTime);
     }
 

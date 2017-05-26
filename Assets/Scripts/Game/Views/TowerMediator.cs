@@ -20,6 +20,6 @@ public class TowerMediator : Mediator {
     }
 
 	private void OnTowerShoot(){
-		TowerShootSignal.Dispatch (View);
+		TowerShootSignal.Dispatch (View.data);
 	}
 }
