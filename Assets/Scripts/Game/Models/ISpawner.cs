@@ -1,5 +1,5 @@
 ﻿public interface ISpawner {
-	EnemyView SpawnEnemy();
+	void SpawnEnemy();
 	void InitiateTower ();
 	void SpawnBullet ();
 }

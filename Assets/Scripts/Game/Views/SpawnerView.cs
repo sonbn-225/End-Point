@@ -11,10 +11,6 @@ public class SpawnerView : View, ISpawner {
 
 
 	private float timer = 0f;
-	private float x;
-	private float y;
-	private float z;
-
 	private int EnemyID = 0;
 
 	private TowerView tower;
@@ -33,25 +29,24 @@ public class SpawnerView : View, ISpawner {
 		}
 	}
 
-	public EnemyView SpawnEnemy() {
-        EnemyView enemy = GameObject.Instantiate<EnemyView>(Resources.Load<EnemyView>("Enemy"));
-		x = Random.Range(-16, 16);
-		y = 0;
-		z = Random.Range(0, 25);
-		enemy.transform.position = new Vector3(x, y, z);
+	public void SpawnEnemy() {
+        EnemyView enemy = EnemyPools.current.GetPooledEnemy();
+        if (enemy == null)
+        {
+            return;
+        }
+		enemy.transform.position = new Vector3(Random.Range(-16, 16), 0, Random.Range(0, 25));
         enemy.transform.forward = transform.forward;
-//		enemy.data.id = EnemyID;
 		enemy.data.speed = 5f;
 		enemy.data.health = 100f;
 		enemy.data.damage = 2f;
 		enemy.data.score = 10;
 		enemy.data.target = tower.transform.position;
 		EnemyID++;
-		return enemy;
     }
 
 	public void SpawnBullet(){
-		BulletView bullet = GameObject.Instantiate<BulletView> (Resources.Load<BulletView> ("Bullet"));
+		BulletView bullet = Instantiate<BulletView> (Resources.Load<BulletView> ("Bullet"));
 		bullet.transform.position = new Vector3 (0, 10, -15);
 		bullet.transform.forward = transform.forward;
 		bullet.transform.parent = transform.parent;
@@ -59,7 +54,7 @@ public class SpawnerView : View, ISpawner {
 
 	public void InitiateTower(){
 		Debug.Log ("AHDAD");
-		tower = GameObject.Instantiate<TowerView> (Resources.Load<TowerView> ("Tower"));
+		tower = Instantiate<TowerView> (Resources.Load<TowerView> ("Tower"));
 		tower.transform.position = new Vector3(0,0,-15);
 		tower.transform.forward = transform.forward;
 		tower.transform.parent = transform;
