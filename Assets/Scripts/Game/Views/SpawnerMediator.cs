@@ -1,4 +1,5 @@
 ﻿using strange.extensions.mediation.impl;
+using UnityEngine;
 
 public class SpawnerMediator : Mediator {
 
@@ -20,7 +21,7 @@ public class SpawnerMediator : Mediator {
     }
 
     private void OnSpawnEnemy() {
-        SpawnEnemySignal.Dispatch(View);
+        SpawnEnemySignal.Dispatch(View, new Vector3(Random.Range(-16, 16), 0, Random.Range(0, 25)));
     }
 
 	private void OnInitiateTower(){
