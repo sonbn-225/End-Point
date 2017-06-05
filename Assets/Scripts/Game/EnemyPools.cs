@@ -29,7 +29,7 @@ public class EnemyPools : MonoBehaviour
     {
         for (int i = 0; i < enemies.Count; i++)
         {
-            if (enemies[i].activeInHierarchy())
+            if (!enemies[i].activeInHierarchy())
             {
                 return enemies[i];
             }

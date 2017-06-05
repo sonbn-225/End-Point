@@ -29,20 +29,24 @@ public class SpawnerView : View, ISpawner {
 		}
 	}
 
-	public void SpawnEnemy() {
+    public void SpawnEnemy(Vector3 position) {
         EnemyView enemy = EnemyPools.current.GetPooledEnemy();
         if (enemy == null)
         {
             return;
         }
-		enemy.transform.position = new Vector3(Random.Range(-16, 16), 0, Random.Range(0, 25));
+        enemy.transform.position = position;
         enemy.transform.forward = transform.forward;
-		enemy.data.speed = 5f;
-		enemy.data.health = 100f;
-		enemy.data.damage = 2f;
-		enemy.data.score = 10;
-		enemy.data.target = tower.transform.position;
-		EnemyID++;
+        enemy.setActive(true);
+        enemy.data = new Enemy()
+        {
+            speed = 5f,
+            health = 100f,
+            damage = 2f,
+            score = 10,
+            target = tower.transform.position
+        };
+        EnemyID++;
     }
 
 	public void SpawnBullet(){

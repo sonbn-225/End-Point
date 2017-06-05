@@ -16,8 +16,7 @@ public class EnemyView : View
 
     void Update()
     {
-        Debug.Log(data.id);
-        transform.position = Vector3.MoveTowards(transform.position, data.target, data.speed * Time.deltaTime);
+        gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, data.speed * Time.deltaTime);
     }
 
     public void TakeDamage(float damage)

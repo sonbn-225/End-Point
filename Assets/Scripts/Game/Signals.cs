@@ -5,4 +5,4 @@ public class SpawnEnemySignal : Signal<ISpawner> { }
 public class InitiateTowerSignal : Signal<ISpawner>{}
 public class SpawnBulletSignal : Signal<ISpawner>{}
 public class BulletHitEnemySignal : Signal<float,EnemyView> { }
-public class TowerShootSignal : Signal<ITower> { }
+public class TowerShootSignal : Signal { }

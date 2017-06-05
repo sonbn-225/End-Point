@@ -4,62 +4,17 @@ using System.Collections;
 public class Enemy : IEnemy {
 	#region IEnemy implementation
 
-	public int id {
-		get {
-			throw new System.NotImplementedException ();
-		}
-		set {
-			throw new System.NotImplementedException ();
-		}
-	}
+    public int id { get; set; }
 
-	public float speed {
-		get {
-			throw new System.NotImplementedException ();
-		}
-		set {
-			throw new System.NotImplementedException ();
-		}
-	}
+	public float speed { get; set; }
 
-	public float health {
-		get {
-			throw new System.NotImplementedException ();
-		}
-		set {
-			throw new System.NotImplementedException ();
-		}
-	}
+	public float health { get; set; }
+     
+    public float damage { get; set; }
 
-	public float damage {
-		get {
-			throw new System.NotImplementedException ();
-		}
-		set {
-			throw new System.NotImplementedException ();
-		}
-	}
+    public int score { get; set; }
 
-	public int score {
-		get {
-			throw new System.NotImplementedException ();
-		}
-		set {
-			throw new System.NotImplementedException ();
-		}
-	}
-
-	public Vector3 target {
-		get {
-			throw new System.NotImplementedException ();
-		}
-		set {
-			throw new System.NotImplementedException ();
-		}
-	}
+	public Vector3 target { get; set; }
 
 	#endregion
-
-	public Enemy(){
-	}
 }

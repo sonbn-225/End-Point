@@ -353,7 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  willGrow: 1
+  willGrow: 0
 --- !u!1 &676931494
 GameObject:
   m_ObjectHideFlags: 0

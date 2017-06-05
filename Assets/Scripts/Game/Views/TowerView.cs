@@ -17,6 +17,7 @@ public class TowerView : View {
 	}
 
 	private void Update(){
+        
 		timer += Time.deltaTime;
 		if (timer > 1f) {
 			timer = 0f;
