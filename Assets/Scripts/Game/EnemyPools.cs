@@ -7,7 +7,10 @@ public class EnemyPools : MonoBehaviour
     public static EnemyPools current;
 	private const int MAX_POOL_SIZE = 10;
 	public List<EnemyView> enemies = new List<EnemyView>();
-    public bool willGrow = true;
+    public Queue<EnemyView> enemiesToAttack = new Queue<EnemyView>();
+
+	public bool willGrow = false;
+    private float attackRange = 2f;
 
     private void Awake()
     {
@@ -43,16 +46,41 @@ public class EnemyPools : MonoBehaviour
         return null;
     }
 
- //   public void create(EnemyView enemy){
-	//	for (int i = 0; i < enemies.Count; i++) {
-	//		if (enemies[i].data != null){
-				
-	//		}
-	//	}
-	//	enemy.data.speed = 5f;
-	//	enemy.data.health = 100f;
-	//	enemy.data.damage = 2f;
-	//	enemy.data.score = 10;
-	//	enemies.Add (enemy);
-	//}
+	public void AddEnemyToAttack(EnemyView enemy)
+	{
+		enemiesToAttack.Enqueue(enemy);
+	}
+
+	public EnemyView KillEnemy()
+	{
+		return (EnemyView)enemiesToAttack.Dequeue();
+	}
+
+	public EnemyView GetNearestEnemy()
+	{
+		return (EnemyView)enemiesToAttack.Peek();
+	}
+
+    public void ResetEnemy(EnemyView enemy)
+    {
+        enemy.setActive(false);
+    }
+
+    private void Update()
+    {
+		for (int i = 0; i < enemies.Count; i++)
+		{
+			if (enemies[i].activeInHierarchy())
+			{
+                if (!enemies[i].data.isInAttackQueue)
+                {
+                    if (enemies[i].data.distance <= attackRange)
+                    {
+                        enemies[i].data.isInAttackQueue = true;
+                        AddEnemyToAttack(enemies[i]);
+                    }
+                }
+			}
+		}
+    }
 }

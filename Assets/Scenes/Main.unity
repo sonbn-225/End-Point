@@ -353,7 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  willGrow: 0
+  willGrow: 1
 --- !u!1 &482551078
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +439,7 @@ GameObject:
   - component: {fileID: 550977635}
   - component: {fileID: 550977634}
   - component: {fileID: 550977633}
+  - component: {fileID: 550977636}
   m_Layer: 5
   m_Name: ResourceButton
   m_TagString: Untagged
@@ -539,6 +540,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 550977631}
+--- !u!114 &550977636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 550977631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c18d52c46acc4a31a2251f7fb0379d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &676931494
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,6 +1000,7 @@ GameObject:
   - component: {fileID: 1460383975}
   - component: {fileID: 1460383974}
   - component: {fileID: 1460383973}
+  - component: {fileID: 1460383976}
   m_Layer: 5
   m_Name: AttackButton
   m_TagString: Untagged
@@ -1088,6 +1101,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1460383971}
+--- !u!114 &1460383976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1460383971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c18d52c46acc4a31a2251f7fb0379d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1642421679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,6 +1211,7 @@ GameObject:
   - component: {fileID: 1645876147}
   - component: {fileID: 1645876146}
   - component: {fileID: 1645876145}
+  - component: {fileID: 1645876148}
   m_Layer: 5
   m_Name: DefendButton
   m_TagString: Untagged
@@ -1287,6 +1312,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1645876143}
+--- !u!114 &1645876148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1645876143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c18d52c46acc4a31a2251f7fb0379d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2087206635
 GameObject:
   m_ObjectHideFlags: 0

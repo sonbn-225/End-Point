@@ -11,9 +11,6 @@ public class TowerMediator : Mediator {
 	[Inject]
 	public TowerShootSignal TowerShootSignal { get; set; }
 
-	[Inject]
-	public IEnemyManager EnemyManager { get; set; }
-
     public override void OnRegister() {
         base.OnRegister();
 		View.TowerShootSignal.AddListener (OnTowerShoot);
@@ -21,6 +18,6 @@ public class TowerMediator : Mediator {
 
 	private void OnTowerShoot(){
         Debug.Log("Tower View");
-		TowerShootSignal.Dispatch ();
+        TowerShootSignal.Dispatch (View);
 	}
 }

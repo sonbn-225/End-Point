@@ -2,11 +2,11 @@
 
 public class TowerShootCommand : Command {
 
-	//[Inject]
-	//public ITower player { get; set; }
+	[Inject]
+    public TowerView tower { get; set; }
 
 	public override void Execute(){
-//		player.Fire ();
+		tower.Fire ();
 
 	}
 }

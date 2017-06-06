@@ -1,4 +1,5 @@
 ﻿using strange.extensions.command.impl;
+using UnityEngine;
 
 public class BulletHitEnemyCommand : Command {
 
@@ -6,19 +7,17 @@ public class BulletHitEnemyCommand : Command {
     public Score Score { get; set; }
 
 	[Inject]
-	public int damage { get; set; }
+    public float damage { get; set; }
 
 	[Inject]
 	public EnemyView enemy { get; set; }
 
     public override void Execute() {
-//		if (Enemy.Destroy (bullet.damage)) {
-//			Score.AddScore(10);
-//		}
-
+        Debug.Log("BulletHitEnemyCommand");
 		enemy.data.health -= damage;
 		if (enemy.data.health <= 0) {
-			//Destroy enemy
+            //Destroy enemy
+            EnemyPools.current.ResetEnemy(EnemyPools.current.KillEnemy());
 			Score.AddScore (enemy.data.score);
 		}
     }

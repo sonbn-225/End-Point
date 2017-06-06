@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Enemy : IEnemy {
 	#region IEnemy implementation
@@ -16,5 +17,9 @@ public class Enemy : IEnemy {
 
 	public Vector3 target { get; set; }
 
-	#endregion
+    public float distance { get; set; }
+
+    public bool isInAttackQueue { get; set; }
+
+    #endregion
 }

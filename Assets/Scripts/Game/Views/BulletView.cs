@@ -3,8 +3,6 @@ using strange.extensions.mediation.impl;
 using strange.extensions.signal.impl;
 
 public class BulletView : View {
-	public Vector3 enemy { get; set; }
-
 	public IBullet data { get; set; }
 
 	public bool Destroy (float dame)
@@ -20,7 +18,7 @@ public class BulletView : View {
 	}
 
 	private void Update () {
-		transform.position = Vector3.MoveTowards (transform.position, enemy, data.speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards (transform.position, data.enemy, data.speed * Time.deltaTime);
 	}
 
     private void OnCollisionEnter(Collision collision) {

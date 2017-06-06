@@ -14,7 +14,6 @@ public class GameContext : MVCSContext {
         base.mapBindings();
 
         injectionBinder.Bind<Score>().To<Score>().ToSingleton();
-		injectionBinder.Bind<IEnemyManager> ().To<EnemyManager> ().ToSingleton ();
 
         commandBinder.Bind<SpawnEnemySignal>().To<SpawnEnemyCommand>();
 		commandBinder.Bind<InitiateTowerSignal> ().To<InitiateTowerCommand> ();

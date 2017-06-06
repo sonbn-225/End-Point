@@ -26,10 +26,15 @@ public class TowerView : View {
 	}
 
 	public void Fire(){
-//		BulletView bullet = GameObject.Instantiate<BulletView> (Resources.Load<BulletView> ("Bullet"));
-//		bullet.damage = data.damage;
-//		bullet.enemy = target.transform.position;
-//		bullet.transform.SetParent(transform.parent);
-//		bullet.transform.position = new Vector3(0, 4, -15);
+		BulletView bullet = Instantiate<BulletView> (Resources.Load<BulletView> ("Bullet"));
+
+        bullet.data = new Bullet()
+        {
+            enemy = EnemyPools.current.GetNearestEnemy().transform.position,
+            damage = data.damage,
+            speed = 40f
+        };
+		bullet.transform.SetParent(transform.parent);
+		bullet.transform.position = new Vector3(0, 4, -15);
 	}
 }

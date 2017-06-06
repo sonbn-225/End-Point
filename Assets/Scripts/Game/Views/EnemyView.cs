@@ -4,19 +4,17 @@ using strange.extensions.signal.impl;
 
 public class EnemyView : View
 {
-    public readonly Signal EnterPlayerAttackRangeSignal = new Signal();
-
     public IEnemy data { get; set; }
 
     void Start()
     {
         base.Start();
-        Debug.Log("Enemy View");
     }
 
     void Update()
     {
         gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, data.speed * Time.deltaTime);
+        data.distance = Vector3.Distance(transform.position, data.target);
     }
 
     public void TakeDamage(float damage)
@@ -33,6 +31,8 @@ public class EnemyView : View
         Destroy(gameObject);
     }
 
+
+    //For enemyPool
     public void setActive(bool value)
     {
         gameObject.SetActive(value);

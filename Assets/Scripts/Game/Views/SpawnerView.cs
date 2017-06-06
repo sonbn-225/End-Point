@@ -44,7 +44,8 @@ public class SpawnerView : View, ISpawner {
             health = 100f,
             damage = 2f,
             score = 10,
-            target = tower.transform.position
+            target = tower.transform.position,
+            isInAttackQueue = false
         };
         EnemyID++;
     }
@@ -62,5 +63,9 @@ public class SpawnerView : View, ISpawner {
 		tower.transform.position = new Vector3(0,0,-15);
 		tower.transform.forward = transform.forward;
 		tower.transform.parent = transform;
+        tower.data = new Tower()
+        {
+            damage = 100f
+        };
 	}
 }
