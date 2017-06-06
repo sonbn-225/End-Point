@@ -10,7 +10,7 @@ public class EnemyPools : MonoBehaviour
     public Queue<EnemyView> enemiesToAttack = new Queue<EnemyView>();
 
 	public bool willGrow = false;
-    private float attackRange = 2f;
+    private float attackRange = 10f;
 
     private void Awake()
     {
@@ -58,7 +58,12 @@ public class EnemyPools : MonoBehaviour
 
 	public EnemyView GetNearestEnemy()
 	{
-		return (EnemyView)enemiesToAttack.Peek();
+        if (enemiesToAttack.Count == 0)
+        {
+            return null;
+        } else {
+            return (EnemyView)enemiesToAttack.Peek();
+        }
 	}
 
     public void ResetEnemy(EnemyView enemy)
@@ -74,11 +79,11 @@ public class EnemyPools : MonoBehaviour
 			{
                 if (!enemies[i].data.isInAttackQueue)
                 {
-                    if (enemies[i].data.distance <= attackRange)
+                    if (Vector3.Distance(enemies[i].transform.position, enemies[i].data.target) <= attackRange)
                     {
-                        enemies[i].data.isInAttackQueue = true;
+						enemies[i].data.isInAttackQueue = true;
                         AddEnemyToAttack(enemies[i]);
-                    }
+					}
                 }
 			}
 		}

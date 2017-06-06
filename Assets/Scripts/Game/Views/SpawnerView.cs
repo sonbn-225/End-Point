@@ -40,6 +40,7 @@ public class SpawnerView : View, ISpawner {
         enemy.setActive(true);
         enemy.data = new Enemy()
         {
+            id = EnemyID,
             speed = 5f,
             health = 100f,
             damage = 2f,

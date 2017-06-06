@@ -19,7 +19,7 @@ public class TowerView : View {
 	private void Update(){
         
 		timer += Time.deltaTime;
-		if (timer > 1f) {
+        if (timer > 1f && EnemyPools.current.GetNearestEnemy() != null) {
 			timer = 0f;
 			TowerShootSignal.Dispatch ();
 		}
