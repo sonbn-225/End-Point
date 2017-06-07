@@ -17,7 +17,6 @@ public class TowerMediator : Mediator {
     }
 
 	private void OnTowerShoot(){
-        Debug.Log("Tower View");
         TowerShootSignal.Dispatch (View);
 	}
 }

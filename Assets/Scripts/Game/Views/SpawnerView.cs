@@ -9,7 +9,8 @@ public class SpawnerView : View, ISpawner {
 	public readonly Signal InitiateTowerSignal = new Signal ();
 	public readonly Signal SpawnBulletSignal = new Signal ();
 
-
+    [Inject]
+    public ITower towerData { get; set; }
 	private float timer = 0f;
 	private int EnemyID = 0;
 
@@ -59,14 +60,11 @@ public class SpawnerView : View, ISpawner {
 	}
 
 	public void InitiateTower(){
-		Debug.Log ("AHDAD");
 		tower = Instantiate<TowerView> (Resources.Load<TowerView> ("Tower"));
 		tower.transform.position = new Vector3(0,0,-15);
 		tower.transform.forward = transform.forward;
 		tower.transform.parent = transform;
-        tower.data = new Tower()
-        {
-            damage = 100f
-        };
+        towerData.damage = 100f;
+        towerData.health = 200f;
 	}
 }

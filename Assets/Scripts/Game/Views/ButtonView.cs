@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using strange.extensions.mediation.impl;
+using strange.extensions.signal.impl;
 
-public class ButtonView : MonoBehaviour {
+public class ButtonView : View {
+    public Signal buttonClickSignal = new Signal();
+    public string buttonName;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public void ButtonClicked(RectTransform rtClicked)
+	{
+        buttonName = rtClicked.name;
+        buttonClickSignal.Dispatch();
 	}
 }

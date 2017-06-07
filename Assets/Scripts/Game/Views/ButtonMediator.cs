@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using strange.extensions.mediation.impl;
 
-public class ButtonMediator : MonoBehaviour {
+public class ButtonMediator : Mediator {
+    [Inject]
+    public ButtonView View { get; set; }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    [Inject]
+    public ButtonClickSignal buttonClickSignal { get; set; }
+
+    public override void OnRegister()
+    {
+        base.OnRegister();
+        View.buttonClickSignal.AddListener(OnButtonClick);
+    }
+
+    private void OnButtonClick()
+    {
+        buttonClickSignal.Dispatch(View.buttonName);
+    }
 }

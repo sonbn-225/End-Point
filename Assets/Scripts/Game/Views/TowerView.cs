@@ -9,9 +9,17 @@ public class TowerView : View {
 
 	public float timer = 0f;
 
+    [Inject]
 	public ITower data { get; set; }
 
-	protected override void Start(){
+    public static TowerView current;
+
+    private void Awake()
+    {
+        current = this;
+    }
+
+    protected override void Start(){
 		base.Start ();
 		timer = 0f;
 	}
@@ -27,7 +35,7 @@ public class TowerView : View {
 
 	public void Fire(){
 		BulletView bullet = Instantiate<BulletView> (Resources.Load<BulletView> ("Bullet"));
-
+        Debug.Log("Damage: " + data.damage + " Health: " + data.health);
         bullet.data = new Bullet()
         {
             enemy = EnemyPools.current.GetNearestEnemy().transform.position,

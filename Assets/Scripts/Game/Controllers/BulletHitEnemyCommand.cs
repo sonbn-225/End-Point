@@ -13,7 +13,6 @@ public class BulletHitEnemyCommand : Command {
 	public EnemyView enemy { get; set; }
 
     public override void Execute() {
-        Debug.Log("BulletHitEnemyCommand");
 		enemy.data.health -= damage;
 		if (enemy.data.health <= 0) {
             //Destroy enemy
