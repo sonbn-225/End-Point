@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - Tower
   - Ground
+  - AttackPanel
+  - DefendPanel
+  - ResourcePanel
   layers:
   - Default
   - TransparentFX

@@ -13,7 +13,6 @@ public class ButtonClickCommand : Command {
         switch (buttonName)
         {
             case "AttackButton":
-                towerdata.damage += 10;
                 break;
             case "DefendButton":
                 towerdata.health += 20;
