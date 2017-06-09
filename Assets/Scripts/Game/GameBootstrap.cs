@@ -2,7 +2,7 @@
 using System.Collections;
 using strange.extensions.context.impl;
 
-public class GameView : ContextView {
+public class GameBootstrap : ContextView {
 
 	private void Awake() {
         context = new GameContext(this);

@@ -6,7 +6,7 @@ using strange.extensions.command.impl;
 
 public class GameContext : MVCSContext {
 
-	public GameContext(GameView gameView) : base(gameView) {
+	public GameContext(GameBootstrap gameView) : base(gameView) {
 
     }
 
@@ -19,13 +19,11 @@ public class GameContext : MVCSContext {
 		commandBinder.Bind<InitiateTowerSignal> ().To<InitiateTowerCommand> ();
         commandBinder.Bind<BulletHitEnemySignal>().To<BulletHitEnemyCommand>();
 		commandBinder.Bind<TowerShootSignal> ().To<TowerShootCommand> ();
-        commandBinder.Bind<ButtonClickSignal>().To<ButtonClickCommand>();
 
 		mediationBinder.Bind<TowerView>().To<TowerMediator>();
         mediationBinder.Bind<BulletView>().To<BulletMediator>();
 		mediationBinder.Bind<EnemyView> ().To<EnemyMediator> ();
         mediationBinder.Bind<SpawnerView>().To<SpawnerMediator>();
-        mediationBinder.Bind<ButtonView>().To<ButtonMediator>();
         mediationBinder.Bind<ScoreView>().To<ScoreMediator>();
         injectionBinder.Bind<ITower>().To<Tower>().ToSingleton();
     }

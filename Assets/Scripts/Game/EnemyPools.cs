@@ -10,7 +10,7 @@ public class EnemyPools : MonoBehaviour
     public Queue<EnemyView> enemiesToAttack = new Queue<EnemyView>();
 
 	public bool willGrow = false;
-    private float attackRange = 10f;
+    private float attackRange = 20f;
 
     private void Awake()
     {
