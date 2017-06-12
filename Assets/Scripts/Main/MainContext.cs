@@ -31,6 +31,7 @@ public class MainContext : MVCSContext {
 
         injectionBinder.Bind<Score>().To<Score>().ToSingleton().CrossContext();
         injectionBinder.Bind<ScoreChangedSignal>().ToSingleton().CrossContext();
+        injectionBinder.Bind<IGameModel>().To<GameModel>().ToSingleton().CrossContext();
 
         commandBinder.Bind<MainStartSignal>().To<MainStartCommand>().Once();
 

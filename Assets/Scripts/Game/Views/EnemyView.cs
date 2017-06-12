@@ -6,14 +6,18 @@ public class EnemyView : View
 {
     public IEnemy data { get; set; }
 
+    [Inject]
+    public IGameModel gameModel { get; set; }
+
     void Start()
     {
         base.Start();
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, data.speed * Time.deltaTime);
+        gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, gameModel.gameSpeed*data.speed * Time.deltaTime);
+        Debug.Log("FixedUpdate time :" + Time.deltaTime);
     }
 
     public void TakeDamage(float damage)

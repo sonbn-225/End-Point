@@ -11,6 +11,7 @@ public class SpawnerView : View, ISpawner {
 
     [Inject]
     public ITower towerData { get; set; }
+
 	private float timer = 0f;
 	private int EnemyID = 0;
 

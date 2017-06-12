@@ -12,6 +12,9 @@ public class TowerView : View {
     [Inject]
 	public ITower data { get; set; }
 
+	[Inject]
+	public IGameModel gameModel { get; set; }
+
     public static TowerView current;
 
     private void Awake()
@@ -24,10 +27,10 @@ public class TowerView : View {
 		timer = 0f;
 	}
 
-	private void Update(){
+	private void FixedUpdate(){
         
 		timer += Time.deltaTime;
-        if (timer > 1f && EnemyPools.current.GetNearestEnemy() != null) {
+        if (timer > 1f/gameModel.gameSpeed && EnemyPools.current.GetNearestEnemy() != null) {
 			timer = 0f;
 			TowerShootSignal.Dispatch ();
 		}
@@ -39,7 +42,7 @@ public class TowerView : View {
         {
             enemy = EnemyPools.current.GetNearestEnemy().transform.position,
             damage = data.damage,
-            speed = 40f
+            speed = 40f*gameModel.gameSpeed
         };
 		bullet.transform.SetParent(transform.parent);
 		bullet.transform.position = new Vector3(0, 4, -15);
