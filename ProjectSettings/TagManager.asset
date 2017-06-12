@@ -10,6 +10,7 @@ TagManager:
   - AttackPanel
   - DefendPanel
   - ResourcePanel
+  - Canvas
   layers:
   - Default
   - TransparentFX

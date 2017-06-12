@@ -13,7 +13,7 @@ public class GameContext : MVCSContext {
     protected override void mapBindings() {
         base.mapBindings();
 
-        injectionBinder.Bind<Score>().To<Score>().ToSingleton();
+        injectionBinder.Bind<ITower>().To<Tower>().ToSingleton();
 
         commandBinder.Bind<SpawnEnemySignal>().To<SpawnEnemyCommand>();
 		commandBinder.Bind<InitiateTowerSignal> ().To<InitiateTowerCommand> ();
@@ -24,8 +24,6 @@ public class GameContext : MVCSContext {
         mediationBinder.Bind<BulletView>().To<BulletMediator>();
 		mediationBinder.Bind<EnemyView> ().To<EnemyMediator> ();
         mediationBinder.Bind<SpawnerView>().To<SpawnerMediator>();
-        mediationBinder.Bind<ScoreView>().To<ScoreMediator>();
-        injectionBinder.Bind<ITower>().To<Tower>().ToSingleton();
     }
 
     protected override void addCoreComponents() {

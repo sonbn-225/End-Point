@@ -6,18 +6,27 @@ public class ButtonClickCommand : Command {
     [Inject]
     public string buttonName { get; set; }
 
+    //[Inject]
+    //public ITower towerdata { get; set; }
+
     [Inject]
-    public ITower towerdata { get; set; }
+    public IUIManager UIManager { get; set; }
+
     public override void Execute()
     {
         switch (buttonName)
         {
             case "AttackButton":
+                UIManager.AttackButtonClicked();
                 break;
             case "DefendButton":
-                towerdata.health += 20;
+                UIManager.DefendButtonClicked();
                 break;
             case "ResourceButton":
+                UIManager.ResourceButtonClicked();
+                break;
+            case "ClosePanelButton":
+                UIManager.ClosePanelButtonClicked();
                 break;
             default:
                 break;

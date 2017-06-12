@@ -4,3 +4,4 @@ using strange.extensions.signal.impl;
 using UnityEngine;
 
 public class MainStartSignal : Signal {}
+public class ScoreChangedSignal : Signal {}

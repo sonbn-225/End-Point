@@ -12,16 +12,16 @@ public class ScoreMediator : Mediator {
 
     public override void OnRegister() {
         base.OnRegister();
-        Score.ScoreChanged.AddListener(OnScoreChanged);
-    }
+        Score.scoreChangedSignal.AddListener(OnScoreChanged);
+	}
 
     public override void OnRemove() {
         base.OnRemove();
-        Score.ScoreChanged.RemoveListener(OnScoreChanged);
+        Score.scoreChangedSignal.RemoveListener(OnScoreChanged);
     }
 
     public void OnScoreChanged() {
-        View.SetScore(Score.Amount);
+		View.SetScore(Score.Amount);
     }
 
 }

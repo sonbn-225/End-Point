@@ -35,7 +35,6 @@ public class TowerView : View {
 
 	public void Fire(){
 		BulletView bullet = Instantiate<BulletView> (Resources.Load<BulletView> ("Bullet"));
-        Debug.Log("Damage: " + data.damage + " Health: " + data.health);
         bullet.data = new Bullet()
         {
             enemy = EnemyPools.current.GetNearestEnemy().transform.position,

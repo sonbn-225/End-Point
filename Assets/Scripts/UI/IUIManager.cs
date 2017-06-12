@@ -8,4 +8,9 @@ public interface IUIManager
     void InitAttackPanel();
     void InitDefendPanel();
     void InitResourcePanel();
+
+    void AttackButtonClicked();
+    void DefendButtonClicked();
+    void ResourceButtonClicked();
+    void ClosePanelButtonClicked();
 }
