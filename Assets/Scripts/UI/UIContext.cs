@@ -40,6 +40,6 @@ public class UIContext : MVCSContext {
         commandBinder.Bind<ButtonClickSignal>().To<ButtonClickCommand>();
 
         mediationBinder.Bind<ButtonView>().To<ButtonMediator>();
-        mediationBinder.Bind<ScoreView>().To<ScoreMediator>();
+        mediationBinder.Bind<InformationBoardView>().To<InformationBoardMediator>();
     }
 }

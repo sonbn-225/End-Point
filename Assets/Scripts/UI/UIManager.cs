@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour, IUIManager
 {
-    public GameObject buttonPanel, attackPanel, defendPanel, resourcePanel;
+    public GameObject buttonPanel, attackPanel, defendPanel, resourcePanel, informationBoard;
 
 
     public void InitAttackPanel()
@@ -36,6 +36,13 @@ public class UIManager : MonoBehaviour, IUIManager
         resourcePanel.SetActive(false);
     }
 
+    public void InitInformationBoard()
+    {
+        informationBoard = Instantiate(Resources.Load("InformationBoard") as GameObject);
+        informationBoard.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+        informationBoard.SetActive(true);
+    }
+
 	public void AttackButtonClicked()
 	{
         attackPanel.SetActive(true);
@@ -62,5 +69,10 @@ public class UIManager : MonoBehaviour, IUIManager
 		attackPanel.SetActive(false);
 		defendPanel.SetActive(false);
         resourcePanel.SetActive(false);
+    }
+
+    public void UpdateInformationBoard()
+    {
+        
     }
 }

@@ -14,5 +14,6 @@ public class UIStartCommand : Command {
         UIManager.InitDefendPanel();
         UIManager.InitResourcePanel();
         UIManager.InitButtonPanel();
+        UIManager.InitInformationBoard();
     }
 }

@@ -15,13 +15,6 @@ public class TowerView : View {
 	[Inject]
 	public IGameModel gameModel { get; set; }
 
-    public static TowerView current;
-
-    private void Awake()
-    {
-        current = this;
-    }
-
     protected override void Start(){
 		base.Start ();
 		timer = 0f;

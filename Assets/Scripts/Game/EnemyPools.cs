@@ -53,7 +53,7 @@ public class EnemyPools : MonoBehaviour
 
 	public EnemyView KillEnemy()
 	{
-		return (EnemyView)enemiesToAttack.Dequeue();
+		return (EnemyView) enemiesToAttack.Dequeue();
 	}
 
 	public EnemyView GetNearestEnemy()

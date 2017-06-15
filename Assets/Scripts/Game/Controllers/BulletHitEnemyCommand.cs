@@ -4,7 +4,7 @@ using UnityEngine;
 public class BulletHitEnemyCommand : Command {
 
     [Inject]
-    public Score Score { get; set; }
+    public InformationBoard informationBoard { get; set; }
 
 	[Inject]
     public float damage { get; set; }
@@ -17,7 +17,7 @@ public class BulletHitEnemyCommand : Command {
 		if (enemy.data.health <= 0) {
             //Destroy enemy
             EnemyPools.current.ResetEnemy(EnemyPools.current.KillEnemy());
-			Score.AddScore (enemy.data.score);
+			informationBoard.AddScore (enemy.data.score);
 		}
     }
 
