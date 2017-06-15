@@ -9,9 +9,17 @@ public class EnemyView : View
     [Inject]
     public IGameModel gameModel { get; set; }
 
+    [Inject]
+    public ITower towerData { get; set; }
+
     private void FixedUpdate()
     {
         gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, gameModel.gameSpeed*data.speed * Time.deltaTime);
+        if (Vector3.Distance(transform.position, data.target) <= towerData.attackRange)
+        {
+            data.isInAttackQueue = true;
+            EnemyPools.Instance.AddEnemyToAttack(this);
+        }
     }
 
     public void TakeDamage(float damage)

@@ -12,15 +12,13 @@ public class BulletHitEnemyCommand : Command {
 	[Inject]
 	public EnemyView enemy { get; set; }
 
-    [Inject]
-    public EnemyPools enemyPools { get; set; }
-
     public override void Execute() {
 		enemy.data.health -= damage;
 		if (enemy.data.health <= 0) {
             //Destroy enemy
-            enemyPools.ResetEnemy(enemyPools.KillEnemy());
+            EnemyPools.Instance.ResetEnemy(EnemyPools.Instance.KillEnemy());
 			informationBoard.AddScore (enemy.data.score);
+            Debug.Log("Enemy: " + enemy.data.isInAttackQueue);
 		}
     }
 

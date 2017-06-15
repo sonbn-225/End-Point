@@ -22,7 +22,6 @@ public class GameContext : MVCSContext {
 
         injectionBinder.Bind<ITower>().To<Tower>().ToSingleton().CrossContext();
         injectionBinder.Bind<IGameManager>().To<GameManager>().ToSingleton();
-        injectionBinder.Bind<EnemyPools>().ToSingleton();
 
         commandBinder.Bind<GameStartSignal>().To<GameStartCommand>().Once();
         commandBinder.Bind<SpawnEnemySignal>().To<SpawnEnemyCommand>();

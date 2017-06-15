@@ -14,9 +14,6 @@ public class SpawnerView : View, ISpawner {
     [Inject]
     public IGameModel gameModel { get; set; }
 
-    [Inject]
-    public EnemyPools enemyPools { get; set; }
-
     private void Update() {
 		timer += Time.deltaTime;
 		if(timer > 1f) {
@@ -26,7 +23,7 @@ public class SpawnerView : View, ISpawner {
 	}
 
     public void SpawnEnemy(Vector3 position) {
-        EnemyView enemy = enemyPools.GetPooledEnemy();
+        EnemyView enemy = EnemyPools.Instance.GetPooledEnemy();
         if (enemy == null)
         {
             return;

@@ -2,13 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class EnemyPools : MonoBehaviour 
+public class EnemyPools : MySingleton<EnemyPools> 
 {
 	private const int MAX_POOL_SIZE = 10;
 	public List<EnemyView> enemies = new List<EnemyView>();
     public Queue<EnemyView> enemiesToAttack = new Queue<EnemyView>();
 
-	public bool willGrow = false;
+    public bool willGrow = false;
 
     [Inject]
     public ITower towerData { get; set; }
@@ -66,24 +66,5 @@ public class EnemyPools : MonoBehaviour
     {
         enemy.data.isInAttackQueue = false;
         enemy.setActive(false);
-    }
-
-    private void FixedUpdate()
-    {
-		for (int i = 0; i < enemies.Count; i++)
-		{
-			if (enemies[i].activeInHierarchy())
-			{
-                if (!enemies[i].data.isInAttackQueue)
-                {
-                    if (Vector3.Distance(enemies[i].transform.position, enemies[i].data.target) <= 10f)
-                    {
-                        enemies[i].data.isInAttackQueue = true;
-                        AddEnemyToAttack(enemies[i]);
-                        Debug.Log(towerData.attackRange);
-					}
-                }
-			}
-		}
     }
 }
