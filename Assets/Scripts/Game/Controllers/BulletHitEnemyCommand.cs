@@ -12,11 +12,14 @@ public class BulletHitEnemyCommand : Command {
 	[Inject]
 	public EnemyView enemy { get; set; }
 
+    [Inject]
+    public EnemyPools enemyPools { get; set; }
+
     public override void Execute() {
 		enemy.data.health -= damage;
 		if (enemy.data.health <= 0) {
             //Destroy enemy
-            EnemyPools.current.ResetEnemy(EnemyPools.current.KillEnemy());
+            enemyPools.ResetEnemy(enemyPools.KillEnemy());
 			informationBoard.AddScore (enemy.data.score);
 		}
     }

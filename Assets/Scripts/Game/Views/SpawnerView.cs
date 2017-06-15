@@ -6,24 +6,18 @@ using strange.extensions.signal.impl;
 public class SpawnerView : View, ISpawner {
 
     public readonly Signal SpawnEnemySignal = new Signal();
-	public readonly Signal InitiateTowerSignal = new Signal ();
 	public readonly Signal SpawnBulletSignal = new Signal ();
-
-    [Inject]
-    public ITower towerData { get; set; }
 
 	private float timer = 0f;
 	private int EnemyID = 0;
 
-	private TowerView tower;
+    [Inject]
+    public IGameModel gameModel { get; set; }
 
-	private bool isInitTower = false;
+    [Inject]
+    public EnemyPools enemyPools { get; set; }
 
-	void Start(){
-		InitiateTowerSignal.Dispatch ();
-	}
-
-	private void Update() {
+    private void Update() {
 		timer += Time.deltaTime;
 		if(timer > 1f) {
 			timer = 0f;
@@ -32,7 +26,7 @@ public class SpawnerView : View, ISpawner {
 	}
 
     public void SpawnEnemy(Vector3 position) {
-        EnemyView enemy = EnemyPools.current.GetPooledEnemy();
+        EnemyView enemy = enemyPools.GetPooledEnemy();
         if (enemy == null)
         {
             return;
@@ -47,7 +41,7 @@ public class SpawnerView : View, ISpawner {
             health = 100f,
             damage = 2f,
             score = 10,
-            target = tower.transform.position,
+            target = gameModel.towerTransform.position,
             isInAttackQueue = false
         };
         EnemyID++;
@@ -58,14 +52,5 @@ public class SpawnerView : View, ISpawner {
 		bullet.transform.position = new Vector3 (0, 10, -15);
 		bullet.transform.forward = transform.forward;
 		bullet.transform.parent = transform.parent;
-	}
-
-	public void InitiateTower(){
-		tower = Instantiate<TowerView> (Resources.Load<TowerView> ("Tower"));
-		tower.transform.position = new Vector3(0,0,-15);
-		tower.transform.forward = transform.forward;
-		tower.transform.parent = transform;
-        towerData.damage = 100f;
-        towerData.health = 200f;
 	}
 }

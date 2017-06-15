@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 114270388781932464}
   - component: {fileID: 114685870663497008}
   m_Layer: 5
-  m_Name: IncreaseSpeed
+  m_Name: IncreaseRegenerateHealthSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

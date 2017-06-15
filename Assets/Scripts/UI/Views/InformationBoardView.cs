@@ -3,27 +3,63 @@ using strange.extensions.mediation.impl;
 using UnityEngine.UI;
 
 public class InformationBoardView : View {
-    private Text scoreTextComponent, attackTextComponent, healthTextComponent;
-    public GameObject scoreText, attackText, healthText;
+    private Text scoreText, attackText, healthText, attackSpeedText, critRateText, critFactorText, attackRangeText, regenerateHealthText, resourceBonusText;
+    public GameObject score, attack, health, attackSpeed, critRate, critFactor, attackRange, regenerateHealth, resourceBonus;
 
     protected override void Awake() {
         base.Awake();
-        scoreTextComponent = scoreText.GetComponent<Text>();
-        attackTextComponent = attackText.GetComponent<Text>();
-        healthTextComponent = healthText.GetComponent<Text>();
+        scoreText = score.GetComponent<Text>();
+        attackText = attack.GetComponent<Text>();
+        healthText = health.GetComponent<Text>();
+        attackSpeedText = attackSpeed.GetComponent<Text>();
+        critRateText = critRate.GetComponent<Text>();
+        critFactorText = critFactor.GetComponent<Text>();
+        attackRangeText = attackRange.GetComponent<Text>();
+        regenerateHealthText = regenerateHealth.GetComponent<Text>();
+        resourceBonusText = resourceBonus.GetComponent<Text>();
     }
 
-    public void SetScore(int newScore) {
-        scoreTextComponent.text = "SCORE: " + newScore;
+    public void SetScore(int newValue) {
+        scoreText.text = "SCORE: " + newValue;
     }
 
-    public void setAttack(float newAttack)
+    public void setAttack(float newValue)
     {
-        attackTextComponent.text = "Attack: " + newAttack;
+        attackText.text = "Attack: " + newValue;
     }
 
-    public void setHealth(float newHealth)
+    public void setHealth(float newValue)
     {
-        healthTextComponent.text = "Health: " + newHealth;
+        healthText.text = "Health: " + newValue;
+    }
+
+    public void setAttackSpeed(int newValue)
+    {
+        attackSpeedText.text = "Attack Speed: " + newValue + " shot/s";
+    }
+
+    public void setCritRate(float newValue)
+    {
+        critRateText.text = "Crit Rate: " + newValue + "%";
+    }
+
+    public void setCritFactor(float newValue)
+    {
+        critFactorText.text = "Crit Factor: " + newValue + "%";
+    }
+
+    public void setAttackRange(float newValue)
+    {
+        attackRangeText.text = "Attack Range: " + newValue + "m";
+    }
+
+    public void setRegenerateHealthSpeed(float newValue)
+    {
+        regenerateHealthText.text = "Regenerate Health Speed :" + newValue + "%/s";
+    }
+
+    public void setResourceBonus(float newValue)
+    {
+        resourceBonusText.text = "Resource Bonus: " + newValue;
     }
 }

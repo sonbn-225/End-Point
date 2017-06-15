@@ -27,7 +27,13 @@ public class InformationBoardMediator : Mediator {
     public void OnUpdateInformationBoard() {
 		View.SetScore(informationBoard.Score);
         View.setAttack(towerData.damage);
+        View.setAttackSpeed(towerData.attackSpeed);
+        View.setCritRate(towerData.critRate);
+        View.setCritFactor(towerData.critFactor);
+        View.setAttackRange(towerData.attackRange);
         View.setHealth(towerData.health);
+        View.setRegenerateHealthSpeed(towerData.regenerateSpeed);
+        View.setResourceBonus(towerData.resourceBonus);
     }
 
 }

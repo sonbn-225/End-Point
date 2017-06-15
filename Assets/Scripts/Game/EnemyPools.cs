@@ -4,20 +4,16 @@ using System.Collections.Generic;
 
 public class EnemyPools : MonoBehaviour 
 {
-    public static EnemyPools current;
 	private const int MAX_POOL_SIZE = 10;
 	public List<EnemyView> enemies = new List<EnemyView>();
     public Queue<EnemyView> enemiesToAttack = new Queue<EnemyView>();
 
 	public bool willGrow = false;
-    private float attackRange = 20f;
 
-    private void Awake()
-    {
-        current = this;
-    }
+    [Inject]
+    public ITower towerData { get; set; }
 
-    private void Start()
+    protected void Start()
     {
         enemies = new List<EnemyView>();
         for (int i = 0; i < MAX_POOL_SIZE; i++)
@@ -68,10 +64,11 @@ public class EnemyPools : MonoBehaviour
 
     public void ResetEnemy(EnemyView enemy)
     {
+        enemy.data.isInAttackQueue = false;
         enemy.setActive(false);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
 		for (int i = 0; i < enemies.Count; i++)
 		{
@@ -79,10 +76,11 @@ public class EnemyPools : MonoBehaviour
 			{
                 if (!enemies[i].data.isInAttackQueue)
                 {
-                    if (Vector3.Distance(enemies[i].transform.position, enemies[i].data.target) <= attackRange)
+                    if (Vector3.Distance(enemies[i].transform.position, enemies[i].data.target) <= 10f)
                     {
-						enemies[i].data.isInAttackQueue = true;
+                        enemies[i].data.isInAttackQueue = true;
                         AddEnemyToAttack(enemies[i]);
+                        Debug.Log(towerData.attackRange);
 					}
                 }
 			}

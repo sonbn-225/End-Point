@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using strange.extensions.command.impl;
 
-public class EnemyAttackCommand : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+public class EnemyAttackCommand : Command {
+    public override void Execute()
+    {
+        base.Execute();
+    }
 }

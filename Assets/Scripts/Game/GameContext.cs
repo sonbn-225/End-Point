@@ -10,13 +10,22 @@ public class GameContext : MVCSContext {
 
     }
 
+    public override void Launch()
+    {
+        base.Launch();
+        GameStartSignal gameStartSignal = (GameStartSignal)injectionBinder.GetInstance<GameStartSignal>();
+        gameStartSignal.Dispatch();
+    }
+
     protected override void mapBindings() {
         base.mapBindings();
 
         injectionBinder.Bind<ITower>().To<Tower>().ToSingleton().CrossContext();
+        injectionBinder.Bind<IGameManager>().To<GameManager>().ToSingleton();
+        injectionBinder.Bind<EnemyPools>().ToSingleton();
 
+        commandBinder.Bind<GameStartSignal>().To<GameStartCommand>().Once();
         commandBinder.Bind<SpawnEnemySignal>().To<SpawnEnemyCommand>();
-		commandBinder.Bind<InitiateTowerSignal> ().To<InitiateTowerCommand> ();
         commandBinder.Bind<BulletHitEnemySignal>().To<BulletHitEnemyCommand>();
 		commandBinder.Bind<TowerShootSignal> ().To<TowerShootCommand> ();
 

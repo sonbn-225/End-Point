@@ -14,6 +14,4 @@ public interface IUIManager
     void DefendButtonClicked();
     void ResourceButtonClicked();
     void ClosePanelButtonClicked();
-
-    void UpdateInformationBoard();
 }

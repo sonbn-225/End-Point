@@ -42,20 +42,32 @@ public class ButtonClickCommand : Command {
                 informationBoard.UpdateInformationBoard();
                 break;
 			case "IncreaseAttackSpeed":
+                towerdata.attackSpeed += 1;
+                informationBoard.UpdateInformationBoard();
 				break;
             case "IncreaseCritRate":
+                towerdata.critRate *= 1.2f;
+                informationBoard.UpdateInformationBoard();
 				break;
 			case "IncreaseCritFactor":
+                towerdata.critFactor *= 1.2f;
+                informationBoard.UpdateInformationBoard();
 				break;
 			case "IncreaseAttackRange":
+                towerdata.attackRange *= 1.2f;
+                informationBoard.UpdateInformationBoard();
 				break;
 			case "IncreaseHealth":
                 towerdata.health *= 1.2f;
                 informationBoard.UpdateInformationBoard();
 				break;
-			case "IncreaseSpeed":
+			case "IncreaseRegenerateHealthSpeed":
+                towerdata.regenerateSpeed *= 1.2f;
+                informationBoard.UpdateInformationBoard();
 				break;
 			case "IncreaseResourceBonus":
+                towerdata.resourceBonus *= 1.2f;
+                informationBoard.UpdateInformationBoard();
 				break;
             default:
                 break;

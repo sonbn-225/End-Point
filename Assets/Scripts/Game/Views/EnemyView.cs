@@ -9,15 +9,9 @@ public class EnemyView : View
     [Inject]
     public IGameModel gameModel { get; set; }
 
-    void Start()
-    {
-        base.Start();
-    }
-
     private void FixedUpdate()
     {
         gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, gameModel.gameSpeed*data.speed * Time.deltaTime);
-        Debug.Log("FixedUpdate time :" + Time.deltaTime);
     }
 
     public void TakeDamage(float damage)

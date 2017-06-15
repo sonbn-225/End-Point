@@ -70,9 +70,4 @@ public class UIManager : MonoBehaviour, IUIManager
 		defendPanel.SetActive(false);
         resourcePanel.SetActive(false);
     }
-
-    public void UpdateInformationBoard()
-    {
-        
-    }
 }

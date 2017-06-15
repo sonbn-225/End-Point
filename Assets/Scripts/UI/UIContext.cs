@@ -30,10 +30,6 @@ public class UIContext : MVCSContext {
     {
         base.mapBindings();
 
-        if (Context.firstContext == this)
-        {
-            
-        }
         injectionBinder.Bind<IUIManager>().To<UIManager>().ToSingleton();
 
         commandBinder.Bind<UIStartSignal>().To<UIStartCommand>().Once();

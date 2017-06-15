@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Tower : ITower {
     public float damage { get; set; }
-    public float attackSpeed { get; set; }
+    public int attackSpeed { get; set; }
     public float critRate { get; set; }
     public float critFactor { get; set; }
     public float attackRange { get; set; }
