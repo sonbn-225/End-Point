@@ -44,6 +44,6 @@ public class TowerView : View {
             damage = data.damage,
             speed = 60f*gameModel.gameSpeed
         };
-        Debug.Log("Distance: " + Vector3.Distance(bullet.data.enemy, gameObject.transform.position));
+        //Debug.Log("Distance: " + Vector3.Distance(bullet.data.enemy, gameObject.transform.position));
 	}
 }

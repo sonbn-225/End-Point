@@ -215,7 +215,6 @@ GameObject:
   - component: {fileID: 224074492728230974}
   - component: {fileID: 222789256649008640}
   - component: {fileID: 114428518463169562}
-  - component: {fileID: 114868204351085064}
   - component: {fileID: 114225505161497608}
   m_Layer: 5
   m_Name: AttackPanel
@@ -357,7 +356,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114868204351085064}
+      - m_Target: {fileID: 114225505161497608}
         m_MethodName: ButtonClicked
         m_Mode: 2
         m_Arguments:
@@ -409,7 +408,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114868204351085064}
+      - m_Target: {fileID: 114225505161497608}
         m_MethodName: ButtonClicked
         m_Mode: 2
         m_Arguments:
@@ -533,7 +532,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114868204351085064}
+      - m_Target: {fileID: 114225505161497608}
         m_MethodName: ButtonClicked
         m_Mode: 2
         m_Arguments:
@@ -765,7 +764,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114868204351085064}
+      - m_Target: {fileID: 114225505161497608}
         m_MethodName: ButtonClicked
         m_Mode: 2
         m_Arguments:
@@ -844,7 +843,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114868204351085064}
+      - m_Target: {fileID: 0}
         m_MethodName: ButtonClicked
         m_Mode: 2
         m_Arguments:
@@ -917,18 +916,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Attack Range ++
---- !u!114 &114868204351085064
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1845395516293296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c18d52c46acc4a31a2251f7fb0379d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonName: 
 --- !u!114 &114894528575482174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -968,7 +955,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114868204351085064}
+      - m_Target: {fileID: 114225505161497608}
         m_MethodName: ButtonClicked
         m_Mode: 2
         m_Arguments:

@@ -38,35 +38,37 @@ public class ButtonClickCommand : Command {
                 gameModel.gameSpeed *= 2;
                 break;
             case "IncreaseDamage":
-                towerdata.damage *= 1.2f;
+                towerdata.damage *= 1.1f;
                 informationBoard.UpdateInformationBoard();
                 break;
 			case "IncreaseAttackSpeed":
                 towerdata.attackSpeed += 1;
+                Debug.Log("ATT: " + towerdata.attackSpeed);
                 informationBoard.UpdateInformationBoard();
 				break;
             case "IncreaseCritRate":
-                towerdata.critRate *= 1.2f;
+                towerdata.critRate *= 1.1f;
                 informationBoard.UpdateInformationBoard();
 				break;
 			case "IncreaseCritFactor":
-                towerdata.critFactor *= 1.2f;
+                towerdata.critFactor *= 1.1f;
                 informationBoard.UpdateInformationBoard();
 				break;
 			case "IncreaseAttackRange":
-                towerdata.attackRange *= 1.2f;
+                towerdata.attackRange *= 1.1f;
                 informationBoard.UpdateInformationBoard();
 				break;
 			case "IncreaseHealth":
-                towerdata.health *= 1.2f;
+                towerdata.health *= 1.1f;
                 informationBoard.UpdateInformationBoard();
 				break;
 			case "IncreaseRegenerateHealthSpeed":
-                towerdata.regenerateSpeed *= 1.2f;
+                towerdata.regenerateSpeed *= 1.1f;
                 informationBoard.UpdateInformationBoard();
 				break;
 			case "IncreaseResourceBonus":
-                towerdata.resourceBonus *= 1.2f;
+                towerdata.resourceBonus *= 1.1f;
+                Debug.Log("OTHER: " + towerdata.attackSpeed);
                 informationBoard.UpdateInformationBoard();
 				break;
             default:
