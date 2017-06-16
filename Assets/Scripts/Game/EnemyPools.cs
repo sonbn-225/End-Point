@@ -6,15 +6,20 @@ public class EnemyPools : MySingleton<EnemyPools>
 {
     private const int MAX_ENEMY_POOL_SIZE = 10;
 	public List<EnemyView> enemies = new List<EnemyView>();
-    public Queue enemiesToAttack = new Queue();
 
     public bool willGrow = false;
+
+	private float minDistance, curDistance;
 
     [Inject]
     public ITower towerData { get; set; }
 
+    [Inject]
+    public IGameModel gameModel { get; set; }
+
     protected void Start()
     {
+        minDistance = Mathf.Infinity;
         enemies = new List<EnemyView>();
         for (int i = 0; i < MAX_ENEMY_POOL_SIZE; i++)
         {
@@ -44,28 +49,30 @@ public class EnemyPools : MySingleton<EnemyPools>
         return null;
     }
 
-	public void AddEnemyToAttack(int id)
+	public void KillEnemy(int id)
 	{
-        if (enemies[id].data.isInAttackQueue)
-        {
-            enemiesToAttack.Enqueue(id);
-        }
-	}
-
-	public void KillEnemy()
-	{
-        int id = (int)enemiesToAttack.Dequeue();
-        enemies[id].data.isInAttackQueue = false;
 		enemies[id].setActive(false);
 	}
 
-	public EnemyView GetNearestEnemy()
+	public int GetNearestEnemy()
 	{
-        if (enemiesToAttack.Count == 0)
+        int nearestEnemyID = -1;
+        foreach (EnemyView enemy in enemies)
         {
-            return null;
-        } else {
-            return enemies[(int)enemiesToAttack.Peek()];
+            if (enemy.activeInHierarchy())
+            {
+				if (enemy.data.isInAttackQueue)
+				{
+					curDistance = Vector3.Distance(new Vector3(0, 0, -15), enemy.transform.position);
+					if (curDistance < minDistance)
+					{
+						nearestEnemyID = enemy.id;
+						minDistance = curDistance;
+					}
+				}
+            }
         }
+        minDistance = Mathf.Infinity;
+        return nearestEnemyID;
 	}
 }

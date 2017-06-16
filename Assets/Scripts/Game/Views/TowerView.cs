@@ -15,17 +15,25 @@ public class TowerView : View {
 	[Inject]
 	public IGameModel gameModel { get; set; }
 
+    private int id;
+
     protected override void Start(){
 		base.Start ();
 		timer = 0f;
 	}
 
-	private void FixedUpdate(){
-        
+	private void FixedUpdate()
+    {
 		timer += Time.deltaTime;
-        if (timer > 1f/(gameModel.gameSpeed*data.attackSpeed) && EnemyPools.Instance.GetNearestEnemy() != null) {
-			timer = 0f;
-			TowerShootSignal.Dispatch ();
+        if (timer >= 1f/(gameModel.gameSpeed*data.attackSpeed)) 
+        {
+            id = EnemyPools.Instance.GetNearestEnemy();
+            //Debug.Log(timer + "  FIRE::::" + id);
+            if (id != -1)
+            {
+				TowerShootSignal.Dispatch();
+            }
+            timer = 0f;
 		}
 	}
 
@@ -38,12 +46,12 @@ public class TowerView : View {
         bullet.transform.position = new Vector3(0, 4, -15);
 		bullet.transform.forward = transform.forward;
 		bullet.setActive(true);
+        EnemyView target = EnemyPools.Instance.enemies[id];
         bullet.data = new Bullet()
         {
-            enemy = EnemyPools.Instance.GetNearestEnemy().transform.position,
+            enemy = target.transform.position,
             damage = data.damage,
-            speed = 60f*gameModel.gameSpeed
+            speed = 100f*gameModel.gameSpeed
         };
-        //Debug.Log("Distance: " + Vector3.Distance(bullet.data.enemy, gameObject.transform.position));
 	}
 }

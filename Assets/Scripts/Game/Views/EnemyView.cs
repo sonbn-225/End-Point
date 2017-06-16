@@ -17,10 +17,12 @@ public class EnemyView : View
     private void FixedUpdate()
     {
         gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, gameModel.gameSpeed*data.speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, data.target) <= towerData.attackRange && !data.isInAttackQueue)
+        if (!data.isInAttackQueue)
         {
-            data.isInAttackQueue = true;
-            EnemyPools.Instance.AddEnemyToAttack(id);
+			if (Vector3.Distance(transform.position, data.target) <= towerData.attackRange)
+			{
+				data.isInAttackQueue = true;
+			}
         }
     }
 

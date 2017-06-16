@@ -13,13 +13,14 @@ public class EnemySpawnerView : View, ISpawner {
     [Inject]
     public IGameModel gameModel { get; set; }
 
-    private void Update() {
+    private void FixedUpdate() {
 		timer += Time.deltaTime;
 		if(timer > 1f) {
 			timer = 0f;
 			SpawnEnemySignal.Dispatch();
 		}
 	}
+
 
     public void SpawnEnemy(Vector3 position) {
         EnemyView enemy = EnemyPools.Instance.GetPooledEnemy();
@@ -32,8 +33,8 @@ public class EnemySpawnerView : View, ISpawner {
         enemy.setActive(true);
         enemy.data = new Enemy()
         {
-            speed = 5f,
-            health = 100f,
+            speed = 2f,
+            health = 200f,
             damage = 2f,
             score = 10,
             target = gameModel.towerTransform.position,

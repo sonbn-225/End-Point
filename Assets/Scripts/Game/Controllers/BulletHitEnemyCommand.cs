@@ -13,10 +13,13 @@ public class BulletHitEnemyCommand : Command {
 	public EnemyView enemy { get; set; }
 
     public override void Execute() {
+        Debug.Log("Health: " + enemy.data.health);
 		enemy.data.health -= damage;
 		if (enemy.data.health <= 0) {
             //Destroy enemy
-            EnemyPools.Instance.KillEnemy();
+            Debug.Log("Distance: " + Vector3.Distance(enemy.transform.position, new Vector3(0, 0, -15)) + "Health: " + enemy.data.health);
+            EnemyPools.Instance.KillEnemy(enemy.id);
+            enemy.data.isInAttackQueue = false;
 			informationBoard.AddScore (enemy.data.score);
 		}
     }
