@@ -16,9 +16,8 @@ public class BulletHitEnemyCommand : Command {
 		enemy.data.health -= damage;
 		if (enemy.data.health <= 0) {
             //Destroy enemy
-            EnemyPools.Instance.ResetEnemy(EnemyPools.Instance.KillEnemy());
+            EnemyPools.Instance.KillEnemy();
 			informationBoard.AddScore (enemy.data.score);
-            Debug.Log("Enemy: " + enemy.data.isInAttackQueue);
 		}
     }
 

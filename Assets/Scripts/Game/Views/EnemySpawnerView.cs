@@ -3,10 +3,9 @@ using System.Collections;
 using strange.extensions.mediation.impl;
 using strange.extensions.signal.impl;
 
-public class SpawnerView : View, ISpawner {
+public class EnemySpawnerView : View, ISpawner {
 
     public readonly Signal SpawnEnemySignal = new Signal();
-	public readonly Signal SpawnBulletSignal = new Signal ();
 
 	private float timer = 0f;
 	private int EnemyID = 0;
@@ -33,7 +32,6 @@ public class SpawnerView : View, ISpawner {
         enemy.setActive(true);
         enemy.data = new Enemy()
         {
-            id = EnemyID,
             speed = 5f,
             health = 100f,
             damage = 2f,
@@ -43,11 +41,4 @@ public class SpawnerView : View, ISpawner {
         };
         EnemyID++;
     }
-
-	public void SpawnBullet(){
-		BulletView bullet = Instantiate<BulletView> (Resources.Load<BulletView> ("Bullet"));
-		bullet.transform.position = new Vector3 (0, 10, -15);
-		bullet.transform.forward = transform.forward;
-		bullet.transform.parent = transform.parent;
-	}
 }

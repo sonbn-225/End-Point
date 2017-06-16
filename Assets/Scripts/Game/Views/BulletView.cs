@@ -25,13 +25,24 @@ public class BulletView : View {
         foreach (ContactPoint contact in collision.contacts) {
 			if (contact.otherCollider.GetComponent<EnemyView> ()) {
 				BulletHitEnemySignal.Dispatch (contact.otherCollider.GetComponent<EnemyView> ());
+                Reset();
 			} else if (contact.otherCollider.CompareTag ("Ground")) {
-				Destroy ();
+				Reset ();
 			}
         }
     }
 
-    public void Destroy() {
-        Destroy(gameObject);
+    public void Reset() {
+        gameObject.SetActive(false);
     }
+
+	public void setActive(bool value)
+	{
+		gameObject.SetActive(value);
+	}
+
+	public bool activeInHierarchy()
+	{
+		return gameObject.activeInHierarchy;
+	}
 }

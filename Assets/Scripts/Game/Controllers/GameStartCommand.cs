@@ -11,6 +11,7 @@ public class GameStartCommand : Command
     {
         gameManager.InitGround();
         gameManager.InitTower();
-        gameManager.InitEnemyManager();
+        gameManager.InitEnemySpawner();
+        gameManager.InitPool();
     }
 }

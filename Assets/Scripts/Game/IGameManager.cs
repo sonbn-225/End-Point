@@ -2,5 +2,6 @@
 {
     void InitGround();
     void InitTower();
-    void InitEnemyManager();
+    void InitEnemySpawner();
+    void InitPool();
 }

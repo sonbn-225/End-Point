@@ -30,14 +30,20 @@ public class TowerView : View {
 	}
 
 	public void Fire(){
-		BulletView bullet = Instantiate<BulletView> (Resources.Load<BulletView> ("Bullet"));
+        BulletView bullet = BulletPool.Instance.GetPooledEnemy();
+        if (bullet == null)
+        {
+            return;
+        }
+        bullet.transform.position = new Vector3(0, 4, -15);
+		bullet.transform.forward = transform.forward;
+		bullet.setActive(true);
         bullet.data = new Bullet()
         {
             enemy = EnemyPools.Instance.GetNearestEnemy().transform.position,
             damage = data.damage,
             speed = 60f*gameModel.gameSpeed
         };
-		bullet.transform.SetParent(transform.parent);
-		bullet.transform.position = new Vector3(0, 4, -15);
+        Debug.Log("Distance: " + Vector3.Distance(bullet.data.enemy, gameObject.transform.position));
 	}
 }

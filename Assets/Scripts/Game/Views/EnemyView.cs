@@ -12,13 +12,15 @@ public class EnemyView : View
     [Inject]
     public ITower towerData { get; set; }
 
+    public int id { get; set; }
+
     private void FixedUpdate()
     {
         gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, gameModel.gameSpeed*data.speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, data.target) <= towerData.attackRange)
+        if (Vector3.Distance(transform.position, data.target) <= towerData.attackRange && !data.isInAttackQueue)
         {
             data.isInAttackQueue = true;
-            EnemyPools.Instance.AddEnemyToAttack(this);
+            EnemyPools.Instance.AddEnemyToAttack(id);
         }
     }
 

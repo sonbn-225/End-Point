@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class EnemyPools : MySingleton<EnemyPools> 
 {
-	private const int MAX_POOL_SIZE = 10;
+    private const int MAX_ENEMY_POOL_SIZE = 10;
 	public List<EnemyView> enemies = new List<EnemyView>();
-    public Queue<EnemyView> enemiesToAttack = new Queue<EnemyView>();
+    public Queue enemiesToAttack = new Queue();
 
     public bool willGrow = false;
 
@@ -16,10 +16,12 @@ public class EnemyPools : MySingleton<EnemyPools>
     protected void Start()
     {
         enemies = new List<EnemyView>();
-        for (int i = 0; i < MAX_POOL_SIZE; i++)
+        for (int i = 0; i < MAX_ENEMY_POOL_SIZE; i++)
         {
             EnemyView enemy = Instantiate<EnemyView>(Resources.Load<EnemyView>("Enemy"));
             enemy.setActive(false);
+            enemy.transform.SetParent(gameObject.transform);
+            enemy.id = i;
             enemies.Add(enemy);
         }
     }
@@ -42,14 +44,19 @@ public class EnemyPools : MySingleton<EnemyPools>
         return null;
     }
 
-	public void AddEnemyToAttack(EnemyView enemy)
+	public void AddEnemyToAttack(int id)
 	{
-		enemiesToAttack.Enqueue(enemy);
+        if (enemies[id].data.isInAttackQueue)
+        {
+            enemiesToAttack.Enqueue(id);
+        }
 	}
 
-	public EnemyView KillEnemy()
+	public void KillEnemy()
 	{
-		return (EnemyView) enemiesToAttack.Dequeue();
+        int id = (int)enemiesToAttack.Dequeue();
+        enemies[id].data.isInAttackQueue = false;
+		enemies[id].setActive(false);
 	}
 
 	public EnemyView GetNearestEnemy()
@@ -58,13 +65,7 @@ public class EnemyPools : MySingleton<EnemyPools>
         {
             return null;
         } else {
-            return (EnemyView)enemiesToAttack.Peek();
+            return enemies[(int)enemiesToAttack.Peek()];
         }
 	}
-
-    public void ResetEnemy(EnemyView enemy)
-    {
-        enemy.data.isInAttackQueue = false;
-        enemy.setActive(false);
-    }
 }

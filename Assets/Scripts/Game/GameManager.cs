@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour, IGameManager
 {
-	public GameObject enemyManager, ground;
+	public GameObject enemyManager, ground, pool;
     private TowerView tower;
 
 	[Inject]
@@ -14,9 +14,9 @@ public class GameManager : MonoBehaviour, IGameManager
     [Inject]
     public IGameModel gameModel { get; set; }
 
-	public void InitEnemyManager()
+	public void InitEnemySpawner()
 	{
-		enemyManager = Instantiate(Resources.Load("EnemyManager")) as GameObject;
+		enemyManager = Instantiate(Resources.Load("EnemySpawner")) as GameObject;
 		enemyManager.transform.SetParent(GameObject.FindGameObjectWithTag("GameManager").transform, false);
 		enemyManager.SetActive(true);
 	}
@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour, IGameManager
 		tower = Instantiate<TowerView>(Resources.Load<TowerView>("Tower"));
 		tower.transform.position = new Vector3(0, 0, -15);
 		tower.transform.SetParent(GameObject.FindGameObjectWithTag("GameManager").transform, false);
+        gameModel.towerTransform = tower.transform;
 		towerData.damage = 100f;
 		towerData.attackSpeed = 1;
 		towerData.critRate = 1f;
@@ -41,6 +42,12 @@ public class GameManager : MonoBehaviour, IGameManager
 		towerData.health = 200f;
 		towerData.regenerateSpeed = 0f;
 		towerData.resourceBonus = 1f;
-        gameModel.towerTransform = tower.transform;
 	}
+
+    public void InitPool()
+    {
+        pool = Instantiate(Resources.Load("Pool")) as GameObject;
+        pool.transform.SetParent(GameObject.FindGameObjectWithTag("GameManager").transform, false);
+        pool.SetActive(true);
+    }
 }
