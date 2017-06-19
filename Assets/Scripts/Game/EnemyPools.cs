@@ -52,6 +52,7 @@ public class EnemyPools : MySingleton<EnemyPools>
 	public void KillEnemy(int id)
 	{
 		enemies[id].setActive(false);
+        Explore(id);
 	}
 
 	public int GetNearestEnemy()
@@ -63,7 +64,7 @@ public class EnemyPools : MySingleton<EnemyPools>
             {
 				if (enemy.data.isInAttackQueue)
 				{
-					curDistance = Vector3.Distance(new Vector3(0, 0, -15), enemy.transform.position);
+					curDistance = Vector3.Distance(new Vector3(0, 0, 0), enemy.transform.position);
 					if (curDistance < minDistance)
 					{
 						nearestEnemyID = enemy.id;
@@ -75,4 +76,13 @@ public class EnemyPools : MySingleton<EnemyPools>
         minDistance = Mathf.Infinity;
         return nearestEnemyID;
 	}
+
+    private void Explore(int id)
+    {
+        
+		GameObject explosion = Instantiate(Resources.Load("Explosion")) as GameObject;
+		explosion.transform.position = enemies[id].transform.position;
+		explosion.transform.parent = enemies[id].transform.parent;
+        Destroy(explosion, 1f);
+    }
 }

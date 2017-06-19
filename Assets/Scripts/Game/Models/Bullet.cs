@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : IBullet {
-    public Vector3 enemy { get; set; }
+    public EnemyView enemy { get; set; }
 
     public float damage { get; set; }
 

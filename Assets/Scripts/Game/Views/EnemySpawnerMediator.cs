@@ -10,6 +10,12 @@ public class EnemySpawnerMediator : Mediator {
     [Inject]
     public EnemySpawnerView View { get; set; }
 
+	[Inject]
+	public IGameModel gameModel { get; set; }
+
+    [Inject]
+    public ITower towerData { get; set; }
+
     public override void OnRegister() {
         base.OnRegister();
 
@@ -17,6 +23,11 @@ public class EnemySpawnerMediator : Mediator {
     }
 
     private void OnSpawnEnemy() {
-        SpawnEnemySignal.Dispatch(View, new Vector3(Random.Range(-16, 16), 0, Random.Range(0, 25)));
+        Vector3 pos = new Vector3(Random.Range(-45, 45), 0, Random.Range(-45, 45));
+        while (Vector3.Distance(pos, gameModel.towerTransform.position) < towerData.attackRange)
+        {
+            pos = new Vector3(Random.Range(-45, 45), 0, Random.Range(-45, 45));
+        }
+        SpawnEnemySignal.Dispatch(View, pos);
     }
 }

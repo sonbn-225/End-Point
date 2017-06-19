@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour, IGameManager
 	public void InitTower()
 	{
 		tower = Instantiate<TowerView>(Resources.Load<TowerView>("Tower"));
-		tower.transform.position = new Vector3(0, 0, -15);
+		tower.transform.position = new Vector3(0, 0, 0);
 		tower.transform.SetParent(GameObject.FindGameObjectWithTag("GameManager").transform, false);
         gameModel.towerTransform = tower.transform;
 		towerData.damage = 100f;

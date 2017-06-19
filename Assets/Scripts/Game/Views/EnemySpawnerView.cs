@@ -8,14 +8,13 @@ public class EnemySpawnerView : View, ISpawner {
     public readonly Signal SpawnEnemySignal = new Signal();
 
 	private float timer = 0f;
-	private int EnemyID = 0;
 
     [Inject]
     public IGameModel gameModel { get; set; }
 
     private void FixedUpdate() {
 		timer += Time.deltaTime;
-		if(timer > 1f) {
+        if(timer > 1f/gameModel.gameSpeed) {
 			timer = 0f;
 			SpawnEnemySignal.Dispatch();
 		}
@@ -40,6 +39,5 @@ public class EnemySpawnerView : View, ISpawner {
             target = gameModel.towerTransform.position,
             isInAttackQueue = false
         };
-        EnemyID++;
     }
 }

@@ -12,6 +12,7 @@ public class EnemyView : View
     [Inject]
     public ITower towerData { get; set; }
 
+
     public int id { get; set; }
 
     private void FixedUpdate()
@@ -28,16 +29,12 @@ public class EnemyView : View
 
     public void TakeDamage(float damage)
     {
-        data.damage -= damage;
-        if (data.damage <= 0)
+        data.health -= damage;
+        if (data.health <= 0)
         {
-            Destroy();
-        }
-    }
-
-    public void Destroy()
-    {
-        Destroy(gameObject);
+			EnemyPools.Instance.KillEnemy(id);
+			data.isInAttackQueue = false;
+		}
     }
 
 

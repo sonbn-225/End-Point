@@ -43,15 +43,15 @@ public class TowerView : View {
         {
             return;
         }
-        bullet.transform.position = new Vector3(0, 4, -15);
+        bullet.transform.position = new Vector3(0, 4, 0);
 		bullet.transform.forward = transform.forward;
 		bullet.setActive(true);
         EnemyView target = EnemyPools.Instance.enemies[id];
         bullet.data = new Bullet()
         {
-            enemy = target.transform.position,
+            enemy = target,
             damage = data.damage,
-            speed = 100f*gameModel.gameSpeed
+            speed = 50f*gameModel.gameSpeed
         };
 	}
 }
