@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletPool : MySingleton<BulletPool> {
 
-    private const int MAX_BULLET_POOL_SIZE = 100;
+    private const int MAX_BULLET_POOL_SIZE = 10;
     public List<BulletView> bullets = new List<BulletView>();
 
 	public bool willGrow = false;
@@ -24,7 +24,7 @@ public class BulletPool : MySingleton<BulletPool> {
 		}
 	}
 
-	public BulletView GetPooledEnemy()
+	public BulletView GetPooledBullet()
 	{
 		for (int i = 0; i < bullets.Count; i++)
 		{

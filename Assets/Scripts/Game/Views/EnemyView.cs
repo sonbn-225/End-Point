@@ -32,7 +32,7 @@ public class EnemyView : View
         data.health -= damage;
         if (data.health <= 0)
         {
-			EnemyPools.Instance.KillEnemy(id);
+            EnemyPools.Instance.KillEnemy(data.enemyType, id);
 			data.isInAttackQueue = false;
 		}
     }

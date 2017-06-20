@@ -2,7 +2,7 @@
 using System.Collections;
 
 public interface IEnemy {
-
+    EnemyType enemyType { get; set; }
 	float speed { get; set; }
 	float health { get; set; }
 	float damage { get; set; }

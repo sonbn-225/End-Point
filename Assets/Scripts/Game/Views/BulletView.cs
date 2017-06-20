@@ -19,7 +19,7 @@ public class BulletView : View {
 
 	private void Update () {
         transform.position = Vector3.MoveTowards (transform.position, data.enemy.transform.position, data.speed * Time.deltaTime);
-        if (Vector3.Distance(data.enemy.transform.position, gameObject.transform.position) < 0.01f)
+        if (Vector3.Distance(data.enemy.transform.position, gameObject.transform.position) < 1f)
         {
             BulletHitEnemySignal.Dispatch(data.enemy);
 			Reset();

@@ -25,15 +25,15 @@ public class InformationBoardMediator : Mediator {
     }
 
     public void OnUpdateInformationBoard() {
-		View.SetScore(informationBoard.Score);
-        View.setAttack(towerData.damage);
-        View.setAttackSpeed(towerData.attackSpeed);
-        View.setCritRate(towerData.critRate);
-        View.setCritFactor(towerData.critFactor);
-        View.setAttackRange(towerData.attackRange);
-        View.setHealth(towerData.health);
-        View.setRegenerateHealthSpeed(towerData.regenerateSpeed);
-        View.setResourceBonus(towerData.resourceBonus);
+        View.SetScore(Mathf.RoundToInt(informationBoard.Score));
+        View.setAttack(Mathf.RoundToInt(towerData.damage));
+        View.setAttackSpeed(Mathf.RoundToInt(towerData.attackSpeed));
+        View.setCritRate(Mathf.RoundToInt(towerData.critRate));
+        View.setCritFactor(Mathf.RoundToInt(towerData.critFactor));
+        View.setAttackRange(Mathf.RoundToInt(towerData.attackRange));
+        View.setHealth(Mathf.RoundToInt(towerData.health));
+        View.setRegenerateHealthSpeed(Mathf.RoundToInt(towerData.regenerateSpeed));
+        View.setResourceBonus(Mathf.RoundToInt(towerData.resourceBonus));
     }
 
 }

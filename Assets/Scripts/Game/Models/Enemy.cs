@@ -5,6 +5,8 @@ using System;
 public class Enemy : IEnemy {
 	#region IEnemy implementation
 
+    public EnemyType enemyType { get; set; }
+
 	public float speed { get; set; }
 
 	public float health { get; set; }

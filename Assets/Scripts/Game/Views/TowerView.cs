@@ -15,21 +15,21 @@ public class TowerView : View {
 	[Inject]
 	public IGameModel gameModel { get; set; }
 
-    private int id;
-
     protected override void Start(){
 		base.Start ();
 		timer = 0f;
 	}
+
+    private EnemyView target;
 
 	private void FixedUpdate()
     {
 		timer += Time.deltaTime;
         if (timer >= 1f/(gameModel.gameSpeed*data.attackSpeed)) 
         {
-            id = EnemyPools.Instance.GetNearestEnemy();
+            target = EnemyPools.Instance.GetNearestEnemy();
             //Debug.Log(timer + "  FIRE::::" + id);
-            if (id != -1)
+            if (target != null)
             {
 				TowerShootSignal.Dispatch();
             }
@@ -38,7 +38,7 @@ public class TowerView : View {
 	}
 
 	public void Fire(){
-        BulletView bullet = BulletPool.Instance.GetPooledEnemy();
+        BulletView bullet = BulletPool.Instance.GetPooledBullet();
         if (bullet == null)
         {
             return;
@@ -46,7 +46,6 @@ public class TowerView : View {
         bullet.transform.position = new Vector3(0, 4, 0);
 		bullet.transform.forward = transform.forward;
 		bullet.setActive(true);
-        EnemyView target = EnemyPools.Instance.enemies[id];
         bullet.data = new Bullet()
         {
             enemy = target,

@@ -43,7 +43,6 @@ public class ButtonClickCommand : Command {
                 break;
 			case "IncreaseAttackSpeed":
                 towerdata.attackSpeed += 1;
-                Debug.Log("ATT: " + towerdata.attackSpeed);
                 informationBoard.UpdateInformationBoard();
 				break;
             case "IncreaseCritRate":

@@ -2,6 +2,7 @@
 using System.Collections;
 using strange.extensions.mediation.impl;
 using strange.extensions.signal.impl;
+using System;
 
 public class EnemySpawnerView : View, ISpawner {
 
@@ -22,7 +23,8 @@ public class EnemySpawnerView : View, ISpawner {
 
 
     public void SpawnEnemy(Vector3 position) {
-        EnemyView enemy = EnemyPools.Instance.GetPooledEnemy();
+        EnemyType enemyType = (EnemyType)UnityEngine.Random.Range(0, 4);
+        EnemyView enemy = EnemyPools.Instance.GetPooledEnemy(enemyType);
         if (enemy == null)
         {
             return;
@@ -32,6 +34,7 @@ public class EnemySpawnerView : View, ISpawner {
         enemy.setActive(true);
         enemy.data = new Enemy()
         {
+            enemyType = enemyType,
             speed = 2f,
             health = 200f,
             damage = 2f,
