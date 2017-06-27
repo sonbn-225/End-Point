@@ -24,7 +24,7 @@ public class EnemySpawnerView : View, ISpawner {
 
     public void SpawnEnemy(Vector3 position) {
         EnemyType enemyType = (EnemyType)UnityEngine.Random.Range(0, 4);
-        EnemyView enemy = EnemyPools.Instance.GetPooledEnemy(enemyType);
+        EnemyView enemy = EnemyPool.Instance.GetPooledEnemy(enemyType);
         if (enemy == null)
         {
             return;

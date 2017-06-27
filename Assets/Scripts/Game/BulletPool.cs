@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletPool : MySingleton<BulletPool> {
-
+public class BulletPool : MySingleton<BulletPool> 
+{
     private const int MAX_BULLET_POOL_SIZE = 10;
     public List<BulletView> bullets = new List<BulletView>();
 
-	public bool willGrow = false;
+    public bool willGrow = false;
 
 	[Inject]
 	public ITower towerData { get; set; }

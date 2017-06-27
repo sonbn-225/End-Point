@@ -6,6 +6,8 @@ public class EnemyView : View
 {
     public IEnemy data { get; set; }
 
+    public Signal enterAttackRangeSignal = new Signal();
+
     [Inject]
     public IGameModel gameModel { get; set; }
 
@@ -15,6 +17,8 @@ public class EnemyView : View
 
     public int id { get; set; }
 
+    public GameObject normalForm, fastForm, bigForm, strongForm;
+
     private void FixedUpdate()
     {
         gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, gameModel.gameSpeed*data.speed * Time.deltaTime);
@@ -23,18 +27,25 @@ public class EnemyView : View
 			if (Vector3.Distance(transform.position, data.target) <= towerData.attackRange)
 			{
 				data.isInAttackQueue = true;
+                enterAttackRangeSignal.Dispatch();
 			}
         }
     }
 
-    public void TakeDamage(float damage)
+    public Vector3 GetPosAfter(float time){
+        return transform.position + data.speed * (data.target - transform.position) * time;
+    }
+
+    public bool TakeDamage(float damage)
     {
         data.health -= damage;
         if (data.health <= 0)
         {
-            EnemyPools.Instance.KillEnemy(data.enemyType, id);
-			data.isInAttackQueue = false;
-		}
+            EnemyPool.Instance.enemiesToAttack.Remove(this);
+            data.isInAttackQueue = false;
+            return true;
+        }
+        return false;
     }
 
 
@@ -47,5 +58,45 @@ public class EnemyView : View
     public bool activeInHierarchy()
     {
         return gameObject.activeInHierarchy;
+    }
+
+    public EnemyView SetEnemyForm(EnemyType enemyType)
+	{
+        switch (enemyType)
+        {
+            case EnemyType.NORMAL:
+                {
+                    DisableAllForm();
+                    normalForm.SetActive(true);
+                    break;
+                }
+            case EnemyType.FAST:
+                {
+                    DisableAllForm();
+                    fastForm.SetActive(true);
+                    break;
+                }
+            case EnemyType.BIG:
+                {
+                    DisableAllForm();
+					bigForm.SetActive(true);
+                    break;
+                }
+            case EnemyType.STRONG:
+                {
+                    DisableAllForm();
+					strongForm.SetActive(true);
+                    break;
+                }
+        }
+        return this;
+	}
+
+    private void DisableAllForm()
+    {
+		normalForm.SetActive(false);
+		fastForm.SetActive(false);
+		bigForm.SetActive(false);
+        strongForm.SetActive(false);
     }
 }

@@ -7,6 +7,5 @@ public class TowerShootCommand : Command {
 
 	public override void Execute(){
 		tower.Fire ();
-
 	}
 }

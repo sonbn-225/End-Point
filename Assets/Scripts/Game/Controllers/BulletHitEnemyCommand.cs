@@ -7,16 +7,16 @@ public class BulletHitEnemyCommand : Command {
 	public InformationBoard informationBoard { get; set; }
 
 	[Inject]
-    public float damage { get; set; }
+    public bool isKillEnemy { get; set; }
 
 	[Inject]
 	public EnemyView enemy { get; set; }
 
     public override void Execute() {
-        enemy.TakeDamage(damage);
-        if (enemy.data.health <= 0)
-        {
+        if (isKillEnemy)
+		{
 			informationBoard.AddScore(enemy.data.score);
+            EnemyPool.Instance.KillEnemy(enemy.id);
 		}
     }
 

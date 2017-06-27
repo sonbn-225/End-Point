@@ -7,4 +7,5 @@ public class GameModel : IGameModel
 {
     public int gameSpeed { get; set; }
     public Transform towerTransform { get; set; }
+    public float attackInterval { get; set; }
 }

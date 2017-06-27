@@ -35,7 +35,10 @@ public class ButtonClickCommand : Command {
                 UIManager.ClosePanelButtonClicked();
                 break;
             case "Speedx2Button":
-                gameModel.gameSpeed *= 2;
+                if (gameModel.gameSpeed <= 2)
+                {
+                    gameModel.gameSpeed *= 2;
+                }
                 break;
             case "IncreaseDamage":
                 towerdata.damage *= 1.1f;
@@ -43,6 +46,7 @@ public class ButtonClickCommand : Command {
                 break;
 			case "IncreaseAttackSpeed":
                 towerdata.attackSpeed += 1;
+                gameModel.attackInterval = 1f / (gameModel.gameSpeed * towerdata.attackSpeed);
                 informationBoard.UpdateInformationBoard();
 				break;
             case "IncreaseCritRate":

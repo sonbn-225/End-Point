@@ -15,6 +15,6 @@ public class BulletMediator : Mediator {
 
 	private void OnBulletHitEnemy(EnemyView enemy) {
         View.Reset();
-		BulletHitEnemySignal.Dispatch(View.data.damage, enemy);
+		BulletHitEnemySignal.Dispatch(View.data.isKillEnemy, enemy);
     }
 }

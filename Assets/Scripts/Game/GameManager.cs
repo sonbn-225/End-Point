@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour, IGameManager
 		towerData.health = 200f;
 		towerData.regenerateSpeed = 0f;
 		towerData.resourceBonus = 1f;
+
+        gameModel.attackInterval = 1f / (gameModel.gameSpeed * towerData.attackSpeed);
 	}
 
     public void InitPool()
