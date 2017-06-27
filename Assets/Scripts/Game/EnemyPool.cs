@@ -70,7 +70,7 @@ public class EnemyPool : MySingleton<EnemyPool>
         int nearestEnemyId = -1;
 		foreach (EnemyView enemy in enemiesToAttack)
 		{
-            if (enemy.data.health > 0)
+            if (enemy.data.health > 0 & enemy.data.isInAttackQueue)
             {
 				curDistance = Vector3.Distance(new Vector3(0, 0, 0), enemy.transform.position);
 				if (curDistance < minDistance)

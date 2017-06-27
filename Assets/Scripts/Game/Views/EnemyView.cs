@@ -7,6 +7,7 @@ public class EnemyView : View
     public IEnemy data { get; set; }
 
     public Signal enterAttackRangeSignal = new Signal();
+    public Signal enemyAttackSignal = new Signal();
 
     [Inject]
     public IGameModel gameModel { get; set; }
@@ -32,9 +33,7 @@ public class EnemyView : View
         }
     }
 
-    public Vector3 GetPosAfter(float time){
-        return transform.position + data.speed * (data.target - transform.position) * time;
-    }
+
 
     public bool TakeDamage(float damage)
     {

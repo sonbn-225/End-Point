@@ -58,7 +58,7 @@ public class TowerView : View {
             enemy = target,
             target = FirstOrderIntercept(bullet.transform.position, Vector3.zero, 20f * gameModel.gameSpeed, target.transform.position, Vector3.zero),
             isKillEnemy = isKillEnemy,
-            speed = 20f*gameModel.gameSpeed
+            speed = 40f*gameModel.gameSpeed
         };
 	}
 

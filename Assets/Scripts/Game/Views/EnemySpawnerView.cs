@@ -31,7 +31,6 @@ public class EnemySpawnerView : View, ISpawner {
         }
         enemy.transform.position = position;
         enemy.transform.forward = transform.forward;
-        enemy.setActive(true);
         enemy.data = new Enemy()
         {
             enemyType = enemyType,
@@ -42,5 +41,20 @@ public class EnemySpawnerView : View, ISpawner {
             target = gameModel.towerTransform.position,
             isInAttackQueue = false
         };
+        switch (enemyType)
+        {
+            case EnemyType.NORMAL:
+                break;
+            case EnemyType.FAST:
+                enemy.data.speed *= 2;
+                break;
+            case EnemyType.BIG:
+                enemy.data.health *= 2;
+                break;
+            case EnemyType.STRONG:
+                enemy.data.damage *= 2;
+                break;
+        }
+        enemy.setActive(true);
     }
 }
