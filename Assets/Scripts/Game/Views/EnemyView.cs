@@ -18,19 +18,35 @@ public class EnemyView : View
 
     public int id { get; set; }
 
+    private float timer = 1f, distance = Mathf.Infinity;
+
     public GameObject normalForm, fastForm, bigForm, strongForm;
 
     private void FixedUpdate()
     {
-        gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, gameModel.gameSpeed*data.speed * Time.deltaTime);
-        if (!data.isInAttackQueue)
+        if (!gameModel.isGameOver)
         {
-			if (Vector3.Distance(transform.position, data.target) <= towerData.attackRange)
+			gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, gameModel.gameSpeed * data.speed * Time.deltaTime);
+			if (!data.isInAttackQueue)
 			{
-				data.isInAttackQueue = true;
-                enterAttackRangeSignal.Dispatch();
+				distance = Vector3.Distance(transform.position, data.target);
+				if (distance <= towerData.attackRange)
+				{
+					data.isInAttackQueue = true;
+					enterAttackRangeSignal.Dispatch();
+				}
+			}
+			if (distance <= data.attackRange)
+			{
+				timer += Time.deltaTime;
+				if (timer >= 1f / gameModel.gameSpeed)
+				{
+					timer = 0f;
+					enemyAttackSignal.Dispatch();
+				}
 			}
         }
+
     }
 
 

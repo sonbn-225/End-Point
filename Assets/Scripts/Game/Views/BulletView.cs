@@ -3,6 +3,8 @@ using strange.extensions.mediation.impl;
 using strange.extensions.signal.impl;
 
 public class BulletView : View {
+    [Inject]
+    public IGameModel gameModel { get; set; }
 	public IBullet data { get; set; }
 
 	public bool Destroy (float dame)
@@ -23,7 +25,7 @@ public class BulletView : View {
         {
             BulletHitEnemySignal.Dispatch(data.enemy);
 			Reset();
-        } else if (gameObject.transform.position.y <= 0)
+        } else if (gameObject.transform.position.y <= 0 || gameModel.isGameOver)
         {
             Reset();
         }

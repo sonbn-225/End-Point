@@ -77,7 +77,6 @@ public class EnemyPool : MySingleton<EnemyPool>
 				{
 					nearestEnemyId = enemy.id;
 					minDistance = curDistance;
-					Debug.Log("Enemy Pool:" + enemy.data.health + " ID " + enemy.id + "  " + enemy.GetHashCode());
 				}
             }
 			

@@ -25,6 +25,7 @@ public class GameContext : MVCSContext {
         commandBinder.Bind<BulletHitEnemySignal>().To<BulletHitEnemyCommand>();
 		commandBinder.Bind<TowerShootSignal> ().To<TowerShootCommand> ();
         commandBinder.Bind<EnterAttackRangeSignal>().To<EnterAttackRangeCommand>();
+        commandBinder.Bind<EnemyAttackSignal>().To<EnemyAttackCommand>();
 
 		mediationBinder.Bind<TowerView>().To<TowerMediator>();
         mediationBinder.Bind<BulletView>().To<BulletMediator>();

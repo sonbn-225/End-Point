@@ -10,4 +10,5 @@ public interface IEnemy {
     float distance { get; set; }
     bool isInAttackQueue { get; set; }
 	Vector3 target { get; set; }
+    float attackRange { get; set; }
 }

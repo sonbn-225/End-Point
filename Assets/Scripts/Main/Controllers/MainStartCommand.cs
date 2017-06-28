@@ -13,5 +13,6 @@ public class MainStartCommand : Command {
         SceneManager.LoadScene("Game", LoadSceneMode.Additive);
         SceneManager.LoadScene("UI", LoadSceneMode.Additive);
         gameModel.gameSpeed = 1;
+        gameModel.isGameOver = false;
     }
 }

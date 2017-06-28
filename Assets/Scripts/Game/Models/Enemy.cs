@@ -21,5 +21,7 @@ public class Enemy : IEnemy {
 
     public bool isInAttackQueue { get; set; }
 
+    public float attackRange { get; set; }
+
     #endregion
 }

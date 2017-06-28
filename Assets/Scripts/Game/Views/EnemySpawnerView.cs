@@ -14,11 +14,16 @@ public class EnemySpawnerView : View, ISpawner {
     public IGameModel gameModel { get; set; }
 
     private void FixedUpdate() {
-		timer += Time.deltaTime;
-        if(timer > 1f/gameModel.gameSpeed) {
-			timer = 0f;
-			SpawnEnemySignal.Dispatch();
-		}
+        if (!gameModel.isGameOver)
+        {
+			timer += Time.deltaTime;
+			if (timer > 1f / gameModel.gameSpeed)
+			{
+				timer = 0f;
+				SpawnEnemySignal.Dispatch();
+			}
+        }
+		
 	}
 
 
@@ -36,10 +41,11 @@ public class EnemySpawnerView : View, ISpawner {
             enemyType = enemyType,
             speed = 2f,
             health = 200f,
-            damage = 2f,
+            damage = 20f,
             score = 10,
             target = gameModel.towerTransform.position,
-            isInAttackQueue = false
+            isInAttackQueue = false,
+            attackRange = 10f
         };
         switch (enemyType)
         {

@@ -7,4 +7,5 @@ public interface IGameModel
     int gameSpeed { get; set; }
     Transform towerTransform { get; set; }
     float attackInterval { get; set; }
+    bool isGameOver { get; set; }
 }

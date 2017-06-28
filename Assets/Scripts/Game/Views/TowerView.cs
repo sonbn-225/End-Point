@@ -26,17 +26,21 @@ public class TowerView : View {
 
 	private void FixedUpdate()
     {
-		timer += Time.deltaTime;
-        if (timer >= gameModel.attackInterval) 
+        if (!gameModel.isGameOver)
         {
-            target = EnemyPool.Instance.GetNearestEnemy();
-            if (target != null && target.data.health > 0)
+			timer += Time.deltaTime;
+			if (timer >= gameModel.attackInterval)
 			{
-                isKillEnemy = target.TakeDamage(data.damage);
-				TowerShootSignal.Dispatch();
+				target = EnemyPool.Instance.GetNearestEnemy();
+				if (target != null && target.data.health > 0)
+				{
+					isKillEnemy = target.TakeDamage(data.damage);
+					TowerShootSignal.Dispatch();
+				}
+				timer = 0f;
 			}
-            timer = 0f;
         }
+		
 	}
 
     private void Attack()
