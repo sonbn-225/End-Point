@@ -25,15 +25,22 @@ public class InformationBoardMediator : Mediator {
     }
 
     public void OnUpdateInformationBoard() {
-        View.SetScore(Mathf.RoundToInt(informationBoard.Score));
-        View.setAttack(Mathf.RoundToInt(towerData.damage));
-        View.setAttackSpeed(Mathf.RoundToInt(towerData.attackSpeed));
-        View.setCritRate(Mathf.RoundToInt(towerData.critRate));
-        View.setCritFactor(Mathf.RoundToInt(towerData.critFactor));
-        View.setAttackRange(Mathf.RoundToInt(towerData.attackRange));
-        View.setHealth(Mathf.RoundToInt(towerData.health));
-        View.setRegenerateHealthSpeed(Mathf.RoundToInt(towerData.regenerateSpeed));
-        View.setResourceBonus(Mathf.RoundToInt(towerData.resourceBonus));
+        if (informationBoard.isGameOver)
+        {
+            View.setGameOver();
+        } else 
+        {
+			View.SetScore(Mathf.RoundToInt(informationBoard.Score));
+			View.setAttack(Mathf.RoundToInt(towerData.damage));
+			View.setAttackSpeed(Mathf.RoundToInt(towerData.attackSpeed));
+			View.setCritRate(Mathf.RoundToInt(towerData.critRate));
+			View.setCritFactor(Mathf.RoundToInt(towerData.critFactor));
+			View.setAttackRange(Mathf.RoundToInt(towerData.attackRange));
+			View.setHealth(Mathf.RoundToInt(towerData.health));
+			View.setRegenerateHealthSpeed(Mathf.RoundToInt(towerData.regenerateSpeed));
+			View.setResourceBonus(Mathf.RoundToInt(towerData.resourceBonus));
+        }
+
     }
 
 }

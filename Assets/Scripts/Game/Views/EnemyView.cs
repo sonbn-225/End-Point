@@ -39,10 +39,11 @@ public class EnemyView : View
 			if (distance <= data.attackRange)
 			{
 				timer += Time.deltaTime;
-				if (timer >= 1f / gameModel.gameSpeed)
+				if (timer >= 0.5f / gameModel.gameSpeed)
 				{
 					timer = 0f;
 					enemyAttackSignal.Dispatch();
+                    Debug.Log("DAAHDB");
 				}
 			}
         }

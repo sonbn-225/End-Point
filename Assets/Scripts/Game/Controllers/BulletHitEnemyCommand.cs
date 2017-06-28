@@ -17,6 +17,7 @@ public class BulletHitEnemyCommand : Command {
 		{
 			informationBoard.AddScore(enemy.data.score);
             EnemyPool.Instance.KillEnemy(enemy.id);
+            informationBoard.UpdateInformationBoard();
 		}
     }
 

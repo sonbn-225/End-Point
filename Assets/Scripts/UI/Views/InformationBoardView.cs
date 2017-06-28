@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class InformationBoardView : View {
     private Text scoreText, attackText, healthText, attackSpeedText, critRateText, critFactorText, attackRangeText, regenerateHealthText, resourceBonusText;
-    public GameObject score, attack, health, attackSpeed, critRate, critFactor, attackRange, regenerateHealth, resourceBonus;
+    public GameObject score, attack, health, attackSpeed, critRate, critFactor, attackRange, regenerateHealth, resourceBonus, gameOver;
 
     protected override void Awake() {
         base.Awake();
@@ -61,5 +61,25 @@ public class InformationBoardView : View {
     public void setResourceBonus(float newValue)
     {
         resourceBonusText.text = "Resource Bonus: " + newValue;
+    }
+
+    public void setGameOver()
+    {
+        disableALl();
+        gameOver.SetActive(true);
+    }
+
+    private void disableALl()
+    {
+        score.SetActive(false);
+        attack.SetActive(false);
+        health.SetActive(false);
+        attackSpeed.SetActive(false); 
+        critRate.SetActive(false); 
+        critFactor.SetActive(false); 
+        attackRange.SetActive(false); 
+        regenerateHealth.SetActive(false); 
+        resourceBonus.SetActive(false);
+        gameOver.SetActive(false);
     }
 }

@@ -12,12 +12,17 @@ public class EnemyAttackCommand : Command {
     [Inject]
     public IGameModel gameModel { get; set; }
 
+	[Inject]
+	public InformationBoard informationBoard { get; set; }
+
     public override void Execute()
     {
         towerData.health -= damage;
         if (towerData.health <= 0)
         {
             gameModel.isGameOver = true;
+            informationBoard.GameOver();
         }
+        informationBoard.UpdateInformationBoard();
     }
 }
