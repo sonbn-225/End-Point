@@ -22,6 +22,10 @@ namespace endpoint.game
                 gameField.transform.localPosition = center;
                 gameField.transform.parent = contextView.transform;
 
+				GameObject ground = GameObject.Instantiate(Resources.Load("Ground")) as GameObject;
+                ground.transform.parent = gameField.transform;
+				ground.SetActive(true);
+
                 injectionBinder.Bind<GameObject>().ToValue(gameField).ToName(GameElement.GAME_FIELD);
             }
         }

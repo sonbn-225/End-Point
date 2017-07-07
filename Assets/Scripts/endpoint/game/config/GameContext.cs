@@ -41,6 +41,11 @@ namespace endpoint.game
 			//When a Signal isn't bound to a Command, it needs to be mapped, just like any other injected instance
 			injectionBinder.Bind<GameStartedSignal>().ToSingleton();
             injectionBinder.Bind<LevelStartedSignal>().ToSingleton();
+
+            injectionBinder.Bind<UpdateAttackSpeedSignal>().ToSingleton();
+            injectionBinder.Bind<UpdateGameSpeedSignal>().ToSingleton();
+            injectionBinder.Bind<UpdateIsGameOverSignal>().ToSingleton();
+            injectionBinder.Bind<UpdateIsExistEnemyInAttackRangeSignal>().ToSingleton();
             if (Context.firstContext ==  this)
             {
                 injectionBinder.Bind<UpdateLevelSignal>().ToSingleton();

@@ -21,6 +21,7 @@ namespace endpoint.game
         {
             score = 0;
             level = 1;
+            gameSpeed = 1;
         }
 	}
 }

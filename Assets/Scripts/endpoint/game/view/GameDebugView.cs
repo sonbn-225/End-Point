@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using strange.extensions.mediation.impl;
 using strange.extensions.signal.impl;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace endpoint.game
 {
@@ -25,6 +26,27 @@ namespace endpoint.game
         private int level;
         //current score
         private int score;
-	}
+
+        protected void OnGUI()
+        {
+            //display the correct UI, based on screenstate
+
+        }
+
+		internal void SetState(ScreenState state)
+		{
+			this.state = state;
+		}
+
+		internal void SetScore(int score)
+		{
+			this.score = score;
+		}
+
+		internal void SetLevel(int level)
+		{
+			this.level = level;
+		}
+    }
 }
 

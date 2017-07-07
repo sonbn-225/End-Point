@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 65000014180511974}
   - component: {fileID: 114000014042250958}
   m_Layer: 0
-  m_Name: tower
+  m_Name: Tower
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,6 +136,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
+  attackSpeed: 0
+  gameSpeed: 0
+  isGameOver: 0
+  isExistEnemyInAttackRange: 0
 --- !u!136 &136000012244404244
 CapsuleCollider:
   m_ObjectHideFlags: 1

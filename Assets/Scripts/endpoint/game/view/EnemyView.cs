@@ -18,12 +18,17 @@ namespace endpoint.game
 		[Inject]
 		public ITower towerData { get; set; }
 
-        public Renderer mainRenderer;
 		//new
 		public int level;
 		public void Init(int level, EnemyType type)
 		{
 			this.level = level;
+            SetEnemyForm(type);
+            this.data = new Enemy()
+            {
+                target = Vector3.zero,
+                speed = 2f
+            };
 		}
 
 		public int id { get; set; }
@@ -34,27 +39,23 @@ namespace endpoint.game
 
 		private void FixedUpdate()
 		{
-			if (!gameModel.isGameOver)
+            gameObject.transform.position = Vector3.MoveTowards(transform.localPosition, data.target, gameModel.gameSpeed * data.speed * Time.deltaTime);
+			if (!data.isInAttackQueue)
 			{
-				gameObject.transform.position = Vector3.MoveTowards(transform.position, data.target, gameModel.gameSpeed * data.speed * Time.deltaTime);
-				if (!data.isInAttackQueue)
+				distance = Vector3.Distance(transform.position, data.target);
+				if (distance <= towerData.attackRange)
 				{
-					distance = Vector3.Distance(transform.position, data.target);
-					if (distance <= towerData.attackRange)
-					{
-						data.isInAttackQueue = true;
-					}
-				}
-				if (distance <= data.attackRange)
-				{
-					timer += Time.deltaTime;
-					if (timer >= 0.5f / gameModel.gameSpeed)
-					{
-						timer = 0f;
-					}
+					data.isInAttackQueue = true;
 				}
 			}
-
+			if (distance <= data.attackRange)
+			{
+				timer += Time.deltaTime;
+				if (timer >= 0.5f / gameModel.gameSpeed)
+				{
+					timer = 0f;
+				}
+			}
 		}
 
 		public bool TakeDamage(float damage)

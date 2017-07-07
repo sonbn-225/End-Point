@@ -25,7 +25,7 @@ namespace endpoint.game
 
             GameObject towerGO = GameObject.Instantiate(towerStyle) as GameObject;
             towerGO.transform.localPosition = Vector3.zero;
-            towerGO.layer = LayerMask.NameToLayer("tower");
+            //towerGO.layer = LayerMask.NameToLayer("tower");
             towerGO.transform.parent = gameField.transform;
             injectionBinder.Bind<TowerView>().ToValue(towerGO.GetComponent<TowerView>()).ToName(GameElement.TOWER);
 

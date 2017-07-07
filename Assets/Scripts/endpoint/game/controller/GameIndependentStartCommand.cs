@@ -15,12 +15,17 @@ namespace endpoint.game
 		[Inject]
 		public IRoutineRunner routinerunner { get; set; }
 
+        [Inject]
+        public LevelStartSignal levelStartSignal { get; set; }
+
+        [Inject]
+        public GameStartSignal gameStartSignal { get; set; }
+
         public override void Execute()
         {
             Debug.Log("GameIndependentStart");
-            GameObject go = new GameObject("debug_view");
-            go.AddComponent<GameDebugView>();
-            go.transform.parent = contextView.transform;
+            gameStartSignal.Dispatch();
+            levelStartSignal.Dispatch();
         }
     }
 }
