@@ -21,11 +21,13 @@ namespace endpoint.game
     //EnemyView - reference to the specific enemy
     //bool - True indicates player gets points. False is simple cleanup.
     public class DestroyEnemySignal : Signal<EnemyView, bool> { }
+    //EnemyView - reference to which enemy enter attack range
+    public class EnterAttackRangeSignal : Signal<EnemyView>{}
 
     //Bullet
     //GameObject - The GameObject that fired the bullet
     //GameElemet - ID to indicate if it is a Player or Enemy missile
-    public class FireBulletSignal : Signal<GameObject, GameObject, GameElement> { }
+    public class FireBulletSignal : Signal<Vector3, GameObject, GameElement> { }
     //BulletView - reference to the specific bullet
     //GameElement - ID to indicate if it was a Player or Enemy missile
     public class DestroyBulletSignal : Signal<BulletView, GameElement> { }

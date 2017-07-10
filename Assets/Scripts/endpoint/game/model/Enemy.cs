@@ -7,6 +7,7 @@ namespace endpoint.game
 	public class Enemy : IEnemy
 	{
 		#region IEnemy implementation
+        public int level { get; set; }
 
 		public EnemyType enemyType { get; set; }
 
@@ -17,12 +18,6 @@ namespace endpoint.game
 		public float damage { get; set; }
 
 		public int score { get; set; }
-
-		public Vector3 target { get; set; }
-
-		public float distance { get; set; }
-
-		public bool isInAttackQueue { get; set; }
 
 		public float attackRange { get; set; }
 

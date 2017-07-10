@@ -9,10 +9,10 @@ namespace endpoint.game
 	public class FireBulletCommand : Command
 	{
         [Inject]
-        public GameObject towerGO { get; set; }
+        public Vector3 pos { get; set; }
 
         [Inject]
-        public GameObject targetEnemy { get; set; }
+        public GameObject target { get; set; }
 
         [Inject]
         public GameElement id { get; set; }
@@ -34,13 +34,14 @@ namespace endpoint.game
         public override void Execute()
         {
             GameObject bulletGO = (id == GameElement.ENEMY_BULLET_POOL) ? enemyBulletPool.GetInstance() : towerBulletPool.GetInstance();
-
-            bulletGO.transform.localPosition = towerGO.transform.localPosition;
+            bulletGO.transform.localPosition = pos;
+            bulletGO.transform.localScale = (id == GameElement.ENEMY_BULLET_POOL) ? new Vector3(0.25f, 0.25f, 0.25f) : new Vector3(0.5f, 0.5f, 0.5f);
             bulletGO.transform.parent = gameField.transform;
+            bulletGO.GetComponent<BulletView>().Init();
             bulletGO.GetComponent<BulletView>().data = new Bullet()
             {
-                enemy = targetEnemy.GetComponent<EnemyView>(),
-                target = FirstOrderIntercept(bulletGO.transform.position, Vector3.zero, 20f * gameModel.gameSpeed, targetEnemy.transform.localPosition, Vector3.zero),
+                targetObject = target,
+                targetPosition = FirstOrderIntercept(pos, Vector3.zero, 20f * gameModel.gameSpeed, target.transform.localPosition, Vector3.zero),
                 isKillEnemy = isKillEnemy,
                 speed = 40f*gameModel.gameSpeed
             };

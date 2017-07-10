@@ -8,54 +8,61 @@ namespace endpoint.game
 	{
 		public IEnemy data { get; set; }
 
-		//These Signals inform the Mediator that certain events have occurred
-		internal Signal exitScreenSignal = new Signal();
-		internal Signal fireWeaponSignal = new Signal();
+        //These Signals inform the Mediator that certain events have occurred
+        internal Signal enterAttackRangeSignal = new Signal();
+        internal Signal enemyAttackSignal = new Signal();
 
-		[Inject]
-		public IGameModel gameModel { get; set; }
+		public Vector3 target { get; set; }
 
-		[Inject]
-		public ITower towerData { get; set; }
+		public float distance { get; set; }
 
-		//new
-		public int level;
-		public void Init(int level, EnemyType type)
+		public bool isInAttackRange { get; set; }
+
+        private float towerAttackRange { get; set; }
+
+        private int gameSpeed { get; set; }
+
+        public void Init(float attackRange, int gameSpeed)
 		{
-			this.level = level;
-            SetEnemyForm(type);
-            this.data = new Enemy()
+            SetEnemyForm(data.enemyType);
+            target = GameObject.FindGameObjectWithTag("Tower").transform.localPosition;
+            distance = Vector3.Distance(gameObject.transform.localPosition, target);
+            towerAttackRange = attackRange;
+            this.gameSpeed = gameSpeed;
+            if (distance > towerAttackRange)
             {
-                target = Vector3.zero,
-                speed = 2f
-            };
+                isInAttackRange = false;
+            } else 
+            {
+                enterAttackRangeSignal.Dispatch();
+            }
 		}
 
-		public int id { get; set; }
-
-		private float timer = 1f, distance = Mathf.Infinity;
+		private float timer = 1f;
 
 		public GameObject normalForm, fastForm, bigForm, strongForm;
 
 		private void FixedUpdate()
 		{
-            gameObject.transform.position = Vector3.MoveTowards(transform.localPosition, data.target, gameModel.gameSpeed * data.speed * Time.deltaTime);
-			if (!data.isInAttackQueue)
+            gameObject.transform.position = Vector3.MoveTowards(transform.localPosition, target, gameSpeed * data.speed * Time.deltaTime);
+			if (!isInAttackRange)
 			{
-				distance = Vector3.Distance(transform.position, data.target);
-				if (distance <= towerData.attackRange)
+				distance = Vector3.Distance(transform.position, target);
+                if (distance <= towerAttackRange)
 				{
-					data.isInAttackQueue = true;
+                    enterAttackRangeSignal.Dispatch();
+				}
+				if (distance <= data.attackRange)
+				{
+					timer += Time.deltaTime;
+					if (timer >= 0.5f / gameSpeed)
+					{
+						enemyAttackSignal.Dispatch();
+						timer = 0f;
+					}
 				}
 			}
-			if (distance <= data.attackRange)
-			{
-				timer += Time.deltaTime;
-				if (timer >= 0.5f / gameModel.gameSpeed)
-				{
-					timer = 0f;
-				}
-			}
+			
 		}
 
 		public bool TakeDamage(float damage)
@@ -63,7 +70,7 @@ namespace endpoint.game
 			data.health -= damage;
 			if (data.health <= 0)
 			{
-				data.isInAttackQueue = false;
+				isInAttackRange = false;
 				return true;
 			}
 			return false;

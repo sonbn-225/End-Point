@@ -34,18 +34,13 @@ namespace endpoint.game
                     if (timer >= 1f/(gameSpeed*attackSpeed))
                     {
                         timer = 0f;
-                        Attack();
+                        towerShootSignal.Dispatch();
                     }
                 }
 			} else 
             {
                 destroyTowerSignal.Dispatch();
             }
-		}
-
-		private void Attack()
-		{
-            towerShootSignal.Dispatch();
 		}
 	}
 

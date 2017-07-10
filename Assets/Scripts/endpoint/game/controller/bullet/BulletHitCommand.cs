@@ -25,6 +25,7 @@ namespace endpoint.game
         public override void Execute()
         {
             GameObject explosionGO = pool.GetInstance();
+            explosionGO.AddComponent<ExplosionView>();
             explosionGO.SetActive(true);
             Vector3 pos = bulletView.transform.localPosition;
             explosionGO.transform.localPosition = pos;
@@ -38,7 +39,6 @@ namespace endpoint.game
             EnemyView enemyView = contact.GetComponent<EnemyView>();
             if (enemyView != null)
             {
-                explosionGO.GetComponent<Rigidbody>().velocity = enemyView.GetComponent<Rigidbody>().velocity;
                 destroyEnemySignal.Dispatch(enemyView, true);
             }
 

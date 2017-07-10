@@ -15,7 +15,7 @@ namespace endpoint.main
 		public override void Execute()
 		{
 			SceneManager.LoadScene("Game", LoadSceneMode.Additive);
-			//SceneManager.LoadScene("UI", LoadSceneMode.Additive);
+			SceneManager.LoadScene("UI", LoadSceneMode.Additive);
 		}
 	}
 }

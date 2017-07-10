@@ -19,7 +19,7 @@ public class Tower : ITower {
         attackSpeed = 1;
         critRate = 0f;
         critFactor = 0f;
-        attackSpeed = 10;
+        attackRange = 20;
         health = 500;
         regenerateSpeed = 0;
         resourceBonus = 0;

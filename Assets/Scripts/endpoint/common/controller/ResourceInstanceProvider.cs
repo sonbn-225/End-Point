@@ -46,7 +46,7 @@ namespace endpoint
 
 			//Copy the prototype
 			GameObject go = GameObject.Instantiate(prototype) as GameObject;
-			go.layer = layer;
+			//go.layer = layer;
 			go.name = resourceName + "_" + id++;
 
 			return go;

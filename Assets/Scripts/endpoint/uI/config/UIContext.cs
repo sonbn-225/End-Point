@@ -22,17 +22,25 @@ namespace endpoint.ui
             if (Context.firstContext == this)
             {
                 injectionBinder.Bind<GameEndSignal>().ToSingleton();
-                injectionBinder.Bind<GameInputSignal>().ToSingleton();
                 injectionBinder.Bind<GameStartSignal>().ToSingleton();
                 injectionBinder.Bind<LevelStartSignal>().ToSingleton();
                 injectionBinder.Bind<LevelEndSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateLevelSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateScoreSignal>().ToSingleton();
+
+                injectionBinder.Bind<ITower>().To<Tower>().ToSingleton();
             }
+
+			if (injectionBinder.GetBinding<GameObject>(UIElement.CANVAS) == null)
+			{
+				GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
+				injectionBinder.Bind<GameObject>().ToValue(canvas).ToName(UIElement.CANVAS);
+			}
 
 			//StartSignal is instantiated and fired in the SignalContext.
 			//When it fires, UIStartCommand is Executed.
-            commandBinder.Bind<StartSignal>().To<UIStartCommand>();
+            commandBinder.Bind<StartSignal>().
+                         To<UIStartCommand>();
             commandBinder.Bind<ButtonClickSignal>().To<ButtonClickCommand>();
 
 #if !UNITY_EDITOR && (UNITY_IPHONE || UNITY_ANDROID)

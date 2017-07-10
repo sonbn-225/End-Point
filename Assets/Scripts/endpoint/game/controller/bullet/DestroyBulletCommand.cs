@@ -24,8 +24,6 @@ namespace endpoint.game
 
         public override void Execute()
         {
-            bulletView.GetComponent<Rigidbody>().velocity = Vector3.zero;
-
             bulletView.transform.localPosition = PARKED_POS;
 
             if (id == GameElement.ENEMY_BULLET_POOL)

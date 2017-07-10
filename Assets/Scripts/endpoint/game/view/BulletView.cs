@@ -6,32 +6,26 @@ namespace endpoint.game
 {
 	public class BulletView : View
 	{
-		[Inject]
-		public IGameModel gameModel { get; set; }
 		public IBullet data { get; set; }
 
-		public bool Destroy(float dame)
+        internal Signal<GameObject> BulletHitEnemySignal = new Signal<GameObject>();
+
+        public bool isGameOver;
+
+        public void Init()
+        {
+            isGameOver = false;
+        }
+
+		private void FixedUpdate()
 		{
-			return true;
-		}
-
-		public readonly Signal<EnemyView> BulletHitEnemySignal = new Signal<EnemyView>();
-
-
-		protected override void Start()
-		{
-			base.Start();
-		}
-
-		private void Update()
-		{
-			transform.position = Vector3.MoveTowards(transform.position, data.target, data.speed * Time.deltaTime);
-			if (Vector3.Distance(data.enemy.transform.position, gameObject.transform.position) < 1f)
+			transform.position = Vector3.MoveTowards(transform.position, data.targetPosition, data.speed * Time.deltaTime);
+			if (Vector3.Distance(data.targetObject.transform.position, gameObject.transform.position) < 1f)
 			{
-				BulletHitEnemySignal.Dispatch(data.enemy);
+				BulletHitEnemySignal.Dispatch(data.targetObject);
 				Reset();
 			}
-			else if (gameObject.transform.position.y <= 0 || gameModel.isGameOver)
+			else if (gameObject.transform.position.y <= 0 || isGameOver)
 			{
 				Reset();
 			}

@@ -67,7 +67,7 @@ namespace endpoint.game
             Transform[] enemies = gameField.GetComponentsInChildren<Transform>();
             foreach (Transform enemy in enemies)
             {
-                if (enemy.name == "Enemy (clone)")
+                if (enemy.name.Contains("Enemy_"))
                 {
                     if (Vector3.Distance(enemy.transform.localPosition, view.transform.localPosition) < minDistance)
                     {
@@ -75,7 +75,9 @@ namespace endpoint.game
                     }
                 }
             }
-            fireBulletSignal.Dispatch(gameObject, currentTarget, GameElement.TOWER_BULLET_POOL);
+            Vector3 pos = gameObject.transform.localPosition;
+            pos.y += 4;
+            fireBulletSignal.Dispatch(pos, currentTarget, GameElement.TOWER_BULLET_POOL);
             currentTarget = null;
         }
 

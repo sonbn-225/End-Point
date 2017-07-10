@@ -37,12 +37,11 @@ namespace endpoint.game
         {
             if (isPointEarning)
             {
-                int level = enemyView.level;
+                int level = enemyView.data.level;
                 gameModel.score += gameConfig.baseEnemyScore * level;
                 updateScoreSignal.Dispatch(gameModel.score);
             }
 
-            enemyView.GetComponent<Rigidbody>().velocity = Vector3.zero;
             enemyView.gameObject.SetActive(false);
 
             enemyView.transform.localPosition = PARKED_POS;

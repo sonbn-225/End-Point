@@ -1,16 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using strange.extensions.mediation.impl;
+using strange.extensions.pool.api;
 using UnityEngine;
 
-public class ExplosionMediator : MonoBehaviour {
+namespace endpoint.game
+{
+    public class ExplosionMediator : Mediator
+    {
+        [Inject]
+        public ExplosionView view { get; set; }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        [Inject(GameElement.EXPLOSION_POOL)]
+		public IPool<GameObject> pool { get; set; }
+
+		private static Vector3 PARKED_POS = new Vector3(1000f, 0f, 1000f);
+
+        public override void OnRegister()
+        {
+            view.animationCompleteSignal.AddListener(onComplete);
+        }
+
+        private void onComplete()
+        {
+            view.gameObject.SetActive(false);
+            pool.ReturnInstance(view.gameObject);
+        }
+    }
 }

@@ -1,0 +1,7 @@
+﻿{
+  "speed": 2,
+  "health": 200,
+  "damage": 20,
+  "attackRange": 20,
+  "score": 10
+}

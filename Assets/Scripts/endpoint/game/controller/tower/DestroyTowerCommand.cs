@@ -45,7 +45,6 @@ namespace endpoint.game
                 GameObject explosionGO = GameObject.Instantiate(explosionProtoType) as GameObject;
                 Vector3 pos = towerView.transform.localPosition;
                 explosionGO.transform.localPosition = pos;
-                explosionGO.GetComponent<Rigidbody>().velocity = towerView.GetComponent<Rigidbody>().velocity;
                 explosionGO.transform.parent = towerView.transform.parent;
             }
 

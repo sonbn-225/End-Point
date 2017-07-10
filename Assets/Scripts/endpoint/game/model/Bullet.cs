@@ -7,9 +7,9 @@ namespace endpoint.game
 {
 	public class Bullet : IBullet
 	{
-		public EnemyView enemy { get; set; }
+        public GameObject targetObject { get; set; }
 
-		public Vector3 target { get; set; }
+		public Vector3 targetPosition { get; set; }
 
 		public bool isKillEnemy { get; set; }
 

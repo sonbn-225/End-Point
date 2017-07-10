@@ -14,6 +14,9 @@ namespace endpoint.game
 		[Inject(GameElement.ENEMY_POOL)]
         public IPool<GameObject> pool { get; set; }
 
+        [Inject]
+        public IGameConfig gameConfig { get; set; }
+
 		//Higher level Enemies are smaller, faster, fire more often, and are worth more points.
 		[Inject]
         public int level { get; set; }
@@ -25,6 +28,12 @@ namespace endpoint.game
         [Inject]
         public EnemyType type { get; set; }
 
+		[Inject]
+		public IGameModel gameModel { get; set; }
+
+		[Inject]
+		public ITower towerData { get; set; }
+
         public override void Execute()
         {
             GameObject enemyGO = pool.GetInstance();
@@ -32,7 +41,8 @@ namespace endpoint.game
             enemyGO.transform.parent = gameField.transform;
 
             enemyGO.SetActive(true);
-            enemyGO.GetComponent<EnemyView>().Init(level, type);
+            enemyGO.GetComponent<EnemyView>().data = gameConfig.GetEnemyData(level, type);
+            enemyGO.GetComponent<EnemyView>().Init(towerData.attackRange, gameModel.gameSpeed);
         }
 	}
 }

@@ -16,26 +16,29 @@ namespace endpoint.game
         [Inject]
         public FireBulletSignal fireBulletSignal { get; set; }
 
+        [Inject]
+        public EnterAttackRangeSignal enterAttackRangeSignal { get; set; }
+
 		public override void OnRegister()
 		{
-            view.exitScreenSignal.AddListener(onExitScreen);
-            view.fireWeaponSignal.AddListener(onFireWeapon);
+            view.enterAttackRangeSignal.AddListener(onEnterAttackRange);
+            view.enemyAttackSignal.AddListener(onEnemyAttack);
 		}
 
         public override void OnRemove()
         {
-            view.exitScreenSignal.RemoveListener(onExitScreen);
-            view.fireWeaponSignal.RemoveListener(onFireWeapon);
+            view.enterAttackRangeSignal.RemoveListener(onEnterAttackRange);
+            view.enemyAttackSignal.RemoveListener(onEnemyAttack);
         }
 
-        private void onExitScreen()
+        private void onEnterAttackRange()
         {
-            destroyEnemySignal.Dispatch(view, false);
+            enterAttackRangeSignal.Dispatch(view);
         }
 
-        private void onFireWeapon()
+        private void onEnemyAttack()
         {
-            fireBulletSignal.Dispatch(gameObject, GameObject.FindGameObjectWithTag("tower") ,GameElement.ENEMY_BULLET_POOL);
+            fireBulletSignal.Dispatch(gameObject.transform.localPosition, GameObject.FindGameObjectWithTag("Tower"), GameElement.ENEMY_BULLET_POOL);
         }
 	}
 

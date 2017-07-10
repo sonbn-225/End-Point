@@ -22,7 +22,7 @@ namespace endpoint.game
                 injectionBinder.Bind<IGameModel>().To<GameModel>().ToSingleton();
             }
 
-            injectionBinder.Bind<ITower>().To<Tower>().ToSingleton();
+            injectionBinder.Bind<ITower>().To<Tower>().ToSingleton().CrossContext();
             injectionBinder.Bind<ISpawner>().To<EnemySpawner>().ToSingleton();
             injectionBinder.Bind<IGameConfig>().To<GameConfig>().ToSingleton();
 
@@ -60,7 +60,8 @@ namespace endpoint.game
             } else 
             {
                 //Multi-context
-                commandBinder.Bind<StartSignal>().To<GameModuleStartCommand>().Once();
+                //commandBinder.Bind<StartSignal>().To<GameModuleStartCommand>().Once();
+                commandBinder.Bind<StartSignal>().To<GameIndependentStartCommand>().Once();
             }
 
 			//All the Signals/Commands necessary to play the game
@@ -71,13 +72,18 @@ namespace endpoint.game
 			//2. Binding a Signal to a Command automatically maps the signal for injection.
 			//   So it's only necessary to explicitly injectionBind Signals if they are NOT
 			//   mapped to Commands.
+            //Tower
 			commandBinder.Bind<CreateTowerSignal>().To<CreateTowerCommand>();
             commandBinder.Bind<DestroyTowerSignal>().To<DestroyTowerCommand>();
+            //Enemy
 			commandBinder.Bind<CreateEnemySignal>().To<CreateEnemyCommand>().Pooled();
             commandBinder.Bind<DestroyEnemySignal>().To<DestroyEnemyCommand>().Pooled();
+            commandBinder.Bind<EnterAttackRangeSignal>().To<EnterAttackRangeCommand>();
+            //Bullet
             commandBinder.Bind<FireBulletSignal>().To<FireBulletCommand>().Pooled();
             commandBinder.Bind<DestroyBulletSignal>().To<DestroyBulletCommand>().Pooled();
             commandBinder.Bind<BulletHitSignal>().To<BulletHitCommand>().Pooled();
+
             commandBinder.Bind<GameStartSignal>().To<GameStartCommand>();
             commandBinder.Bind<GameEndSignal>().To<EndGameCommand>();
 
