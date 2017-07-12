@@ -8,25 +8,28 @@ namespace endpoint.game
 	{
 		public IBullet data { get; set; }
 
-        internal Signal<GameObject> BulletHitEnemySignal = new Signal<GameObject>();
+        internal Signal<GameObject> BulletHitTargetSignal = new Signal<GameObject>();
 
         public bool isGameOver;
+        internal int gameSpeed;
 
-        public void Init()
+        public void Init(int gameSpeed)
         {
             isGameOver = false;
+            this.gameSpeed = gameSpeed;
         }
 
 		private void FixedUpdate()
 		{
-			transform.position = Vector3.MoveTowards(transform.position, data.targetPosition, data.speed * Time.deltaTime);
-			if (Vector3.Distance(data.targetObject.transform.position, gameObject.transform.position) < 1f)
+			transform.position = Vector3.MoveTowards(transform.position, data.targetPosition, gameSpeed * data.speed * Time.deltaTime);
+
+            if (gameObject.transform.position.y <= 0 && gameObject.name.Contains("Tower") || isGameOver)
 			{
-				BulletHitEnemySignal.Dispatch(data.targetObject);
 				Reset();
 			}
-			else if (gameObject.transform.position.y <= 0 || isGameOver)
+			else if (Vector3.Distance(data.targetPosition, gameObject.transform.position) < 1f)
 			{
+				BulletHitTargetSignal.Dispatch(data.targetObject);
 				Reset();
 			}
 		}

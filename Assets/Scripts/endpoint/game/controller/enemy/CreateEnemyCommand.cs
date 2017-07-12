@@ -42,7 +42,7 @@ namespace endpoint.game
 
             enemyGO.SetActive(true);
             enemyGO.GetComponent<EnemyView>().data = gameConfig.GetEnemyData(level, type);
-            enemyGO.GetComponent<EnemyView>().Init(towerData.attackRange, gameModel.gameSpeed);
+            enemyGO.GetComponent<EnemyView>().Init(towerData.attackRange, gameModel.gameSpeed, towerData.towerPosition);
         }
 	}
 }

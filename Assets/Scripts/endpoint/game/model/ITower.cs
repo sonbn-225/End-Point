@@ -13,5 +13,6 @@ public interface ITower {
 
 	float resourceBonus { get; set; }
 
+    Vector3 towerPosition { get; set; }
     void Init();
 }

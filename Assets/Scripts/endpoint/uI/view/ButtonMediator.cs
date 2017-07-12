@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using strange.extensions.mediation.impl;
 using UnityEngine;
@@ -13,29 +13,35 @@ namespace endpoint.ui
         [Inject]
         public ButtonClickSignal buttonClickSignal { get; set; }
 
-        protected void OnMouseDown()
+        public override void OnRegister()
         {
-            view.pressBegan();
+            base.OnRegister();
+            view.pressSignal.AddListener(onButtonClick);
         }
 
-        protected void OnMouseUp()
-        {
-            view.pressEnded();
-        }
+        //protected void OnMouseDown()
+        //{
+        //    view.pressBegan();
+        //}
 
-        protected void OnMouseEnter()
-        {
-            view.background.GetComponent<Renderer>().material.color = view.overColor;
-        }
+        //protected void OnMouseUp()
+        //{
+        //    view.pressEnded();
+        //}
 
-        protected void OnMouseExit()
-        {
-            view.background.GetComponent<Renderer>().material.color = view.normalColor;
-        }
+        //protected void OnMouseEnter()
+        //{
+        //    view.background.GetComponent<Renderer>().material.color = view.overColor;
+        //}
+
+        //protected void OnMouseExit()
+        //{
+        //    view.background.GetComponent<Renderer>().material.color = view.normalColor;
+        //}
 
         private void onButtonClick()
         {
-            buttonClickSignal.Dispatch(view.label);
+            buttonClickSignal.Dispatch(view.gameObject.name);
         }
     }
 }

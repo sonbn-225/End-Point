@@ -11,7 +11,7 @@ namespace endpoint.game
 		bool levelInProgress { get; set; }
 
 		int gameSpeed { get; set; }
-		Transform towerTransform { get; set; }
+		GameObject tower { get; set; }
 		float attackInterval { get; set; }
 		bool isGameOver { get; set; }
         bool isExistEnemyInAttackRange { get; set; }

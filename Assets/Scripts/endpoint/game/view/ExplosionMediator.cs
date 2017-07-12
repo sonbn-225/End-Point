@@ -24,6 +24,7 @@ namespace endpoint.game
         private void onComplete()
         {
             view.gameObject.SetActive(false);
+            view.gameObject.transform.localPosition = PARKED_POS;
             pool.ReturnInstance(view.gameObject);
         }
     }

@@ -15,6 +15,9 @@ namespace endpoint.game
         [Inject]
         public UpdateScoreSignal updateScoreSignal { get; set; }
 
+		[Inject]
+		public UpdateIsGameOverSignal updateIsGameOverSignal { get; set; }
+
         [Inject]
         public IGameModel gameModel { get; set; }
 
@@ -23,6 +26,9 @@ namespace endpoint.game
 
         [Inject]
         public IGameConfig gameConfig { get; set; }
+
+        [Inject]
+        public IEnemyManager enemyManager { get; set; }
 
 		public override void Execute()
 		{
@@ -33,9 +39,12 @@ namespace endpoint.game
             //Reset level and score in the gameModel
             gameModel.Reset();
 
+            //Init enemyManager
+            enemyManager.Init();
             //Update value
             updateLevelSignal.Dispatch(gameModel.level);
-            updateScoreSignal.Dispatch(gameModel.score);
+            updateScoreSignal.Dispatch();
+            updateIsGameOverSignal.Dispatch();
 
             //Begin the game
             gameStartedSignal.Dispatch();

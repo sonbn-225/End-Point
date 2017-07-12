@@ -25,6 +25,7 @@ namespace endpoint.game
             injectionBinder.Bind<ITower>().To<Tower>().ToSingleton().CrossContext();
             injectionBinder.Bind<ISpawner>().To<EnemySpawner>().ToSingleton();
             injectionBinder.Bind<IGameConfig>().To<GameConfig>().ToSingleton();
+            injectionBinder.Bind<IEnemyManager>().To<EnemyManager>().ToSingleton();
 
 			//Pools
 			//Pools provide a recycling system that makes the game much more efficient. Instead of destroying instances
@@ -43,9 +44,8 @@ namespace endpoint.game
             injectionBinder.Bind<LevelStartedSignal>().ToSingleton();
 
             injectionBinder.Bind<UpdateAttackSpeedSignal>().ToSingleton();
-            injectionBinder.Bind<UpdateGameSpeedSignal>().ToSingleton();
+            injectionBinder.Bind<UpdateGameSpeedSignal>().ToSingleton().CrossContext();
             injectionBinder.Bind<UpdateIsGameOverSignal>().ToSingleton();
-            injectionBinder.Bind<UpdateIsExistEnemyInAttackRangeSignal>().ToSingleton();
             if (Context.firstContext ==  this)
             {
                 injectionBinder.Bind<UpdateLevelSignal>().ToSingleton();
@@ -105,9 +105,7 @@ namespace endpoint.game
             mediationBinder.Bind<BulletView>().To<BulletMediator>();
             mediationBinder.Bind<ExplosionView>().To<ExplosionMediator>();
             mediationBinder.Bind<TowerView>().To<TowerMediator>();
-
-            mediationBinder.Bind<GameDebugView>().To<GameDebugMediator>();
-		}
+   		}
 
 		protected override void postBindings()
         {

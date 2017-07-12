@@ -29,6 +29,7 @@ namespace endpoint.game
             towerGO.transform.parent = gameField.transform;
             injectionBinder.Bind<TowerView>().ToValue(towerGO.GetComponent<TowerView>()).ToName(GameElement.TOWER);
 
+            gameModel.tower = towerGO;
             gameModel.levelInProgress = true;
         }
     }

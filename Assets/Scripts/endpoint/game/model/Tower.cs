@@ -13,6 +13,7 @@ public class Tower : ITower {
     public float regenerateSpeed { get; set; }
     public float resourceBonus { get; set; }
 
+    public Vector3 towerPosition { get; set; }
     public void Init()
     {
         damage = 100;

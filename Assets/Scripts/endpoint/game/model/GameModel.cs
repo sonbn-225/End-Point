@@ -12,7 +12,7 @@ namespace endpoint.game
         public bool levelInProgress { get; set; }
 
 		public int gameSpeed { get; set; }
-		public Transform towerTransform { get; set; }
+        public GameObject tower { get; set; }
 		public float attackInterval { get; set; }
 		public bool isGameOver { get; set; }
         public bool isExistEnemyInAttackRange { get; set; }
@@ -22,6 +22,7 @@ namespace endpoint.game
             score = 0;
             level = 1;
             gameSpeed = 1;
+            isGameOver = false;
         }
 	}
 }

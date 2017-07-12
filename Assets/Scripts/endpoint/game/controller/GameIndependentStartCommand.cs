@@ -23,7 +23,6 @@ namespace endpoint.game
 
         public override void Execute()
         {
-            Debug.Log("GameIndependentStart");
             gameStartSignal.Dispatch();
             levelStartSignal.Dispatch();
         }

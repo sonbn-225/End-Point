@@ -27,7 +27,7 @@ namespace endpoint.game
     //Bullet
     //GameObject - The GameObject that fired the bullet
     //GameElemet - ID to indicate if it is a Player or Enemy missile
-    public class FireBulletSignal : Signal<Vector3, GameObject, GameElement> { }
+    public class FireBulletSignal : Signal<Vector3, GameObject, GameElement, float> { }
     //BulletView - reference to the specific bullet
     //GameElement - ID to indicate if it was a Player or Enemy missile
     public class DestroyBulletSignal : Signal<BulletView, GameElement> { }
@@ -43,5 +43,4 @@ namespace endpoint.game
     public class UpdateGameSpeedSignal : Signal { }
     public class UpdateAttackSpeedSignal : Signal { }
     public class UpdateIsGameOverSignal : Signal { }
-    public class UpdateIsExistEnemyInAttackRangeSignal : Signal { }
 }

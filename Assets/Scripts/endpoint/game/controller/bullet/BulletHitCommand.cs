@@ -11,7 +11,7 @@ namespace endpoint.game
         public BulletView bulletView { get; set; }
 
         [Inject]
-        public GameObject contact { get; set; }
+        public GameObject target { get; set; }
 
         [Inject(GameElement.EXPLOSION_POOL)]
         public IPool<GameObject> pool { get; set; }
@@ -21,6 +21,15 @@ namespace endpoint.game
 
         [Inject]
         public DestroyBulletSignal destroyBulletSignal { get; set; }
+
+        [Inject]
+        public DestroyTowerSignal destroyTowerSignal { get; set; }
+
+        [Inject]
+        public UpdateScoreSignal updateScoreSignal { get; set; }
+
+        [Inject]
+        public ITower towerData { get; set; }
 
         public override void Execute()
         {
@@ -36,13 +45,22 @@ namespace endpoint.game
             destroyBulletSignal.Dispatch(bulletView, id);
 
             //When hit...
-            EnemyView enemyView = contact.GetComponent<EnemyView>();
-            if (enemyView != null)
+            EnemyView enemyView = target.GetComponent<EnemyView>();
+            if (enemyView != null && bulletView.data.isKillEnemy)
             {
                 destroyEnemySignal.Dispatch(enemyView, true);
             }
 
-            BulletView otherBulletView = contact.GetComponent<BulletView>();
+            TowerView towerView = target.GetComponent<TowerView>();
+            if (towerView != null)
+            {
+                updateScoreSignal.Dispatch();
+                if (towerData.health <= 0)
+                {
+                    destroyTowerSignal.Dispatch(towerView, true);
+                }
+            }
+            BulletView otherBulletView = target.GetComponent<BulletView>();
             if (otherBulletView != null)
             {
                 GameElement otherID = (id == GameElement.ENEMY_BULLET_POOL) ? GameElement.TOWER_BULLET_POOL : GameElement.ENEMY_BULLET_POOL;

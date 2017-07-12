@@ -12,10 +12,13 @@ namespace endpoint.game
 		[Inject]
 		public EnemyView enemy { get; set; }
 
+        [Inject]
+        public IEnemyManager enemyManager { get; set; }
+
         public override void Execute()
         {
             enemy.isInAttackRange = true;
-            GameObject.FindGameObjectWithTag("Tower").GetComponent<TowerView>().isExistEnemyInAttackRange = true;
+            enemyManager.addEnemy(enemy.gameObject);
         }
 	}
 }

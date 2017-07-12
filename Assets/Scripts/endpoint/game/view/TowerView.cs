@@ -9,37 +9,31 @@ namespace endpoint.game
 	public class TowerView : View
 	{
         internal Signal towerShootSignal = new Signal();
-        internal Signal destroyTowerSignal = new Signal();
+        //internal Signal destroyTowerSignal = new Signal();
 
 		public float timer = 0f;
         public int attackSpeed, gameSpeed;
-        public bool isGameOver, isExistEnemyInAttackRange;
+        public bool isGameOver;
 
-        public void Init(int attackSpeed, int gameSpeed, bool isGameOver, bool isExistEnemyInAttackRange)
+        public void Init(int attackSpeed, int gameSpeed, bool isGameOver)
         {
             timer = 0f;
             this.attackSpeed = attackSpeed;
             this.gameSpeed = gameSpeed;
             this.isGameOver = isGameOver;
-            this.isExistEnemyInAttackRange = isExistEnemyInAttackRange;
         }
 
 		private void FixedUpdate()
 		{
-			if (!isGameOver)
-			{
-                if (isExistEnemyInAttackRange)
-                {
-                    timer += Time.deltaTime;
-                    if (timer >= 1f/(gameSpeed*attackSpeed))
-                    {
-                        timer = 0f;
-                        towerShootSignal.Dispatch();
-                    }
-                }
-			} else 
+            if (!isGameOver)
             {
-                destroyTowerSignal.Dispatch();
+                timer += Time.deltaTime;
+                if (timer >= 1f / (gameSpeed * attackSpeed))
+                {
+                    timer = 0f;
+                    Debug.Log("Tower attack");
+                    towerShootSignal.Dispatch();
+                }
             }
 		}
 	}

@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 222364063323704198}
   - component: {fileID: 114089421217064674}
   - component: {fileID: 114605591719627618}
+  - component: {fileID: 114545838420544346}
   m_Layer: 5
   m_Name: IncreaseHealth
   m_TagString: Untagged
@@ -58,6 +59,7 @@ GameObject:
   - component: {fileID: 222032852333607294}
   - component: {fileID: 114317687958038428}
   - component: {fileID: 114882293965455534}
+  - component: {fileID: 114106366600625146}
   m_Layer: 5
   m_Name: ClosePanelButton
   m_TagString: Untagged
@@ -127,6 +129,7 @@ GameObject:
   - component: {fileID: 222470444804236826}
   - component: {fileID: 114270388781932464}
   - component: {fileID: 114685870663497008}
+  - component: {fileID: 114807676000102842}
   m_Layer: 5
   m_Name: IncreaseRegenerateHealthSpeed
   m_TagString: Untagged
@@ -144,7 +147,6 @@ GameObject:
   - component: {fileID: 224396641435496288}
   - component: {fileID: 222357367926368494}
   - component: {fileID: 114605690977929614}
-  - component: {fileID: 114245213469480118}
   m_Layer: 5
   m_Name: DefendPanel
   m_TagString: AttackPanel
@@ -239,18 +241,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114245213469480118
+--- !u!114 &114106366600625146
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1878251332845386}
+  m_GameObject: {fileID: 1666924906044940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c18d52c46acc4a31a2251f7fb0379d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 96fce38c704c14fdd82e2d0dcc896322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonName: 
 --- !u!114 &114270388781932464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,6 +306,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114545838420544346
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1525827232755692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fce38c704c14fdd82e2d0dcc896322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114605591719627618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -343,18 +355,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114089421217064674}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114245213469480118}
-        m_MethodName: ButtonClicked
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 224750010681971312}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114605690977929614
@@ -422,20 +423,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114270388781932464}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114245213469480118}
-        m_MethodName: ButtonClicked
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 224585020627608308}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114807676000102842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1861875171859808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fce38c704c14fdd82e2d0dcc896322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114856445182303700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -497,18 +498,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114317687958038428}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114245213469480118}
-        m_MethodName: ButtonClicked
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 224008659798943142}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114909267810675292

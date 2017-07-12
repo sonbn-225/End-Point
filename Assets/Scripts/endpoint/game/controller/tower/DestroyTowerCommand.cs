@@ -23,9 +23,6 @@ namespace endpoint.game
         public GameEndSignal gameEndSignal { get; set; }
 
         [Inject]
-        public CreateTowerSignal createTowerSignal { get; set; }
-
-        [Inject]
         public IRoutineRunner routineRunner { get; set; }
 
         public override void Execute()
@@ -51,10 +48,6 @@ namespace endpoint.game
             if (towerData.health <= 0)
             {
                 gameEndSignal.Dispatch();
-            } else
-            {
-				Retain();
-				routineRunner.StartCoroutine(waitThenCreateTower());
             }
 
             GameObject.Destroy(towerView.gameObject);
@@ -62,13 +55,6 @@ namespace endpoint.game
             {
                 injectionBinder.Unbind<TowerView>(GameElement.TOWER);
             }
-        }
-
-        private IEnumerator waitThenCreateTower()
-        {
-            yield return new WaitForSeconds(2f);
-            createTowerSignal.Dispatch();
-            Release();
         }
     }
 }

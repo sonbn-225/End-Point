@@ -19,10 +19,25 @@ namespace endpoint.game
         [Inject]
         public EnterAttackRangeSignal enterAttackRangeSignal { get; set; }
 
+		[Inject]
+		public UpdateGameSpeedSignal updateGameSpeedSignal { get; set; }
+
+		[Inject]
+		public UpdateIsGameOverSignal updateIsGameOverSignal { get; set; }
+
+        [Inject]
+        public GameEndSignal gameEndSignal { get; set; }
+
+		[Inject]
+		public IGameModel gameModel { get; set; }
+
 		public override void OnRegister()
 		{
             view.enterAttackRangeSignal.AddListener(onEnterAttackRange);
             view.enemyAttackSignal.AddListener(onEnemyAttack);
+            updateGameSpeedSignal.AddListener(onUpdateGameSpeed);
+            gameEndSignal.AddListener(onUpdateGameEnd);
+            updateIsGameOverSignal.AddListener(onUpdateGameEnd);
 		}
 
         public override void OnRemove()
@@ -38,7 +53,18 @@ namespace endpoint.game
 
         private void onEnemyAttack()
         {
-            fireBulletSignal.Dispatch(gameObject.transform.localPosition, GameObject.FindGameObjectWithTag("Tower"), GameElement.ENEMY_BULLET_POOL);
+            fireBulletSignal.Dispatch(gameObject.transform.position, gameModel.tower, GameElement.ENEMY_BULLET_POOL, view.data.damage);
+        }
+
+		private void onUpdateGameSpeed()
+		{
+			view.gameSpeed = gameModel.gameSpeed;
+		}
+
+        private void onUpdateGameEnd()
+        {
+            
+            view.isGameOver = true;
         }
 	}
 

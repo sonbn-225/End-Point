@@ -31,6 +31,9 @@ namespace endpoint.game
         [Inject]
         public IGameConfig gameConfig { get; set; }
 
+        [Inject]
+        public IEnemyManager enemyManager { get; set; }
+
         private static Vector3 PARKED_POS = new Vector3(1000f, 0f, 1000f);
 
         public override void Execute()
@@ -38,14 +41,14 @@ namespace endpoint.game
             if (isPointEarning)
             {
                 int level = enemyView.data.level;
-                gameModel.score += gameConfig.baseEnemyScore * level;
-                updateScoreSignal.Dispatch(gameModel.score);
+                gameModel.score += enemyView.data.score;
+                updateScoreSignal.Dispatch();
             }
 
             enemyView.gameObject.SetActive(false);
 
             enemyView.transform.localPosition = PARKED_POS;
-
+            enemyManager.removeEnemy(enemyView.gameObject);
             pool.ReturnInstance(enemyView.gameObject);
         }
     }

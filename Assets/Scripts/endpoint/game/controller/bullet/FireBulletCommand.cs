@@ -17,6 +17,9 @@ namespace endpoint.game
         [Inject]
         public GameElement id { get; set; }
 
+        [Inject]
+        public float damage { get; set; }
+
         [Inject(GameElement.GAME_FIELD)]
         public GameObject gameField { get; set; }
 
@@ -29,23 +32,52 @@ namespace endpoint.game
         [Inject]
         public IGameModel gameModel { get; set; }
 
+        [Inject]
+        public ITower towerData { get; set; }
+
         private bool isKillEnemy = false;
 
         public override void Execute()
         {
-            GameObject bulletGO = (id == GameElement.ENEMY_BULLET_POOL) ? enemyBulletPool.GetInstance() : towerBulletPool.GetInstance();
-            bulletGO.transform.localPosition = pos;
-            bulletGO.transform.localScale = (id == GameElement.ENEMY_BULLET_POOL) ? new Vector3(0.25f, 0.25f, 0.25f) : new Vector3(0.5f, 0.5f, 0.5f);
-            bulletGO.transform.parent = gameField.transform;
-            bulletGO.GetComponent<BulletView>().Init();
-            bulletGO.GetComponent<BulletView>().data = new Bullet()
+            if (!gameModel.isGameOver)
             {
-                targetObject = target,
-                targetPosition = FirstOrderIntercept(pos, Vector3.zero, 20f * gameModel.gameSpeed, target.transform.localPosition, Vector3.zero),
-                isKillEnemy = isKillEnemy,
-                speed = 40f*gameModel.gameSpeed
-            };
-            bulletGO.SetActive(true);
+				GameObject bulletGO = (id == GameElement.ENEMY_BULLET_POOL) ? enemyBulletPool.GetInstance() : towerBulletPool.GetInstance();
+				bulletGO.transform.position = pos;
+				bulletGO.transform.localScale = (id == GameElement.ENEMY_BULLET_POOL) ? new Vector3(0.25f, 0.25f, 0.25f) : new Vector3(0.5f, 0.5f, 0.5f);
+				bulletGO.transform.parent = gameField.transform;
+				bulletGO.GetComponent<BulletView>().Init(gameModel.gameSpeed);
+				if (id == GameElement.ENEMY_BULLET_POOL)
+				{
+					towerData.health -= damage;
+                    if (towerData.health <= 0)
+                    {
+                        isKillEnemy = true;
+                    } else
+                    {
+                        isKillEnemy = false;
+                    }
+				}
+				else
+				{
+					target.GetComponent<EnemyView>().data.health -= damage;
+					if (target.GetComponent<EnemyView>().data.health <= 0)
+					{
+						isKillEnemy = true;
+					}
+					else
+					{
+						isKillEnemy = false;
+					}
+				}
+				bulletGO.GetComponent<BulletView>().data = new Bullet()
+				{
+					targetObject = target,
+					targetPosition = FirstOrderIntercept(pos, Vector3.zero, 20f * gameModel.gameSpeed, target.transform.position, Vector3.zero),
+					isKillEnemy = isKillEnemy,
+					speed = 40f * gameModel.gameSpeed
+				};
+				bulletGO.SetActive(true);
+            }
         }
 
 		//first-order intercept using absolute target position

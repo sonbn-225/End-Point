@@ -18,15 +18,19 @@ namespace endpoint.game
 
 		public bool isInAttackRange { get; set; }
 
-        private float towerAttackRange { get; set; }
+        internal float towerAttackRange { get; set; }
 
-        private int gameSpeed { get; set; }
+        internal int gameSpeed { get; set; }
 
-        public void Init(float attackRange, int gameSpeed)
+        public bool isGameOver;
+
+        public bool isReachTower;
+
+        public void Init(float attackRange, int gameSpeed, Vector3 tower)
 		{
             SetEnemyForm(data.enemyType);
-            target = GameObject.FindGameObjectWithTag("Tower").transform.localPosition;
-            distance = Vector3.Distance(gameObject.transform.localPosition, target);
+            target = tower;
+            distance = Vector3.Distance(gameObject.transform.position, target);
             towerAttackRange = attackRange;
             this.gameSpeed = gameSpeed;
             if (distance > towerAttackRange)
@@ -36,6 +40,8 @@ namespace endpoint.game
             {
                 enterAttackRangeSignal.Dispatch();
             }
+            isReachTower = false;
+            isGameOver = false;
 		}
 
 		private float timer = 1f;
@@ -44,25 +50,39 @@ namespace endpoint.game
 
 		private void FixedUpdate()
 		{
-            gameObject.transform.position = Vector3.MoveTowards(transform.localPosition, target, gameSpeed * data.speed * Time.deltaTime);
-			if (!isInAttackRange)
-			{
+            if (!isGameOver)
+            {
 				distance = Vector3.Distance(transform.position, target);
-                if (distance <= towerAttackRange)
+				if (!isReachTower)
 				{
-                    enterAttackRangeSignal.Dispatch();
+					gameObject.transform.position = Vector3.MoveTowards(transform.localPosition, target, gameSpeed * data.speed * Time.deltaTime);
 				}
-				if (distance <= data.attackRange)
+				if (!isInAttackRange)
 				{
-					timer += Time.deltaTime;
-					if (timer >= 0.5f / gameSpeed)
+					if (distance <= towerAttackRange)
 					{
-						enemyAttackSignal.Dispatch();
-						timer = 0f;
+						enterAttackRangeSignal.Dispatch();
 					}
 				}
-			}
-			
+				else
+				{
+					//Enemy attack
+					if (distance <= data.attackRange)
+					{
+						timer += Time.deltaTime;
+						if (timer >= 0.5f / gameSpeed)
+						{
+							enemyAttackSignal.Dispatch();
+							timer = 0f;
+						}
+					}
+					if (distance < 1)
+					{
+						isReachTower = true;
+						gameObject.GetComponentInChildren<Rigidbody>().isKinematic = true;
+					}
+				}
+            }
 		}
 
 		public bool TakeDamage(float damage)

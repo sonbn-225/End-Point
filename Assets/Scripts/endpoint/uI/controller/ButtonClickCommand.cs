@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using System.Collections;
 using strange.extensions.command.impl;
 using endpoint.game;
@@ -16,16 +16,54 @@ namespace endpoint.ui
 		[Inject]
 		public IGameModel gameModel { get; set; }
 
+        [Inject]
+        public UpdateGameSpeedSignal updateGameSpeedSignal { get; set; }
+
+        [Inject(UIElement.ATTACK_PANEL)]
+        public GameObject attackPanel { get; set; }
+
+        [Inject(UIElement.DEFEND_PANEL)]
+        public GameObject defendPanel { get; set; }
+
+        [Inject(UIElement.RESOURCE_PANEL)]
+        public GameObject resourcePanel { get; set; }
+
+        [Inject(UIElement.GAMEOVER_PANEL)]
+        public GameObject gameOverPanel { get; set; }
+
+		[Inject]
+		public GameStartSignal gameStartSignal { get; set; }
+
+		[Inject]
+		public LevelStartSignal levelStartSignal { get; set; }
+
 		public override void Execute()
 		{
+            Debug.Log(label);
 			switch (label)
 			{
 				case "Speedx2Button":
 					if (gameModel.gameSpeed <= 2)
 					{
 						gameModel.gameSpeed *= 2;
+                        updateGameSpeedSignal.Dispatch();
 					}
 					break;
+                case "AttackButton":
+                    disableAllPanel();
+                    attackPanel.gameObject.SetActive(true);
+                    break;
+				case "DefendButton":
+					disableAllPanel();
+					defendPanel.gameObject.SetActive(true);
+					break;
+				case "ResourceButton":
+					disableAllPanel();
+					resourcePanel.gameObject.SetActive(true);
+					break;
+                case "ClosePanelButton":
+                    disableAllPanel();
+                    break;
 				case "IncreaseDamage":
 					towerdata.damage *= 1.1f;
 					break;
@@ -51,10 +89,22 @@ namespace endpoint.ui
 				case "IncreaseResourceBonus":
 					towerdata.resourceBonus *= 1.1f;
 					break;
+                case "Restart":
+                    gameOverPanel.SetActive(false);
+                    gameStartSignal.Dispatch();
+                    levelStartSignal.Dispatch();
+                    break;
 				default:
 					break;
 			}
 		}
+
+        private void disableAllPanel()
+        {
+            attackPanel.gameObject.SetActive(false);
+            defendPanel.gameObject.SetActive(false);
+            resourcePanel.gameObject.SetActive(false);
+        }
 	}
 
 }

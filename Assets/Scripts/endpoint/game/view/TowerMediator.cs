@@ -29,61 +29,46 @@ namespace endpoint.game
         public UpdateIsGameOverSignal updateIsGameOverSignal { get; set; }
 
         [Inject]
-        public UpdateIsExistEnemyInAttackRangeSignal updateIsExistEnemyInAttackRangeSignal { get; set; }
-
-        [Inject]
         public IGameModel gameModel { get; set; }
 
         [Inject]
         public ITower towerData { get; set; }
 
-        private GameObject currentTarget;
+        [Inject]
+        public IEnemyManager enemyManager { get; set; }
+
+        [Inject]
+        public GameEndSignal gameEndSignal { get; set; }
 
 		public override void OnRegister()
 		{
             view.towerShootSignal.AddListener(onTowerShoot);
-            view.destroyTowerSignal.AddListener(onTowerDestroy);
-            view.Init(towerData.attackSpeed, gameModel.gameSpeed, gameModel.isGameOver, gameModel.isExistEnemyInAttackRange);
+            view.Init(towerData.attackSpeed, gameModel.gameSpeed, gameModel.isGameOver);
+            towerData.towerPosition = view.transform.position;
 
             updateAttackSpeedSignal.AddListener(onUpdateAttackSpeed);
             updateGameSpeedSignal.AddListener(onUpdateGameSpeed);
             updateIsGameOverSignal.AddListener(onUpdateIsGameOver);
-            updateIsExistEnemyInAttackRangeSignal.AddListener(onUpdateIsExistEnemyInAttackRange);
+            gameEndSignal.AddListener(onUpdateIsGameOver);
 		}
 
         public override void OnRemove()
         {
             view.towerShootSignal.RemoveListener(onTowerShoot);
-            view.destroyTowerSignal.RemoveListener(onTowerDestroy);
             updateAttackSpeedSignal.RemoveListener(onUpdateAttackSpeed);
             updateGameSpeedSignal.RemoveListener(onUpdateGameSpeed);
             updateIsGameOverSignal.RemoveListener(onUpdateIsGameOver);
-            updateIsExistEnemyInAttackRangeSignal.RemoveListener(onUpdateIsExistEnemyInAttackRange);
         }
 
         private void onTowerShoot()
         {
-            float minDistance = Mathf.Infinity;
-            Transform[] enemies = gameField.GetComponentsInChildren<Transform>();
-            foreach (Transform enemy in enemies)
+            GameObject target = enemyManager.getNearestEnemy();
+            if (target != null)
             {
-                if (enemy.name.Contains("Enemy_"))
-                {
-                    if (Vector3.Distance(enemy.transform.localPosition, view.transform.localPosition) < minDistance)
-                    {
-                        currentTarget = enemy.gameObject;
-                    }
-                }
+				Vector3 pos = gameObject.transform.localPosition;
+				pos.y += 4;
+                fireBulletSignal.Dispatch(pos, target, GameElement.TOWER_BULLET_POOL, towerData.damage); 
             }
-            Vector3 pos = gameObject.transform.localPosition;
-            pos.y += 4;
-            fireBulletSignal.Dispatch(pos, currentTarget, GameElement.TOWER_BULLET_POOL);
-            currentTarget = null;
-        }
-
-        private void onTowerDestroy()
-        {
-            destroyTowerSignal.Dispatch(view, false);
         }
 
         private void onUpdateAttackSpeed()
@@ -99,11 +84,6 @@ namespace endpoint.game
         private void onUpdateIsGameOver()
         {
             view.isGameOver = gameModel.isGameOver;
-        }
-
-        private void onUpdateIsExistEnemyInAttackRange()
-        {
-            view.isExistEnemyInAttackRange = gameModel.isExistEnemyInAttackRange;
         }
 	}
 }
