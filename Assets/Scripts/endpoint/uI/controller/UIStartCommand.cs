@@ -10,6 +10,9 @@ namespace endpoint.ui
         [Inject(UIElement.CANVAS)]
         public GameObject canvas { get; set; }
 
+        [Inject]
+        public ISocialService socialService { get; set; }
+
 		public override void Execute()
         {
 			GameObject buttonPanel = GameObject.Instantiate(Resources.Load("ButtonPanel")) as GameObject;
@@ -39,7 +42,9 @@ namespace endpoint.ui
             gameOverPanel.transform.SetParent(canvas.transform, false);
             gameOverPanel.SetActive(false);
             injectionBinder.Bind<GameObject>().ToValue(gameOverPanel).ToName(UIElement.GAMEOVER_PANEL).CrossContext();
-		}
+		    
+            socialService.Init();
+        }
 	}
 }
 

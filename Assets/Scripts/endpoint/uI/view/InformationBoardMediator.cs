@@ -18,12 +18,21 @@ namespace endpoint.ui
         public UpdateScoreSignal updateScoreSignal { get; set; }
 
         [Inject]
+        public UpdateLoginStatusSignal updateLoginStatusSignal { get; set; }
+
+        [Inject]
         public IGameModel gameModel { get; set; }
+
+        [Inject]
+        public ISocialService socialService { get; set; }
 
 		public override void OnRegister()
 		{
 			base.OnRegister();
             updateScoreSignal.AddListener(OnUpdateInformationBoard);
+            updateLoginStatusSignal.AddListener(OnUpdateLoginStatus);
+            updateLoginStatusSignal.Dispatch();
+            updateScoreSignal.Dispatch();
 		}
 
 		public override void OnRemove()
@@ -31,7 +40,7 @@ namespace endpoint.ui
 			base.OnRemove();
 		}
 
-		public void OnUpdateInformationBoard()
+        private void OnUpdateInformationBoard()
         {
             View.SetScore(gameModel.score);
 			View.setAttack(Mathf.RoundToInt(towerData.damage));
@@ -44,6 +53,10 @@ namespace endpoint.ui
 			View.setResourceBonus(Mathf.RoundToInt(towerData.resourceBonus));
 		}
 
+        private void OnUpdateLoginStatus()
+        {
+            View.setLoginPanel(socialService.isLoggedIn());
+        }
 	}
 
 }

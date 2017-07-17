@@ -27,7 +27,7 @@ namespace endpoint.ui
                 injectionBinder.Bind<LevelEndSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateLevelSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateScoreSignal>().ToSingleton();
-
+                injectionBinder.Bind<UpdateLoginStatusSignal>().ToSingleton();
                 injectionBinder.Bind<ITower>().To<Tower>().ToSingleton();
             }
 
@@ -36,6 +36,8 @@ namespace endpoint.ui
 				GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
 				injectionBinder.Bind<GameObject>().ToValue(canvas).ToName(UIElement.CANVAS);
 			}
+
+            injectionBinder.Bind<ISocialService>().To<SocialService>().ToSingleton();
 
 			//StartSignal is instantiated and fired in the SignalContext.
 			//When it fires, UIStartCommand is Executed.

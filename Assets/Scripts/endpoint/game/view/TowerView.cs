@@ -31,7 +31,6 @@ namespace endpoint.game
                 if (timer >= 1f / (gameSpeed * attackSpeed))
                 {
                     timer = 0f;
-                    Debug.Log("Tower attack");
                     towerShootSignal.Dispatch();
                 }
             }

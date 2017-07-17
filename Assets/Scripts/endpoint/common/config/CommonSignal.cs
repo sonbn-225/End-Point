@@ -17,4 +17,5 @@ namespace endpoint
 
     //UI
     public class ButtonClickSignal : Signal<string>{}
+    public class UpdateLoginStatusSignal : Signal{}
 }

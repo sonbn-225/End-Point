@@ -37,6 +37,9 @@ namespace endpoint.ui
 		[Inject]
 		public LevelStartSignal levelStartSignal { get; set; }
 
+        [Inject]
+        public ISocialService socialService { get; set; }
+
 		public override void Execute()
 		{
             Debug.Log(label);
@@ -93,6 +96,9 @@ namespace endpoint.ui
                     gameOverPanel.SetActive(false);
                     gameStartSignal.Dispatch();
                     levelStartSignal.Dispatch();
+                    break;
+                case "FacebookLoginButton":
+                    socialService.OnFacebookLoginClick();
                     break;
 				default:
 					break;

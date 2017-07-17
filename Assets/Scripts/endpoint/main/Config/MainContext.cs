@@ -26,6 +26,7 @@ namespace endpoint.main
                 injectionBinder.Bind<LevelStartSignal>().ToSingleton().CrossContext();
                 injectionBinder.Bind<LevelEndSignal>().ToSingleton().CrossContext();
                 injectionBinder.Bind<UpdateScoreSignal>().ToSingleton().CrossContext();
+                injectionBinder.Bind<UpdateLoginStatusSignal>().ToSingleton().CrossContext();
                 injectionBinder.Bind<UpdateLevelSignal>().ToSingleton().CrossContext();
             }
 

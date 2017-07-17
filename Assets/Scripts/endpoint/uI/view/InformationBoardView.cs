@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using strange.extensions.mediation.impl;
 using UnityEngine.UI;
+using Facebook.Unity;
 
 namespace endpoint.ui
 {
 	public class InformationBoardView : View
 	{
 		private Text scoreText, attackText, healthText, attackSpeedText, critRateText, critFactorText, attackRangeText, regenerateHealthText, resourceBonusText;
-		public GameObject score, attack, health, attackSpeed, critRate, critFactor, attackRange, regenerateHealth, resourceBonus, gameOver;
+        public GameObject score, attack, health, attackSpeed, critRate, critFactor, attackRange, regenerateHealth, resourceBonus, gameOver, loginButtonPanel, loginInfoPanel;
+        public GameObject avatar, username, email;
+        private string name = "";
 
 		protected override void Awake()
 		{
@@ -74,6 +77,18 @@ namespace endpoint.ui
 			gameOver.SetActive(true);
 		}
 
+        public void setLoginPanel(bool status)
+        {
+            loginButtonPanel.SetActive(!status);
+            loginInfoPanel.SetActive(status);
+            if (status)
+            {
+                string queryString = "me?fields=id,name,email";
+                FB.API(queryString, HttpMethod.GET, DisplayUsername);
+				FB.API("/me/picture?type=square&height=128&width=128", HttpMethod.GET, DisplayProfilePic);
+            }
+        }
+
 		private void disableALl()
 		{
 			score.SetActive(false);
@@ -86,6 +101,50 @@ namespace endpoint.ui
 			regenerateHealth.SetActive(false);
 			resourceBonus.SetActive(false);
 			gameOver.SetActive(false);
+		}
+
+        private void DisplayUsername(IResult result)
+		{
+
+            Text UserName = username.GetComponent<Text>();
+            Text Email = email.GetComponent<Text>();
+
+			if (result.Error == null)
+			{
+                UserName.text = result.ResultDictionary["name"] + "";
+                Email.text = result.ResultDictionary["email"] + "";
+			}
+			else
+			{
+				Debug.Log(result.Error);
+			}
+
+		}
+
+        private void DisplayEmail(IResult result)
+        {
+            Text Email = email.GetComponent<Text>();
+            if (result.Error == null)
+            {
+                Email.text = "" + result.ResultDictionary["email"];
+            }
+            else
+            {
+                Debug.Log(result.Error);
+            }
+        }
+
+        private void DisplayProfilePic(IGraphResult result)
+		{
+
+			if (result.Texture != null)
+			{
+
+                Image ProfilePic = avatar.GetComponent<Image>();
+				ProfilePic.sprite = Sprite.Create(result.Texture, new Rect(0, 0, 120, 120), new Vector2());
+
+			}
+
 		}
 	}
 

@@ -50,6 +50,7 @@ namespace endpoint.game
             {
                 injectionBinder.Bind<UpdateLevelSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateScoreSignal>().ToSingleton();
+                injectionBinder.Bind<UpdateLoginStatusSignal>().ToSingleton();
             }
 
             //Command
