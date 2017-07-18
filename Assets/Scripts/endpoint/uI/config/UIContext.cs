@@ -45,15 +45,7 @@ namespace endpoint.ui
                          To<UIStartCommand>();
             commandBinder.Bind<ButtonClickSignal>().To<ButtonClickCommand>();
 
-#if !UNITY_EDITOR && (UNITY_IPHONE || UNITY_ANDROID)
-
-            //This code executes if we're on a mobile device
-
-            mediationBinder.Bind<ButtonView> ().To<ButtonTouchMediator> ();
-#else
-			//And we'll map the mouse-friendly version of the ButtonMediator
 			mediationBinder.Bind<ButtonView>().To<ButtonMediator>();
-#endif
 			mediationBinder.Bind<InformationBoardView>().To<InformationBoardMediator>();
 		}
 	}

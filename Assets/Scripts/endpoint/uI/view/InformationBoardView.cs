@@ -121,19 +121,6 @@ namespace endpoint.ui
 
 		}
 
-        private void DisplayEmail(IResult result)
-        {
-            Text Email = email.GetComponent<Text>();
-            if (result.Error == null)
-            {
-                Email.text = "" + result.ResultDictionary["email"];
-            }
-            else
-            {
-                Debug.Log(result.Error);
-            }
-        }
-
         private void DisplayProfilePic(IGraphResult result)
 		{
 
@@ -141,7 +128,7 @@ namespace endpoint.ui
 			{
 
                 Image ProfilePic = avatar.GetComponent<Image>();
-				ProfilePic.sprite = Sprite.Create(result.Texture, new Rect(0, 0, 120, 120), new Vector2());
+                ProfilePic.sprite = Sprite.Create(result.Texture, new Rect(0, 0, result.Texture.width, result.Texture.height), new Vector2(0, 0));
 
 			}
 
