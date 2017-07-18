@@ -45,8 +45,8 @@ namespace endpoint.game
         //Call this every 0.02s
 		void FixedUpdate()
 		{
-            //If game is not over or game speed > 0
-            if (!isGameOver || gameSpeed > 0)
+            //If game is not over and game speed > 0
+            if (!isGameOver && gameSpeed > 0)
             {
                 distance = Vector3.Distance(transform.position, data.targetPosition);
                 //If reach tower then stop moving

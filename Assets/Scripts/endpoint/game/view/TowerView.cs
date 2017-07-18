@@ -26,7 +26,7 @@ namespace endpoint.game
 		void FixedUpdate()
 		{
             //Need optimize
-            if (!isGameOver || gameSpeed > 0 && isExistEnemyInAttackRange)
+            if (!isGameOver && gameSpeed > 0 && isExistEnemyInAttackRange)
             {
                 timer += Time.deltaTime;
                 if (timer >= 1f / (gameSpeed * attackSpeed))

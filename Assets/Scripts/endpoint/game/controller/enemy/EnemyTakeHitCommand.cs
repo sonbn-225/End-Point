@@ -17,6 +17,12 @@ namespace endpoint.game
         [Inject]
         public bool isKilled { get; set; }
 
+		[Inject]
+		public UpdateScoreSignal updateScoreSignal { get; set; }
+
+        [Inject]
+        public UpdateIsExistEnemyInAttackRangeSignal updateIsExistEnemyInAttackRangeSignal { get; set; }
+
 		//The pool to which we return the enemies
 		[Inject(GameElement.ENEMY_POOL)]
 		public IPool<GameObject> pool { get; set; }
@@ -24,9 +30,6 @@ namespace endpoint.game
 		//Keeper of score, level
 		[Inject]
 		public IGameModel gameModel { get; set; }
-
-        [Inject]
-        public UpdateScoreSignal updateScoreSignal { get; set; }
 
         [Inject]
         public IGameConfig gameConfig { get; set; }
@@ -42,13 +45,14 @@ namespace endpoint.game
             {
                 gameModel.score += enemyView.data.score;
                 updateScoreSignal.Dispatch();
-
-                //Return instance enemy to pool
-				enemyView.gameObject.SetActive(false);
-				enemyView.transform.localPosition = PARKED_POS;
-				enemyManager.removeEnemy(enemyView.gameObject);
-				pool.ReturnInstance(enemyView.gameObject);
             }
+			//Return instance enemy to pool
+			enemyView.gameObject.SetActive(false);
+			enemyView.transform.localPosition = PARKED_POS;
+			enemyManager.removeEnemy(enemyView.gameObject);
+			gameModel.isExistEnemyInAttackRange = enemyManager.isExistEnemyInAttackRange();
+			updateIsExistEnemyInAttackRangeSignal.Dispatch();
+			pool.ReturnInstance(enemyView.gameObject);
         }
     }
 }

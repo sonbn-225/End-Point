@@ -2,6 +2,6 @@
   "speed": 2,
   "health": 150,
   "damage": 20,
-  "attackRange": 20,
+  "attackRange": 5,
   "score": 10
 }

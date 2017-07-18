@@ -9,7 +9,7 @@ namespace endpoint.game
         [Inject]
         public ITower tower { get; set; }
 
-        public List<GameObject> enemies { get; set; }
+        List<GameObject> enemies { get; set; }
 
         public void Init()
         {
@@ -40,6 +40,15 @@ namespace endpoint.game
 				}
 			}
             return target;
+        }
+
+        public bool isExistEnemyInAttackRange()
+        {
+            if (enemies.Count > 0)
+            {
+                return true;
+            } 
+            return false;
         }
     }
 }

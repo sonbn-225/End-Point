@@ -45,7 +45,6 @@ namespace endpoint.ui
 
 		public override void Execute()
 		{
-            Debug.Log(label);
 			switch (label)
 			{
 				case "Speedx2Button":

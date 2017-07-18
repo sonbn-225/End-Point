@@ -6,10 +6,10 @@ namespace endpoint.game
 {
     public interface IEnemyManager
     {
-        List<GameObject> enemies { get; set; }
         void Init();
         void addEnemy(GameObject enemy);
         bool removeEnemy(GameObject enemy);
         GameObject getNearestEnemy();
+        bool isExistEnemyInAttackRange();
     }
 }

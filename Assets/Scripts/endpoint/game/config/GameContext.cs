@@ -10,7 +10,6 @@ namespace endpoint.game
 
         public GameContext(GameBootstrap gameView) : base(gameView)
         {
-            Debug.Log("Game Start");
         }
 
         protected override void mapBindings()

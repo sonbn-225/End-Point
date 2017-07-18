@@ -32,7 +32,6 @@ namespace endpoint.game
 
 		public override void Execute()
 		{
-            Debug.Log("Game Start Command");
             //Init tower data
             towerData.Init();
 

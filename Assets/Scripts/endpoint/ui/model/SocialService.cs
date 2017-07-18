@@ -27,8 +27,6 @@ namespace endpoint.ui
 		#region FB Init
 		private void InitCallback()
 		{
-			Debug.Log("InitCallback");
-
 			// App Launch events should be logged on app launch & app resume
 			// See more: https://developers.facebook.com/docs/app-events/unity#quickstart
 			FBAppEvents.LaunchEvent();
