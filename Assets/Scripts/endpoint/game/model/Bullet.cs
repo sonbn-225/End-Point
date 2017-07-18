@@ -11,7 +11,7 @@ namespace endpoint.game
 
 		public Vector3 targetPosition { get; set; }
 
-		public bool isKillEnemy { get; set; }
+		public bool isKillTarget { get; set; }
 
 		public float speed { get; set; }
 	}

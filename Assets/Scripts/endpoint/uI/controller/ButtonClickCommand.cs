@@ -19,6 +19,9 @@ namespace endpoint.ui
         [Inject]
         public UpdateGameSpeedSignal updateGameSpeedSignal { get; set; }
 
+		[Inject]
+		public GamePauseSignal gamePauseSignal { get; set; }
+
         [Inject(UIElement.ATTACK_PANEL)]
         public GameObject attackPanel { get; set; }
 
@@ -98,6 +101,7 @@ namespace endpoint.ui
                     levelStartSignal.Dispatch();
                     break;
                 case "FacebookLoginButton":
+                    gamePauseSignal.Dispatch();
                     socialService.OnFacebookLoginClick();
                     break;
 				default:

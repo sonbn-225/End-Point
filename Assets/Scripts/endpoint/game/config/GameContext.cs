@@ -44,10 +44,11 @@ namespace endpoint.game
             injectionBinder.Bind<LevelStartedSignal>().ToSingleton();
 
             injectionBinder.Bind<UpdateAttackSpeedSignal>().ToSingleton();
-            injectionBinder.Bind<UpdateGameSpeedSignal>().ToSingleton().CrossContext();
             injectionBinder.Bind<UpdateIsGameOverSignal>().ToSingleton();
+            injectionBinder.Bind<UpdateIsExistEnemyInAttackRangeSignal>().ToSingleton();
             if (Context.firstContext ==  this)
             {
+                injectionBinder.Bind<UpdateGameSpeedSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateLevelSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateScoreSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateLoginStatusSignal>().ToSingleton();
@@ -65,6 +66,9 @@ namespace endpoint.game
                 commandBinder.Bind<StartSignal>().To<GameIndependentStartCommand>().Once();
             }
 
+            commandBinder.Bind<GamePauseSignal>().To<GamePauseCommand>();
+            commandBinder.Bind<GameResumeSignal>().To<GameResumeCommand>();
+
 			//All the Signals/Commands necessary to play the game
 			//Note:
 			//1. Some of these are marked Pooled().
@@ -75,18 +79,18 @@ namespace endpoint.game
 			//   mapped to Commands.
             //Tower
 			commandBinder.Bind<CreateTowerSignal>().To<CreateTowerCommand>();
-            commandBinder.Bind<DestroyTowerSignal>().To<DestroyTowerCommand>();
+            commandBinder.Bind<TowerTakeHitSignal>().To<TowerTakeHitCommand>();
             //Enemy
 			commandBinder.Bind<CreateEnemySignal>().To<CreateEnemyCommand>().Pooled();
-            commandBinder.Bind<DestroyEnemySignal>().To<DestroyEnemyCommand>().Pooled();
-            commandBinder.Bind<EnterAttackRangeSignal>().To<EnterAttackRangeCommand>();
+            commandBinder.Bind<EnemyTakeHitSignal>().To<EnemyTakeHitCommand>().Pooled();
+            commandBinder.Bind<EnterTowerAttackRangeSignal>().To<EnterAttackRangeCommand>();
             //Bullet
             commandBinder.Bind<FireBulletSignal>().To<FireBulletCommand>().Pooled();
             commandBinder.Bind<DestroyBulletSignal>().To<DestroyBulletCommand>().Pooled();
-            commandBinder.Bind<BulletHitSignal>().To<BulletHitCommand>().Pooled();
+            commandBinder.Bind<BulletHitTargetSignal>().To<BulletHitTargetCommand>().Pooled();
 
             commandBinder.Bind<GameStartSignal>().To<GameStartCommand>();
-            commandBinder.Bind<GameEndSignal>().To<EndGameCommand>();
+            commandBinder.Bind<GameOverSignal>().To<GameOverCommand>();
 
             commandBinder.Bind<LevelStartSignal>()
                          .To<CreateGameFieldCommand>()

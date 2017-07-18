@@ -10,14 +10,15 @@ namespace endpoint.game
 		[Inject]
         public EnemyView view { get; set; }
 
+        //Havent use?
         [Inject]
-        public DestroyEnemySignal destroyEnemySignal { get; set; }
+        public EnemyTakeHitSignal destroyEnemySignal { get; set; }
 
         [Inject]
         public FireBulletSignal fireBulletSignal { get; set; }
 
         [Inject]
-        public EnterAttackRangeSignal enterAttackRangeSignal { get; set; }
+        public EnterTowerAttackRangeSignal enterTowerAttackRangeSignal { get; set; }
 
 		[Inject]
 		public UpdateGameSpeedSignal updateGameSpeedSignal { get; set; }
@@ -25,46 +26,43 @@ namespace endpoint.game
 		[Inject]
 		public UpdateIsGameOverSignal updateIsGameOverSignal { get; set; }
 
-        [Inject]
-        public GameEndSignal gameEndSignal { get; set; }
-
 		[Inject]
 		public IGameModel gameModel { get; set; }
 
 		public override void OnRegister()
 		{
-            view.enterAttackRangeSignal.AddListener(onEnterAttackRange);
-            view.enemyAttackSignal.AddListener(onEnemyAttack);
-            updateGameSpeedSignal.AddListener(onUpdateGameSpeed);
-            gameEndSignal.AddListener(onUpdateGameEnd);
-            updateIsGameOverSignal.AddListener(onUpdateGameEnd);
+            view.enterAttackRangeSignal.AddListener(OnEnterAttackRange);
+            view.enemyAttackSignal.AddListener(OnEnemyAttack);
+            updateGameSpeedSignal.AddListener(OnUpdateGameSpeed);
+            updateIsGameOverSignal.AddListener(OnUpdateGameOver);
 		}
 
         public override void OnRemove()
         {
-            view.enterAttackRangeSignal.RemoveListener(onEnterAttackRange);
-            view.enemyAttackSignal.RemoveListener(onEnemyAttack);
+            view.enterAttackRangeSignal.RemoveListener(OnEnterAttackRange);
+            view.enemyAttackSignal.RemoveListener(OnEnemyAttack);
+            updateGameSpeedSignal.RemoveListener(OnUpdateGameSpeed);
+            updateIsGameOverSignal.RemoveListener(OnUpdateGameOver);
         }
 
-        private void onEnterAttackRange()
+        void OnEnterAttackRange()
         {
-            enterAttackRangeSignal.Dispatch(view);
+            enterTowerAttackRangeSignal.Dispatch(view);
         }
 
-        private void onEnemyAttack()
+        void OnEnemyAttack()
         {
             fireBulletSignal.Dispatch(gameObject.transform.position, gameModel.tower, GameElement.ENEMY_BULLET_POOL, view.data.damage);
         }
 
-		private void onUpdateGameSpeed()
+        void OnUpdateGameSpeed()
 		{
-			view.gameSpeed = gameModel.gameSpeed;
+            view.UpdateGameSpeed(gameModel.gameSpeed);
 		}
 
-        private void onUpdateGameEnd()
+        void OnUpdateGameOver()
         {
-            
-            view.isGameOver = true;
+            view.UpdateIsGameOver(gameModel.isGameOver);
         }
 	}
 

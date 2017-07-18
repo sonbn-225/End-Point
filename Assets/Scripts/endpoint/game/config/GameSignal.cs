@@ -11,7 +11,7 @@ namespace endpoint.game
     public class CreateTowerSignal : Signal { }
     //TowerView - reference to tower
     //bool - False indicates destruction. True indicates cleanup at end of level.
-    public class DestroyTowerSignal : Signal<TowerView, bool> { }
+    public class TowerTakeHitSignal : Signal<TowerView, bool> { }
 
     //Enemy
     //int - level of enemy
@@ -20,9 +20,9 @@ namespace endpoint.game
     public class CreateEnemySignal : Signal<int, Vector3, EnemyType> { }
     //EnemyView - reference to the specific enemy
     //bool - True indicates player gets points. False is simple cleanup.
-    public class DestroyEnemySignal : Signal<EnemyView, bool> { }
+    public class EnemyTakeHitSignal : Signal<EnemyView, bool> { }
     //EnemyView - reference to which enemy enter attack range
-    public class EnterAttackRangeSignal : Signal<EnemyView>{}
+    public class EnterTowerAttackRangeSignal : Signal<EnemyView>{}
 
     //Bullet
     //GameObject - The GameObject that fired the bullet
@@ -33,7 +33,7 @@ namespace endpoint.game
     public class DestroyBulletSignal : Signal<BulletView, GameElement> { }
     //BulletView - reference to the specific bullet
     //GameObject - The contact with which the bullet collided
-    public class BulletHitSignal : Signal<BulletView, GameObject> { }
+    public class BulletHitTargetSignal : Signal<BulletView, GameObject> { }
 
     //Level
     public class SetupLevelSignal : Signal { }
@@ -43,4 +43,5 @@ namespace endpoint.game
     public class UpdateGameSpeedSignal : Signal { }
     public class UpdateAttackSpeedSignal : Signal { }
     public class UpdateIsGameOverSignal : Signal { }
+    public class UpdateIsExistEnemyInAttackRangeSignal : Signal { }
 }

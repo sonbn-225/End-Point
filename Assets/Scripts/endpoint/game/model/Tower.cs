@@ -25,4 +25,14 @@ public class Tower : ITower {
         regenerateSpeed = 0;
         resourceBonus = 0;
     }
+
+    public bool TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            return true;
+        }
+        return false;
+    }
 }

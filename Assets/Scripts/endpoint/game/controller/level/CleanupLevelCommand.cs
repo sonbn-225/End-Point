@@ -11,10 +11,10 @@ namespace endpoint.game
         public GameObject gameField { get; set; }
 
         [Inject]
-        public DestroyTowerSignal destroyTowerSignal { get; set; }
+        public TowerTakeHitSignal destroyTowerSignal { get; set; }
 
         [Inject]
-        public DestroyEnemySignal destroyEnemySignal { get; set; }
+        public EnemyTakeHitSignal destroyEnemySignal { get; set; }
 
         [Inject]
         public DestroyBulletSignal destroyBulletSignal { get; set; }

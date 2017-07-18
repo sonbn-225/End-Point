@@ -13,12 +13,19 @@ namespace endpoint.game
 		public EnemyView enemy { get; set; }
 
         [Inject]
+        public UpdateIsExistEnemyInAttackRangeSignal updateIsExistEnemyInAttackRangeSignal { get; set; }
+
+        [Inject]
         public IEnemyManager enemyManager { get; set; }
+
+        [Inject]
+        public IGameModel gameModel { get; set; }
 
         public override void Execute()
         {
-            enemy.isInAttackRange = true;
+            gameModel.isExistEnemyInAttackRange = true;
             enemyManager.addEnemy(enemy.gameObject);
+            updateIsExistEnemyInAttackRangeSignal.Dispatch();
         }
 	}
 }

@@ -21,7 +21,7 @@ namespace endpoint.ui
 
             if (Context.firstContext == this)
             {
-                injectionBinder.Bind<GameEndSignal>().ToSingleton();
+                injectionBinder.Bind<GameOverSignal>().ToSingleton();
                 injectionBinder.Bind<GameStartSignal>().ToSingleton();
                 injectionBinder.Bind<LevelStartSignal>().ToSingleton();
                 injectionBinder.Bind<LevelEndSignal>().ToSingleton();

@@ -35,7 +35,7 @@ namespace endpoint.game
         [Inject]
         public ITower towerData { get; set; }
 
-        private bool isKillEnemy = false;
+        bool isKillTarget = false;
 
         public override void Execute()
         {
@@ -48,32 +48,30 @@ namespace endpoint.game
 				bulletGO.GetComponent<BulletView>().Init(gameModel.gameSpeed);
 				if (id == GameElement.ENEMY_BULLET_POOL)
 				{
-					towerData.health -= damage;
-                    if (towerData.health <= 0)
+                    if (towerData.TakeDamage(damage))
                     {
-                        isKillEnemy = true;
+                        isKillTarget = true;
                     } else
                     {
-                        isKillEnemy = false;
+                        isKillTarget = false;
                     }
 				}
 				else
 				{
-					target.GetComponent<EnemyView>().data.health -= damage;
-					if (target.GetComponent<EnemyView>().data.health <= 0)
+                    if (target.GetComponent<EnemyView>().TakeDamage(damage))
 					{
-						isKillEnemy = true;
+						isKillTarget = true;
 					}
 					else
 					{
-						isKillEnemy = false;
+						isKillTarget = false;
 					}
 				}
 				bulletGO.GetComponent<BulletView>().data = new Bullet()
 				{
 					targetObject = target,
 					targetPosition = FirstOrderIntercept(pos, Vector3.zero, 20f * gameModel.gameSpeed, target.transform.position, Vector3.zero),
-					isKillEnemy = isKillEnemy,
+					isKillTarget = isKillTarget,
 					speed = 40f * gameModel.gameSpeed
 				};
 				bulletGO.SetActive(true);

@@ -7,79 +7,85 @@ namespace endpoint.game
 	public class EnemyView : View
 	{
 		public IEnemy data { get; set; }
+        public GameObject normalForm, fastForm, bigForm, strongForm;
 
         //These Signals inform the Mediator that certain events have occurred
         internal Signal enterAttackRangeSignal = new Signal();
         internal Signal enemyAttackSignal = new Signal();
 
-		public Vector3 target { get; set; }
+        float distance, timer = 1f;
+        int gameSpeed;
+        bool isGameOver, isInTowerAttackRange, isInAttackRange, isReachTower;
 
-		public float distance { get; set; }
-
-		public bool isInAttackRange { get; set; }
-
-        internal float towerAttackRange { get; set; }
-
-        internal int gameSpeed { get; set; }
-
-        public bool isGameOver;
-
-        public bool isReachTower;
-
-        public void Init(float attackRange, int gameSpeed, Vector3 tower)
+        public void Init(bool isGameOver, int gameSpeed)
 		{
             SetEnemyForm(data.enemyType);
-            target = tower;
-            distance = Vector3.Distance(gameObject.transform.position, target);
-            towerAttackRange = attackRange;
             this.gameSpeed = gameSpeed;
-            if (distance > towerAttackRange)
+            this.isGameOver = isGameOver;
+            distance = Vector3.Distance(gameObject.transform.position, data.targetPosition);
+            if (distance > data.towerAttackRange)
             {
+                isInTowerAttackRange = false;
                 isInAttackRange = false;
+                isReachTower = false;
             } else 
             {
                 enterAttackRangeSignal.Dispatch();
-            }
-            isReachTower = false;
-            isGameOver = false;
-		}
-
-		private float timer = 1f;
-
-		public GameObject normalForm, fastForm, bigForm, strongForm;
-
-		private void FixedUpdate()
-		{
-            if (!isGameOver)
-            {
-				distance = Vector3.Distance(transform.position, target);
-				if (!isReachTower)
+				if (distance <= data.attackRange)
 				{
-					gameObject.transform.position = Vector3.MoveTowards(transform.localPosition, target, gameSpeed * data.speed * Time.deltaTime);
-				}
-				if (!isInAttackRange)
-				{
-					if (distance <= towerAttackRange)
+					isInAttackRange = true;
+                    if (distance <= 1f)
 					{
-						enterAttackRangeSignal.Dispatch();
+                        isReachTower = true;
 					}
 				}
-				else
+            }
+		}
+
+        //Call this every 0.02s
+		void FixedUpdate()
+		{
+            //If game is not over or game speed > 0
+            if (!isGameOver || gameSpeed > 0)
+            {
+                distance = Vector3.Distance(transform.position, data.targetPosition);
+                //If reach tower then stop moving
+				if (!isReachTower)
 				{
-					//Enemy attack
-					if (distance <= data.attackRange)
-					{
+                    gameObject.transform.position = Vector3.MoveTowards(transform.localPosition, data.targetPosition, gameSpeed * data.speed * Time.deltaTime);
+				}
+				//If this enemy is in tower attack range => check whether it can attack tower
+				//If this enemy is not in tower attack range then check whether enter tower attack range
+				if (isInTowerAttackRange)
+				{
+                    if (isInAttackRange)
+                    {
 						timer += Time.deltaTime;
 						if (timer >= 0.5f / gameSpeed)
 						{
 							enemyAttackSignal.Dispatch();
 							timer = 0f;
 						}
-					}
-					if (distance < 1)
+						//Check whether reach tower
+						if (distance < 1)
+						{
+							isReachTower = true;
+							gameObject.GetComponentInChildren<Rigidbody>().isKinematic = true;
+						}
+                    } else
+                    {
+						if (distance <= data.attackRange)
+						{
+							isInAttackRange = true;
+						}
+                    }
+				}
+				else
+				{
+					if (distance <= data.towerAttackRange)
 					{
-						isReachTower = true;
-						gameObject.GetComponentInChildren<Rigidbody>().isKinematic = true;
+                        isInTowerAttackRange = true;
+						enterAttackRangeSignal.Dispatch();
 					}
 				}
             }
@@ -90,25 +96,23 @@ namespace endpoint.game
 			data.health -= damage;
 			if (data.health <= 0)
 			{
-				isInAttackRange = false;
+				isInTowerAttackRange = false;
 				return true;
 			}
 			return false;
 		}
 
+        public void UpdateGameSpeed(int gameSpeed)
+        {
+            this.gameSpeed = gameSpeed;
+        }
 
-		//For enemyPool
-		public void setActive(bool value)
-		{
-			gameObject.SetActive(value);
-		}
+        public void UpdateIsGameOver(bool isGameOver)
+        {
+            this.isGameOver = isGameOver;
+        }
 
-		public bool activeInHierarchy()
-		{
-			return gameObject.activeInHierarchy;
-		}
-
-		public EnemyView SetEnemyForm(EnemyType enemyType)
+		EnemyView SetEnemyForm(EnemyType enemyType)
 		{
 			switch (enemyType)
 			{
@@ -140,7 +144,7 @@ namespace endpoint.game
 			return this;
 		}
 
-		private void DisableAllForm()
+		void DisableAllForm()
 		{
 			normalForm.SetActive(false);
 			fastForm.SetActive(false);

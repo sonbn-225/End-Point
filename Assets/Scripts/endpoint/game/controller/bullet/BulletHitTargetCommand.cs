@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace endpoint.game
 {
-	public class BulletHitCommand : Command
+	public class BulletHitTargetCommand : Command
 	{
 
 		[Inject]
@@ -17,14 +17,15 @@ namespace endpoint.game
         public IPool<GameObject> pool { get; set; }
 
         [Inject]
-        public DestroyEnemySignal destroyEnemySignal { get; set; }
+        public EnemyTakeHitSignal enemyTakeHitSignal { get; set; }
 
         [Inject]
         public DestroyBulletSignal destroyBulletSignal { get; set; }
 
         [Inject]
-        public DestroyTowerSignal destroyTowerSignal { get; set; }
+        public TowerTakeHitSignal towerTakeHitSignal { get; set; }
 
+        //to do: specify signal
         [Inject]
         public UpdateScoreSignal updateScoreSignal { get; set; }
 
@@ -45,26 +46,25 @@ namespace endpoint.game
             destroyBulletSignal.Dispatch(bulletView, id);
 
             //When hit...
-            EnemyView enemyView = target.GetComponent<EnemyView>();
-            if (enemyView != null && bulletView.data.isKillEnemy)
+            if (id == GameElement.ENEMY_BULLET_POOL)
             {
-                destroyEnemySignal.Dispatch(enemyView, true);
-            }
-
-            TowerView towerView = target.GetComponent<TowerView>();
-            if (towerView != null)
+				TowerView towerView = target.GetComponent<TowerView>();
+				if (towerView != null)
+				{
+                    //Actual update health
+					updateScoreSignal.Dispatch();
+                    if (bulletView.data.isKillTarget)
+					{
+						towerTakeHitSignal.Dispatch(towerView, bulletView.data.isKillTarget);
+					}
+				}
+            } else
             {
-                updateScoreSignal.Dispatch();
-                if (towerData.health <= 0)
-                {
-                    destroyTowerSignal.Dispatch(towerView, true);
-                }
-            }
-            BulletView otherBulletView = target.GetComponent<BulletView>();
-            if (otherBulletView != null)
-            {
-                GameElement otherID = (id == GameElement.ENEMY_BULLET_POOL) ? GameElement.TOWER_BULLET_POOL : GameElement.ENEMY_BULLET_POOL;
-                destroyBulletSignal.Dispatch(otherBulletView, otherID);
+				EnemyView enemyView = target.GetComponent<EnemyView>();
+				if (bulletView.data.isKillTarget)
+				{
+					enemyTakeHitSignal.Dispatch(enemyView, bulletView.data.isKillTarget);
+				}
             }
         }
 	}

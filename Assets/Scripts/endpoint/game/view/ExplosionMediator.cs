@@ -14,17 +14,18 @@ namespace endpoint.game
         [Inject(GameElement.EXPLOSION_POOL)]
 		public IPool<GameObject> pool { get; set; }
 
-		private static Vector3 PARKED_POS = new Vector3(1000f, 0f, 1000f);
+		static Vector3 PARKED_POS = new Vector3(1000f, 0f, 1000f);
 
         public override void OnRegister()
         {
             view.animationCompleteSignal.AddListener(onComplete);
         }
 
-        private void onComplete()
+        void onComplete()
         {
             view.gameObject.SetActive(false);
             view.gameObject.transform.localPosition = PARKED_POS;
+            view.resetAnimation();
             pool.ReturnInstance(view.gameObject);
         }
     }

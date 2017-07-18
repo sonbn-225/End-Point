@@ -12,6 +12,7 @@ namespace endpoint.game
         public bool levelInProgress { get; set; }
 
 		public int gameSpeed { get; set; }
+        public int gameSpeedBackup { get; set; }
         public GameObject tower { get; set; }
 		public float attackInterval { get; set; }
 		public bool isGameOver { get; set; }

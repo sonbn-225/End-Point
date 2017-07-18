@@ -6,8 +6,11 @@ using UnityEngine;
 
 namespace endpoint.game
 {
-    public class EndGameCommand : Command 
+    public class GameOverCommand : Command 
     {
+        [Inject]
+        public UpdateIsGameOverSignal updateIsGameOverSignal { get; set; }
+
         [Inject]
         public ISpawner spawner { get; set; }
 
@@ -21,6 +24,7 @@ namespace endpoint.game
         {
             spawner.Stop();
             gameModel.isGameOver = true;
+            updateIsGameOverSignal.Dispatch();
             gameOverPanel.SetActive(true);
         }
     }

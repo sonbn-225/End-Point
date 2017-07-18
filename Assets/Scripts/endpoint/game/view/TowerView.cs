@@ -9,23 +9,24 @@ namespace endpoint.game
 	public class TowerView : View
 	{
         internal Signal towerShootSignal = new Signal();
-        //internal Signal destroyTowerSignal = new Signal();
 
-		public float timer = 0f;
-        public int attackSpeed, gameSpeed;
-        public bool isGameOver;
+		float timer;
+        int attackSpeed, gameSpeed;
+        bool isGameOver, isExistEnemyInAttackRange;
 
-        public void Init(int attackSpeed, int gameSpeed, bool isGameOver)
+        public void Init(int attackSpeed, int gameSpeed, bool isGameOver, bool isExistEnemyInAttackRange)
         {
             timer = 0f;
             this.attackSpeed = attackSpeed;
             this.gameSpeed = gameSpeed;
             this.isGameOver = isGameOver;
+            this.isExistEnemyInAttackRange = isExistEnemyInAttackRange;
         }
 
-		private void FixedUpdate()
+		void FixedUpdate()
 		{
-            if (!isGameOver)
+            //Need optimize
+            if (!isGameOver || gameSpeed > 0 && isExistEnemyInAttackRange)
             {
                 timer += Time.deltaTime;
                 if (timer >= 1f / (gameSpeed * attackSpeed))
@@ -35,6 +36,25 @@ namespace endpoint.game
                 }
             }
 		}
-	}
 
+        public void UpdateAttackSpeed(int attackSpeed)
+        {
+            this.attackSpeed = attackSpeed;
+        }
+
+        public void UpdateGameSpeed(int gameSpeed)
+        {
+            this.gameSpeed = gameSpeed;
+        }
+
+        public void UpdateIsGameOver(bool isGameOver)
+        {
+            this.isGameOver = isGameOver;
+        }
+
+        public void UpdateIsExistEnemyInAttackRange(bool isExistEnemyInAttackRange)
+        {
+            this.isExistEnemyInAttackRange = isExistEnemyInAttackRange;
+        }
+	}
 }

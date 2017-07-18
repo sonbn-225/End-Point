@@ -7,7 +7,7 @@ namespace endpoint.game
 	{
         GameObject targetObject { get; set; }
 		Vector3 targetPosition { get; set; }
-		bool isKillEnemy { get; set; }
+		bool isKillTarget { get; set; }
 		float speed { get; set; }
 	}
 }

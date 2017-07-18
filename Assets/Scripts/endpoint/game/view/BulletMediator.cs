@@ -6,10 +6,10 @@ namespace endpoint.game
 	public class BulletMediator : Mediator
 	{
 		[Inject]
-		public BulletView View { get; set; }
+        public BulletView view { get; set; }
 
         [Inject]
-        public BulletHitSignal bulletHitSignal { get; set; }
+        public BulletHitTargetSignal bulletHitTargetSignal { get; set; }
 
         [Inject]
         public UpdateGameSpeedSignal updateGameSpeedSignal { get; set; }
@@ -17,30 +17,27 @@ namespace endpoint.game
         [Inject]
         public IGameModel gameModel { get; set; }
 
-        [Inject]
-        public GameEndSignal gameEndSignal { get; set; }
-
 		public override void OnRegister()
 		{
-            View.BulletHitTargetSignal.AddListener(onBulletHit);
+            view.BulletHitTargetSignal.AddListener(onBulletHitTarget);
             updateGameSpeedSignal.AddListener(onUpdateGameSpeed);
-            gameEndSignal.AddListener(onUpdateIsGameOver);
         }
 
-        private void onBulletHit(GameObject go)
+        public override void OnRemove()
         {
-            bulletHitSignal.Dispatch(View, go);
+            view.BulletHitTargetSignal.RemoveListener(onBulletHitTarget);
+            updateGameSpeedSignal.RemoveListener(onUpdateGameSpeed);
+            base.OnRemove();
+        }
+
+        private void onBulletHitTarget(GameObject go)
+        {
+            bulletHitTargetSignal.Dispatch(view, go);
         }
 
         private void onUpdateGameSpeed()
         {
-            View.gameSpeed = gameModel.gameSpeed;
-        }
-
-        private void onUpdateIsGameOver()
-        {
-            Debug.Log("GameEnd" + gameModel.isGameOver);
-            View.isGameOver = true;
+            view.UpdateGameSpeed(gameModel.gameSpeed);
         }
 	}
 }

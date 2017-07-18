@@ -6,16 +6,8 @@ using UnityEngine;
 
 namespace endpoint.game
 {
-    public class DestroyEnemyCommand : Command
+    public class EnemyTakeHitCommand : Command
     {
-        //The pool to which we return the enemies
-        [Inject(GameElement.ENEMY_POOL)]
-        public IPool<GameObject> pool { get; set; }
-
-        //Keeper of score, level
-        [Inject]
-        public IGameModel gameModel { get; set; }
-
         //The specific enemy being destroyed
         [Inject]
         public EnemyView enemyView { get; set; }
@@ -23,7 +15,15 @@ namespace endpoint.game
         //True if this destruction earns the player point
         //False if it flew offscreen or was cleaned up at end of level
         [Inject]
-        public bool isPointEarning { get; set; }
+        public bool isKilled { get; set; }
+
+		//The pool to which we return the enemies
+		[Inject(GameElement.ENEMY_POOL)]
+		public IPool<GameObject> pool { get; set; }
+
+		//Keeper of score, level
+		[Inject]
+		public IGameModel gameModel { get; set; }
 
         [Inject]
         public UpdateScoreSignal updateScoreSignal { get; set; }
@@ -34,22 +34,21 @@ namespace endpoint.game
         [Inject]
         public IEnemyManager enemyManager { get; set; }
 
-        private static Vector3 PARKED_POS = new Vector3(1000f, 0f, 1000f);
+        static Vector3 PARKED_POS = new Vector3(1000f, 0f, 1000f);
 
         public override void Execute()
         {
-            if (isPointEarning)
+            if (isKilled)
             {
-                int level = enemyView.data.level;
                 gameModel.score += enemyView.data.score;
                 updateScoreSignal.Dispatch();
+
+                //Return instance enemy to pool
+				enemyView.gameObject.SetActive(false);
+				enemyView.transform.localPosition = PARKED_POS;
+				enemyManager.removeEnemy(enemyView.gameObject);
+				pool.ReturnInstance(enemyView.gameObject);
             }
-
-            enemyView.gameObject.SetActive(false);
-
-            enemyView.transform.localPosition = PARKED_POS;
-            enemyManager.removeEnemy(enemyView.gameObject);
-            pool.ReturnInstance(enemyView.gameObject);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace endpoint.game
 	{
         internal Signal animationCompleteSignal = new Signal();
 
-        private void FixedUpdate()
+        void FixedUpdate()
         {
             if (gameObject.GetComponent<ParticleSystem>().IsAlive() == false)
             {

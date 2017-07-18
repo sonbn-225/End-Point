@@ -10,45 +10,39 @@ namespace endpoint.game
 
         internal Signal<GameObject> BulletHitTargetSignal = new Signal<GameObject>();
 
-        public bool isGameOver;
-        internal int gameSpeed;
+        int gameSpeed;
 
         public void Init(int gameSpeed)
         {
-            isGameOver = false;
             this.gameSpeed = gameSpeed;
         }
 
-		private void FixedUpdate()
+        //Call this every 0.02s
+		void FixedUpdate()
 		{
-			transform.position = Vector3.MoveTowards(transform.position, data.targetPosition, gameSpeed * data.speed * Time.deltaTime);
+            if (gameSpeed > 0)
+            {
+				//Move the bullet
+				transform.position = Vector3.MoveTowards(transform.position, data.targetPosition, gameSpeed * data.speed * Time.deltaTime);
 
-            if (gameObject.transform.position.y <= 0 && gameObject.name.Contains("Tower") || isGameOver)
-			{
-				Reset();
-			}
-			else if (Vector3.Distance(data.targetPosition, gameObject.transform.position) < 1f)
-			{
-				BulletHitTargetSignal.Dispatch(data.targetObject);
-				Reset();
-			}
+				//Check whether bullet reach target
+				if (Vector3.Distance(data.targetPosition, gameObject.transform.position) < 1f)
+				{
+					BulletHitTargetSignal.Dispatch(data.targetObject);
+					gameObject.SetActive(false);
+				}
+				//If Target is destroy before bullet reach then...
+            }
+            else
+            {
+                return;
+            }
 		}
 
-
-		public void Reset()
-		{
-			gameObject.SetActive(false);
-		}
-
-		public void setActive(bool value)
-		{
-			gameObject.SetActive(value);
-		}
-
-		public bool activeInHierarchy()
-		{
-			return gameObject.activeInHierarchy;
-		}
+        public void UpdateGameSpeed(int gameSpeed)
+        {
+            this.gameSpeed = gameSpeed;
+        }
 	}
 
 }

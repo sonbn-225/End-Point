@@ -15,4 +15,5 @@ public interface ITower {
 
     Vector3 towerPosition { get; set; }
     void Init();
+    bool TakeDamage(float damage);
 }

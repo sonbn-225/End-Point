@@ -9,7 +9,9 @@ namespace endpoint
 
 	//Game
 	public class GameStartSignal : Signal { }
-	public class GameEndSignal : Signal { }
+    public class GamePauseSignal : Signal { }
+    public class GameResumeSignal : Signal { }
+	public class GameOverSignal : Signal { }
 	public class LevelStartSignal : Signal { }
 	public class LevelEndSignal : Signal { }
 	public class UpdateScoreSignal : Signal { }

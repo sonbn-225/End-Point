@@ -17,18 +17,18 @@ namespace endpoint.game
         public FireBulletSignal fireBulletSignal { get; set; }
 
         [Inject]
-        public DestroyTowerSignal destroyTowerSignal { get; set; }
+        public TowerTakeHitSignal destroyTowerSignal { get; set; }
 
         [Inject]
         public UpdateAttackSpeedSignal updateAttackSpeedSignal { get; set; }
-
         [Inject]
         public UpdateGameSpeedSignal updateGameSpeedSignal { get; set; }
-
         [Inject]
         public UpdateIsGameOverSignal updateIsGameOverSignal { get; set; }
-
         [Inject]
+        public UpdateIsExistEnemyInAttackRangeSignal updateIsExistEnemyInAttackRangeSignal { get; set; }
+
+		[Inject]
         public IGameModel gameModel { get; set; }
 
         [Inject]
@@ -37,53 +37,58 @@ namespace endpoint.game
         [Inject]
         public IEnemyManager enemyManager { get; set; }
 
-        [Inject]
-        public GameEndSignal gameEndSignal { get; set; }
-
 		public override void OnRegister()
 		{
-            view.towerShootSignal.AddListener(onTowerShoot);
-            view.Init(towerData.attackSpeed, gameModel.gameSpeed, gameModel.isGameOver);
             towerData.towerPosition = view.transform.position;
+            view.Init(towerData.attackSpeed, gameModel.gameSpeed, gameModel.isGameOver, gameModel.isExistEnemyInAttackRange);
+            view.towerShootSignal.AddListener(OnTowerShoot);
 
-            updateAttackSpeedSignal.AddListener(onUpdateAttackSpeed);
-            updateGameSpeedSignal.AddListener(onUpdateGameSpeed);
-            updateIsGameOverSignal.AddListener(onUpdateIsGameOver);
-            gameEndSignal.AddListener(onUpdateIsGameOver);
+            updateAttackSpeedSignal.AddListener(OnUpdateAttackSpeed);
+            updateGameSpeedSignal.AddListener(OnUpdateGameSpeed);
+            updateIsGameOverSignal.AddListener(OnUpdateIsGameOver);
+            updateIsExistEnemyInAttackRangeSignal.AddListener(OnUpdateIsExistEnemyInAttackRange);
 		}
 
         public override void OnRemove()
         {
-            view.towerShootSignal.RemoveListener(onTowerShoot);
-            updateAttackSpeedSignal.RemoveListener(onUpdateAttackSpeed);
-            updateGameSpeedSignal.RemoveListener(onUpdateGameSpeed);
-            updateIsGameOverSignal.RemoveListener(onUpdateIsGameOver);
+            view.towerShootSignal.RemoveListener(OnTowerShoot);
+
+            updateAttackSpeedSignal.RemoveListener(OnUpdateAttackSpeed);
+            updateGameSpeedSignal.RemoveListener(OnUpdateGameSpeed);
+            updateIsGameOverSignal.RemoveListener(OnUpdateIsGameOver);
+            updateIsExistEnemyInAttackRangeSignal.RemoveListener(OnUpdateIsExistEnemyInAttackRange);
         }
 
-        private void onTowerShoot()
+        void OnTowerShoot()
         {
             GameObject target = enemyManager.getNearestEnemy();
+            //Consider to remove this "if"
             if (target != null)
             {
-				Vector3 pos = gameObject.transform.localPosition;
+                Vector3 pos = gameObject.transform.position;
 				pos.y += 4;
                 fireBulletSignal.Dispatch(pos, target, GameElement.TOWER_BULLET_POOL, towerData.damage); 
             }
         }
 
-        private void onUpdateAttackSpeed()
+        void OnUpdateAttackSpeed()
         {
-            view.attackSpeed = towerData.attackSpeed;
+            view.UpdateAttackSpeed(towerData.attackSpeed);
         }
 
-        private void onUpdateGameSpeed()
+        void OnUpdateGameSpeed()
         {
-            view.gameSpeed = gameModel.gameSpeed;
+            view.UpdateGameSpeed(gameModel.gameSpeed);
         }
 
-        private void onUpdateIsGameOver()
+        void OnUpdateIsGameOver()
         {
-            view.isGameOver = gameModel.isGameOver;
+            view.UpdateIsGameOver(gameModel.isGameOver);
+        }
+
+        void OnUpdateIsExistEnemyInAttackRange()
+        {
+            view.UpdateIsExistEnemyInAttackRange(gameModel.isExistEnemyInAttackRange);
         }
 	}
 }

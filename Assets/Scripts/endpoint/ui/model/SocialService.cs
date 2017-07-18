@@ -10,6 +10,9 @@ namespace endpoint.ui
 		[Inject]
         public UpdateLoginStatusSignal updateLoginStatusSignal { get; set; }
 
+		[Inject]
+		public GameResumeSignal gameResumeSignal { get; set; }
+
         public void Init()
         {
             if (!FB.IsInitialized)
@@ -65,6 +68,7 @@ namespace endpoint.ui
 		{
 			Debug.Log("OnLoginComplete");
             updateLoginStatusSignal.Dispatch();
+            gameResumeSignal.Dispatch();
 			if (!FB.IsLoggedIn)
 			{
 				return;
