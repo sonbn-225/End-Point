@@ -17,11 +17,14 @@ namespace endpoint.game
         int gameSpeed;
         bool isGameOver, isInTowerAttackRange, isInAttackRange, isReachTower;
 
+        public Vector3 velocity;
+
         public void Init(bool isGameOver, int gameSpeed)
 		{
             SetEnemyForm(data.enemyType);
             this.gameSpeed = gameSpeed;
             this.isGameOver = isGameOver;
+            velocity = Vector3.Normalize(data.targetPosition - gameObject.transform.position);
             distance = Vector3.Distance(gameObject.transform.position, data.targetPosition);
             if (distance > data.towerAttackRange)
             {
@@ -52,7 +55,7 @@ namespace endpoint.game
                 //If reach tower then stop moving
 				if (!isReachTower)
 				{
-                    gameObject.transform.position = Vector3.MoveTowards(transform.localPosition, data.targetPosition, gameSpeed * data.speed * Time.deltaTime);
+                    gameObject.transform.position = Vector3.MoveTowards(transform.position, data.targetPosition, gameSpeed * data.speed * Time.deltaTime);
 				}
 				//If this enemy is in tower attack range => check whether it can attack tower
 				//If this enemy is not in tower attack range then check whether enter tower attack range
