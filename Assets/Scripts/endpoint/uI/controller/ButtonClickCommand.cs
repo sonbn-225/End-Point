@@ -82,8 +82,8 @@ namespace endpoint.ui
 				case "IncreaseAttackSpeed":
 					towerdata.attackSpeed += 1;
 					gameModel.attackInterval = 1f / (gameModel.gameSpeed * towerdata.attackSpeed);
-                    updateInformationSignal.Dispatch();
                     updateAttackSpeedSignal.Dispatch();
+                    updateInformationSignal.Dispatch();
 					break;
 				case "IncreaseCritRate":
 					towerdata.critRate += 1;

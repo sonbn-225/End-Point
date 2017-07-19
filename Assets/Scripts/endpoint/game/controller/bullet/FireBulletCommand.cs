@@ -35,6 +35,9 @@ namespace endpoint.game
         [Inject]
         public ITower towerData { get; set; }
 
+        [Inject]
+        public IEnemyManager enemyManager { get; set; }
+
         bool isKillTarget;
         Vector3 targetPosition;
 
@@ -64,6 +67,7 @@ namespace endpoint.game
                     targetPosition = FirstOrderIntercept(pos, Vector3.zero, 20f * gameModel.gameSpeed, target.transform.position, enemy.velocity);
                     if (enemy.TakeDamage(damage))
 					{
+                        enemyManager.removeEnemy(enemy.gameObject);
 						isKillTarget = true;
 					}
 					else

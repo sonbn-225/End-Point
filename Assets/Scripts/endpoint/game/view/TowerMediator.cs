@@ -73,6 +73,7 @@ namespace endpoint.game
 
         void OnUpdateAttackSpeed()
         {
+            Debug.Log("OnUpdateAttackSpeed");
             view.UpdateAttackSpeed(towerData.attackSpeed);
         }
 

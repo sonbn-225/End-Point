@@ -42,11 +42,11 @@ namespace endpoint.game
 			injectionBinder.Bind<GameStartedSignal>().ToSingleton();
             injectionBinder.Bind<LevelStartedSignal>().ToSingleton();
 
-            injectionBinder.Bind<UpdateAttackSpeedSignal>().ToSingleton();
             injectionBinder.Bind<UpdateIsGameOverSignal>().ToSingleton();
             injectionBinder.Bind<UpdateIsExistEnemyInAttackRangeSignal>().ToSingleton();
             if (Context.firstContext ==  this)
             {
+                injectionBinder.Bind<UpdateAttackSpeedSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateGameSpeedSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateLevelSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateInformationSignal>().ToSingleton();
