@@ -15,7 +15,7 @@ namespace endpoint.ui
 		public ITower towerData { get; set; }
 
         [Inject]
-        public UpdateScoreSignal updateScoreSignal { get; set; }
+        public UpdateInformationSignal updateInformationSignal { get; set; }
 
         [Inject]
         public UpdateLoginStatusSignal updateLoginStatusSignal { get; set; }
@@ -29,10 +29,10 @@ namespace endpoint.ui
 		public override void OnRegister()
 		{
 			base.OnRegister();
-            updateScoreSignal.AddListener(OnUpdateInformationBoard);
+            updateInformationSignal.AddListener(OnUpdateInformationBoard);
             updateLoginStatusSignal.AddListener(OnUpdateLoginStatus);
             updateLoginStatusSignal.Dispatch();
-            updateScoreSignal.Dispatch();
+            updateInformationSignal.Dispatch();
 		}
 
 		public override void OnRemove()

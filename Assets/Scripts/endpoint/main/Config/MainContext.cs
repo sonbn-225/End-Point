@@ -26,11 +26,12 @@ namespace endpoint.main
                 injectionBinder.Bind<GameOverSignal>().ToSingleton().CrossContext();
                 injectionBinder.Bind<LevelStartSignal>().ToSingleton().CrossContext();
                 injectionBinder.Bind<LevelEndSignal>().ToSingleton().CrossContext();
-                injectionBinder.Bind<UpdateScoreSignal>().ToSingleton().CrossContext();
+                injectionBinder.Bind<UpdateInformationSignal>().ToSingleton().CrossContext();
                 injectionBinder.Bind<UpdateLoginStatusSignal>().ToSingleton().CrossContext();
                 injectionBinder.Bind<UpdateLevelSignal>().ToSingleton().CrossContext();
 
                 injectionBinder.Bind<UpdateGameSpeedSignal>().ToSingleton().CrossContext();
+                injectionBinder.Bind<UpdateAttackSpeedSignal>().ToSingleton().CrossContext();
             }
 
             commandBinder.Bind<StartSignal>().To<MainStartCommand>();

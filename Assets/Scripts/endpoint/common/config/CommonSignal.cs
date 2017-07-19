@@ -14,7 +14,7 @@ namespace endpoint
 	public class GameOverSignal : Signal { }
 	public class LevelStartSignal : Signal { }
 	public class LevelEndSignal : Signal { }
-	public class UpdateScoreSignal : Signal { }
+	public class UpdateInformationSignal : Signal { }
 	public class UpdateLevelSignal : Signal<int> { }
 
     //UI

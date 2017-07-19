@@ -19,6 +19,12 @@ namespace endpoint.ui
         [Inject]
         public UpdateGameSpeedSignal updateGameSpeedSignal { get; set; }
 
+        [Inject]
+        public UpdateInformationSignal updateInformationSignal { get; set; }
+
+		[Inject]
+		public UpdateAttackSpeedSignal updateAttackSpeedSignal { get; set; }
+
 		[Inject]
 		public GamePauseSignal gamePauseSignal { get; set; }
 
@@ -71,28 +77,37 @@ namespace endpoint.ui
                     break;
 				case "IncreaseDamage":
 					towerdata.damage *= 1.1f;
+                    updateInformationSignal.Dispatch();
 					break;
 				case "IncreaseAttackSpeed":
 					towerdata.attackSpeed += 1;
 					gameModel.attackInterval = 1f / (gameModel.gameSpeed * towerdata.attackSpeed);
+                    updateInformationSignal.Dispatch();
+                    updateAttackSpeedSignal.Dispatch();
 					break;
 				case "IncreaseCritRate":
-					towerdata.critRate *= 1.1f;
+					towerdata.critRate += 1;
+                    updateInformationSignal.Dispatch();
 					break;
 				case "IncreaseCritFactor":
-					towerdata.critFactor *= 1.1f;
+					towerdata.critFactor += 1;
+                    updateInformationSignal.Dispatch();
 					break;
 				case "IncreaseAttackRange":
 					towerdata.attackRange *= 1.1f;
+                    updateInformationSignal.Dispatch();
 					break;
 				case "IncreaseHealth":
 					towerdata.health *= 1.1f;
+                    updateInformationSignal.Dispatch();
 					break;
 				case "IncreaseRegenerateHealthSpeed":
 					towerdata.regenerateSpeed *= 1.1f;
+                    updateInformationSignal.Dispatch();
 					break;
 				case "IncreaseResourceBonus":
 					towerdata.resourceBonus *= 1.1f;
+                    updateInformationSignal.Dispatch();
 					break;
                 case "Restart":
                     gameOverPanel.SetActive(false);
@@ -108,7 +123,7 @@ namespace endpoint.ui
 			}
 		}
 
-        private void disableAllPanel()
+        void disableAllPanel()
         {
             attackPanel.gameObject.SetActive(false);
             defendPanel.gameObject.SetActive(false);

@@ -4,6 +4,7 @@ using strange.extensions.command.api;
 using strange.extensions.command.impl;
 using strange.extensions.context.impl;
 using UnityEngine;
+using endpoint.game;
 
 namespace endpoint.ui
 {
@@ -26,9 +27,11 @@ namespace endpoint.ui
                 injectionBinder.Bind<LevelStartSignal>().ToSingleton();
                 injectionBinder.Bind<LevelEndSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateLevelSignal>().ToSingleton();
-                injectionBinder.Bind<UpdateScoreSignal>().ToSingleton();
+                injectionBinder.Bind<UpdateInformationSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateLoginStatusSignal>().ToSingleton();
                 injectionBinder.Bind<ITower>().To<Tower>().ToSingleton();
+
+                injectionBinder.Bind<UpdateAttackSpeedSignal>().ToSingleton();
             }
 
 			if (injectionBinder.GetBinding<GameObject>(UIElement.CANVAS) == null)

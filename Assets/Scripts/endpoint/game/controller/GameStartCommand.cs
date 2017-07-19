@@ -13,7 +13,7 @@ namespace endpoint.game
         public GameStartedSignal gameStartedSignal { get; set; }
 
         [Inject]
-        public UpdateScoreSignal updateScoreSignal { get; set; }
+        public UpdateInformationSignal updateInformationSignal { get; set; }
 
 		[Inject]
 		public UpdateIsGameOverSignal updateIsGameOverSignal { get; set; }
@@ -42,7 +42,7 @@ namespace endpoint.game
             enemyManager.Init();
             //Update value
             updateLevelSignal.Dispatch(gameModel.level);
-            updateScoreSignal.Dispatch();
+            updateInformationSignal.Dispatch();
             updateIsGameOverSignal.Dispatch();
 
             //Begin the game

@@ -49,7 +49,7 @@ namespace endpoint.game
             {
                 injectionBinder.Bind<UpdateGameSpeedSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateLevelSignal>().ToSingleton();
-                injectionBinder.Bind<UpdateScoreSignal>().ToSingleton();
+                injectionBinder.Bind<UpdateInformationSignal>().ToSingleton();
                 injectionBinder.Bind<UpdateLoginStatusSignal>().ToSingleton();
             }
 

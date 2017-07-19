@@ -18,7 +18,7 @@ namespace endpoint.game
         public bool isKilled { get; set; }
 
 		[Inject]
-		public UpdateScoreSignal updateScoreSignal { get; set; }
+        public UpdateInformationSignal updateInformationSignal { get; set; }
 
         [Inject]
         public UpdateIsExistEnemyInAttackRangeSignal updateIsExistEnemyInAttackRangeSignal { get; set; }
@@ -44,7 +44,7 @@ namespace endpoint.game
             if (isKilled)
             {
                 gameModel.score += enemyView.data.score;
-                updateScoreSignal.Dispatch();
+                updateInformationSignal.Dispatch();
             }
 			//Return instance enemy to pool
 			enemyView.gameObject.SetActive(false);

@@ -27,7 +27,7 @@ namespace endpoint.game
 
         //to do: specify signal
         [Inject]
-        public UpdateScoreSignal updateScoreSignal { get; set; }
+        public UpdateInformationSignal updateScoreSignal { get; set; }
 
         [Inject]
         public ITower towerData { get; set; }
