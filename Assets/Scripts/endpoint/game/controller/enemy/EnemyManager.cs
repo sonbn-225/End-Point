@@ -33,7 +33,7 @@ namespace endpoint.game
 			foreach (GameObject enemy in enemies)
 			{
                 float currentDistance = Vector3.Distance(enemy.transform.position, tower.towerPosition);
-                if (currentDistance < minDistance)
+                if (currentDistance < minDistance && currentDistance < tower.attackRange)
 				{
                     target = enemy;
                     minDistance = currentDistance;

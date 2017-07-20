@@ -23,7 +23,7 @@ namespace endpoint.game
             if (gameSpeed > 0)
             {
 				//Move the bullet
-				transform.position = Vector3.MoveTowards(transform.position, data.targetPosition, gameSpeed * data.speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, data.targetPosition, gameSpeed * data.speed * Time.fixedDeltaTime);
 
 				//Check whether bullet reach target
 				if (Vector3.Distance(data.targetPosition, gameObject.transform.position) < 1f)

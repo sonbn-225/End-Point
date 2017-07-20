@@ -67,7 +67,7 @@ namespace endpoint.game
                     targetPosition = FirstOrderIntercept(pos, Vector3.zero, 20f * gameModel.gameSpeed, target.transform.position, enemy.velocity);
                     if (enemy.TakeDamage(damage))
 					{
-                        enemyManager.removeEnemy(enemy.gameObject);
+                        enemyManager.removeEnemy(target);
 						isKillTarget = true;
 					}
 					else

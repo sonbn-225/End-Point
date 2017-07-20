@@ -55,7 +55,7 @@ namespace endpoint.game
                 //If reach tower then stop moving
 				if (!isReachTower)
 				{
-                    gameObject.transform.position = Vector3.MoveTowards(transform.position, data.targetPosition, gameSpeed * data.speed * Time.deltaTime);
+                    gameObject.transform.position = Vector3.MoveTowards(transform.position, data.targetPosition, gameSpeed * data.speed * Time.fixedDeltaTime);
 				}
 				//If this enemy is in tower attack range => check whether it can attack tower
 				//If this enemy is not in tower attack range then check whether enter tower attack range
@@ -63,7 +63,7 @@ namespace endpoint.game
 				{
                     if (isInAttackRange)
                     {
-						timer += Time.deltaTime;
+                        timer += Time.fixedDeltaTime;
 						if (timer >= 0.5f / gameSpeed)
 						{
 							enemyAttackSignal.Dispatch();
@@ -97,9 +97,8 @@ namespace endpoint.game
 		public bool TakeDamage(float damage)
 		{
 			data.health -= damage;
-			if (data.health <= 0)
+            if (data.health < 0.01f)
 			{
-				isInTowerAttackRange = false;
 				return true;
 			}
 			return false;

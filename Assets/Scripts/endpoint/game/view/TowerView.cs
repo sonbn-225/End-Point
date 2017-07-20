@@ -28,7 +28,7 @@ namespace endpoint.game
             //Need optimize
             if (!isGameOver && gameSpeed > 0 && isExistEnemyInAttackRange)
             {
-                timer += Time.deltaTime;
+                timer += Time.fixedDeltaTime;
                 if (timer >= 1f / (gameSpeed * attackSpeed))
                 {
                     timer = 0f;

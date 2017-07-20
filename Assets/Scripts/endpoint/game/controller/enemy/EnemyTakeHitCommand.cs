@@ -49,7 +49,6 @@ namespace endpoint.game
 			//Return instance enemy to pool
 			enemyView.gameObject.SetActive(false);
 			enemyView.transform.localPosition = PARKED_POS;
-			enemyManager.removeEnemy(enemyView.gameObject);
 			gameModel.isExistEnemyInAttackRange = enemyManager.isExistEnemyInAttackRange();
 			updateIsExistEnemyInAttackRangeSignal.Dispatch();
 			pool.ReturnInstance(enemyView.gameObject);
